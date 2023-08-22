@@ -258,5 +258,12 @@
         "cover": "paldea-evolved-pack.png",
         "symbol": "paldea-evolved-symbol.png",
         "date": "09/06/2023"
+    },
+    {
+        "name": "Obsidian Flames",
+        "series": "Scarlet & Violet",
+        "cover": "obsidian-flames-pack.png",
+        "symbol": "obsidian-flames-symbol.png",
+        "date": "11/08/2023"
     }
 ]
