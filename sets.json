@@ -1,12 +1,12 @@
 [
     {
         "name": "Miscellaneous Promotional Cards",
-        "cover": "ancient-mew.jpg",
+        "cover": "ancient-mew-back.jpg",
         "date": "1999"
     },
     {
         "name": "Wizards Black Star Promo",
-        "cover": "wizards-black-star-promo-mewtwo.jpg",
+        "cover": "wizards-black-star-promo-pikachu.jpg",
         "symbol": "wizards-black-star-promo-symbol.png",
         "date": "07/1999"
     },
@@ -25,139 +25,139 @@
     {
         "name": "Base Set",
         "series": "Original",
-        "cover": "base-set-pack.png",
+        "cover": "base-set-pack-venusaur.png",
         "date": "09/01/1999"
     },
     {
         "name": "Jungle",
         "series": "Original",
-        "cover": "jungle-pack.jpg",
+        "cover": "jungle-pack-flareon.jpg",
         "symbol": "jungle-symbol.png",
         "date": "16/06/1999"
     },
     {
         "name": "Fossil",
         "series": "Original",
-        "cover": "fossil-pack.jpg",
+        "cover": "fossil-pack-aerodactyl.jpg",
         "symbol": "fossil-symbol.png",
         "date": "10/10/1999"
     },
     {
         "name": "Base Set 2",
         "series": "Original",
-        "cover": "base-set-2-pack.jpg",
+        "cover": "base-set-2-pack-mewtwo.jpg",
         "symbol": "base-set-2-symbol.png",
         "date": "24/02/2000"
     },
     {
         "name": "Team Rocket",
         "series": "Original",
-        "cover": "team-rocket-pack.jpg",
+        "cover": "team-rocket-pack-jessie-james.jpg",
         "symbol": "team-rocket-symbol.png",
         "date": "24/04/2000"
     },
     {
         "name": "Gym Heroes",
         "series": "Original",
-        "cover": "gym-heroes-pack.jpg",
+        "cover": "gym-heroes-pack-brock.jpg",
         "symbol": "gym-heroes-symbol.png",
         "date": "14/08/2000"
     },
     {
         "name": "Gym Challenge",
         "series": "Original",
-        "cover": "gym-challenge-pack.jpg",
+        "cover": "gym-challenge-pack-sabrina.jpg",
         "symbol": "gym-challenge-symbol.png",
         "date": "16/10/2000"
     },
     {
         "name": "Neo Genesis",
         "series": "Neo",
-        "cover": "neo-genesis-pack.jpg",
+        "cover": "neo-genesis-pack-lugia.jpg",
         "symbol": "neo-genesis-symbol.png",
         "date": "16/12/2000"
     },
     {
         "name": "Neo Discovery",
         "series": "Neo",
-        "cover": "neo-discovery-pack.jpg",
+        "cover": "neo-discovery-pack-xatu.jpg",
         "symbol": "neo-discovery-symbol.png",
         "date": "01/06/2001"
     },
     {
         "name": "Neo Revelation",
         "series": "Neo",
-        "cover": "neo-revelation-pack.jpg",
+        "cover": "neo-revelation-pack-suicune.jpg",
         "symbol": "neo-revelation-symbol.png",
         "date": "21/09/2001"
     },
     {
         "name": "Neo Destiny",
         "series": "Neo",
-        "cover": "neo-destiny-pack.jpg",
+        "cover": "neo-destiny-pack-celebi.jpg",
         "symbol": "neo-destiny-symbol.png",
         "date": "28/02/2002"
     },
     {
         "name": "Legendary Collection",
         "series": "Legendary Collection",
-        "cover": "legendary-collection-pack.jpg",
+        "cover": "legendary-collection-pack-venusaur-charizard-blastoise.jpg",
         "symbol": "legendary-collection-symbol.png",
         "date": "24/05/2002"
     },
     {
         "name": "Expedition Base Set",
         "series": "e-Card",
-        "cover": "expedition-base-set-pack.jpg",
+        "cover": "expedition-base-set-pack-blastoise.jpg",
         "symbol": "expedition-base-set-symbol.png",
         "date": "15/09/2002"
     },
     {
         "name": "Aquapolis",
         "series": "e-Card",
-        "cover": "aquapolis-pack.jpg",
+        "cover": "aquapolis-pack-scizor.jpg",
         "symbol": "aquapolis-symbol.png",
         "date": "15/01/2003"
     },
     {
         "name": "Skyridge",
         "series": "e-Card",
-        "cover": "skyridge-pack.jpg",
+        "cover": "skyridge-pack-ho-oh.jpg",
         "symbol": "skyridge-symbol.png",
         "date": "12/05/2003"
     },
     {
         "name": "EX Ruby & Sapphire",
         "series": "EX",
-        "cover": "ex-ruby-&-sapphire-pack.jpg",
+        "cover": "ex-ruby-&-sapphire-pack-sceptile.jpg",
         "symbol": "ex-ruby-&-sapphire-symbol.png",
         "date": "18/07/2003"
     },
     {
         "name": "EX Sandstorm",
         "series": "EX",
-        "cover": "ex-sandstorm-pack.jpg",
+        "cover": "ex-sandstorm-pack-zangoose.jpg",
         "symbol": "ex-sandstorm-symbol.png",
         "date": "18/09/2003"
     },
     {
         "name": "EX Dragon",
         "series": "EX",
-        "cover": "ex-dragon-pack.jpg",
+        "cover": "ex-dragon-pack-rayquaza.jpg",
         "symbol": "ex-dragon-symbol.png",
         "date": "24/11/2003"
     },
     {
         "name": "EX Hidden Legends",
         "series": "EX",
-        "cover": "ex-hidden-legends-pack.jpg",
+        "cover": "ex-hidden-legends-pack-regirock.jpg",
         "symbol": "ex-hidden-legends-symbol.png",
         "date": "14/06/2004"
     },
     {
         "name": "EX FireRed & LeafGreen",
         "series": "EX",
-        "cover": "ex-firered-&-leafgreen-pack.jpg",
+        "cover": "ex-firered-&-leafgreen-pack-charizard.jpg",
         "symbol": "ex-firered-&-leafgreen-symbol.png",
         "date": "30/08/2004"
     },
@@ -165,21 +165,21 @@
         "name": "Shining Fates",
         "series": "Sword & Shield",
         "is-subset": "True",
-        "cover": "shining-fates-pack.jpg",
+        "cover": "shining-fates-pack-charizard.jpg",
         "symbol": "shining-fates-symbol.png",
         "date": "19/02/2021"
     },
     {
         "name": "Battle Styles",
         "series": "Sword & Shield",
-        "cover": "battle-styles-pack.jpg",
+        "cover": "battle-styles-pack-single-strike-urshifu.jpg",
         "symbol": "battle-styles-symbol.png",
         "date": "19/03/2021"
     },
     {
         "name": "Fusion Strike",
         "series": "Sword & Shield",
-        "cover": "fusion-strike-pack.jpg",
+        "cover": "fusion-strike-pack-mew.jpg",
         "symbol": "fusion-strike-symbol.png",
         "date": "12/11/2021"
     },
@@ -195,7 +195,7 @@
     {
         "name": "Brilliant Stars",
         "series": "Sword & Shield",
-        "cover": "brilliant-stars-pack.jpg",
+        "cover": "brilliant-stars-pack-arceus.jpg",
         "symbol": "brilliant-stars-symbol.png",
         "date": "25/02/2022"
     },
@@ -211,7 +211,7 @@
     {
         "name": "Astral Radiance",
         "series": "Sword & Shield",
-        "cover": "astral-radiance-pack.jpg",
+        "cover": "astral-radiance-pack-dialga.jpg",
         "symbol": "astral-radiance-symbol.png",
         "date": "27/05/2022"
     },
@@ -226,14 +226,14 @@
     {
         "name": "Lost Origin",
         "series": "Sword & Shield",
-        "cover": "lost-origin-pack.jpg",
+        "cover": "lost-origin-pack-zoroark.jpg",
         "symbol": "lost-origin-symbol.png",
         "date": "09/09/2022"
     },
     {
         "name": "Silver Tempest",
         "series": "Sword & Shield",
-        "cover": "silver-tempest-pack.jpg",
+        "cover": "silver-tempest-pack-regidrago.jpg",
         "symbol": "silver-tempest-symbol.png",
         "date": "11/11/2022"
     },
@@ -241,28 +241,28 @@
         "name": "Crown Zenith",
         "series": "Sword & Shield",
         "is-subset": "True",
-        "cover": "crown-zenith-pack.jpg",
+        "cover": "crown-zenith-pack-zacian-zamazenta.jpg",
         "symbol": "crown-zenith-symbol.png",
         "date": "20/01/2023"
     },
     {
         "name": "Scarlet & Violet",
         "series": "Scarlet & Violet",
-        "cover": "scarlet-&-violet-pack.png",
+        "cover": "scarlet-&-violet-pack-koraidon.png",
         "symbol": "scarlet-&-violet-symbol.png",
         "date": "31/03/2023"
     },
     {
         "name": "Paldea Evolved",
         "series": "Scarlet & Violet",
-        "cover": "paldea-evolved-pack.png",
+        "cover": "paldea-evolved-pack-meowscarada.png",
         "symbol": "paldea-evolved-symbol.png",
         "date": "09/06/2023"
     },
     {
         "name": "Obsidian Flames",
         "series": "Scarlet & Violet",
-        "cover": "obsidian-flames-pack.png",
+        "cover": "obsidian-flames-pack-charizard.png",
         "symbol": "obsidian-flames-symbol.png",
         "date": "11/08/2023"
     }
