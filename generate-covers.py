@@ -1,6 +1,7 @@
 import io
 import os
 import json
+import sys
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
@@ -26,7 +27,7 @@ TITLE_SIZE = 16
 TEXT_SIZE = 12
 
 
-def generate_pdf(sets, img_folder_path, output_path):
+def generate_pdf(sets, img_folder_path, output_path, start_page, end_page):
     page_size = A4
     page_width, page_height = page_size
 
@@ -52,9 +53,16 @@ def generate_pdf(sets, img_folder_path, output_path):
     jpn_symbol_width, jpn_symbol_height = (JPN_SYMBOL_WIDTH, JPN_SYMBOL_WIDTH / jpn_symbol_ratio)
     jpn_symbol_x, jpn_symbol_y = (frame_right_x - jpn_symbol_width - TEXT_PADDING, frame_top_y - jpn_symbol_height - TEXT_PADDING)
 
+    page = 0
     for set_data in sets:
+        page += 1
+        if page < start_page:
+            continue
+        if page > end_page:
+            break
+
         name = set_data['name']
-        print(f"Generating set \"{name}\"")
+        print(f"Generating set \"{name}\", page {page}")
 
         # Set the background image for the current page
         if "cover" in set_data:
@@ -183,5 +191,13 @@ img_folder_path = os.path.join(script_directory, IMG_FOLDER_NAME)
 # Read the page data from the JSON file
 sets = read_sets_from_json(json_file_path)
 
+start_page = 1
+end_page = len(sets)
+if len(sys.argv) > 1 and sys.argv[1].isdigit:
+    start_page = int(sys.argv[1])
+    end_page = start_page
+    if len(sys.argv) > 2 and sys.argv[2].isdigit:
+        end_page = int(sys.argv[2])
+
 # Generate the PDF
-generate_pdf(sets, img_folder_path, output_file_path)
+generate_pdf(sets, img_folder_path, output_file_path, start_page, end_page)
