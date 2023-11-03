@@ -265,5 +265,20 @@
         "cover": "obsidian-flames-pack-charizard.png",
         "symbol": "obsidian-flames-symbol.png",
         "date": "11/08/2023"
+    },
+    {
+        "name": "151",
+        "series": "Scarlet & Violet",
+        "is-subset": "True",
+        "cover": "151-pack-mew.png",
+        "symbol": "151-symbol.png",
+        "date": "22/09/2023"
+    },
+    {
+        "name": "Paradow Rift",
+        "series": "Scarlet & Violet",
+        "cover": "paradox-rift-pack-roaring-moon.png",
+        "symbol": "paradox-rift-symbol.png",
+        "date": "03/11/2023"
     }
 ]
