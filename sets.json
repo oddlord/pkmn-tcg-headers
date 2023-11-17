@@ -7,7 +7,7 @@
     {
         "name": "Wizards Black Star Promo",
         "cover": "wizards-black-star-promo-dragonite-art.jpg",
-        "symbol": "wizards-black-star-promo-symbol.png",
+        "symbol": "black-star-promo-symbol.png",
         "date": "07/1999"
     },
     {
@@ -162,6 +162,13 @@
         "date": "30/08/2004"
     },
     {
+        "name": "SWSH Black Star Promos",
+        "series": "Sword & Shield",
+        "cover": "swsh-black-star-promos-meowth-vmax.jpg",
+        "symbol": "black-star-promo-symbol.png",
+        "date": "11/2019"
+    },
+    {
         "name": "Shining Fates",
         "series": "Sword & Shield",
         "is-subset": "True",
@@ -244,6 +251,13 @@
         "cover": "crown-zenith-pack-zacian-zamazenta.jpg",
         "symbol": "crown-zenith-symbol.png",
         "date": "20/01/2023"
+    },
+    {
+        "name": "SVP Black Star Promos",
+        "series": "Scarlet & Violet",
+        "cover": "svp-black-star-promos-pikachu-with-grey-felt-hat.jpg",
+        "symbol": "svp-black-star-promos-symbol.png",
+        "date": "01/2023"
     },
     {
         "name": "Scarlet & Violet",
