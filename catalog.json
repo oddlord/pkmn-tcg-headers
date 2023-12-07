@@ -196,6 +196,16 @@
     },
     {   "name": "Sword & Shield",
         "sets": [
+            {   "name": "Rebel Clash",
+                "date": "01/05/2020",
+                "cover": "rebel-clash-pack-gmax-toxtricity.jpg",
+                "symbols": ["rebel-clash-symbol.png"]
+            },
+            {   "name": "Vivid Voltage",
+                "date": "13/11/2020",
+                "cover": "vivid-voltage-pack-gmax-pikachu.jpg",
+                "symbols": ["vivid-voltage-symbol.png"]
+            },
             {   "name": "Shining Fates",
                 "date": "19/02/2021",
                 "is-special-expansion": "True",
@@ -206,6 +216,11 @@
                 "date": "19/03/2021",
                 "cover": "battle-styles-pack-single-strike-urshifu.jpg",
                 "symbols": ["battle-styles-symbol.png"]
+            },
+            {   "name": "Evolving Skies",
+                "date": "27/08/2021",
+                "cover": "evolving-skies-pack-rayquaza.jpg",
+                "symbols": ["evolving-skies-symbol.png"]
             },
             {   "name": "Fusion Strike",
                 "date": "12/11/2021",

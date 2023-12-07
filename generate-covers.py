@@ -61,12 +61,14 @@ def generate_pdf(series, img_folder_path, output_path):
         sets = serie["sets"]
         for set in sets:
             page = page + 1
+            set_name = set['name']
 
             # DEBUG
             # if page != 6:
             #     continue
+            # if set_name not in ["Evolving Skies"]:
+            #     continue
 
-            set_name = set['name']
             print(f"  {page}. {set_name}")
 
             # Set the background image for the current page
