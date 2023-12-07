@@ -167,12 +167,30 @@
             }
         ]
     },
+    {   "name": "Platinum",
+        "sets": [
+            {   "name": "Supreme Victors",
+                "date": "19/08/2009",
+                "cover": "supreme-victors-pack-garchomp.jpg",
+                "symbols": ["supreme-victors-symbol.png"]
+            }
+        ]
+    },
     {   "name": "HeartGold & SoulSilver",
         "sets": [
             {   "name": "Trimphant",
                 "date": "03/11/2010",
                 "cover": "triumphant-pack-magmortar.jpg",
                 "symbols": ["triumphant-symbol.png"]
+            }
+        ]
+    },
+    {   "name": "Call of Legends",
+        "sets": [
+            {   "name": "Call of Legends",
+                "date": "09/02/2011",
+                "cover": "call-of-legends-pack-lugia.jpg",
+                "symbols": ["call-of-legends-symbol.png"]
             }
         ]
     },
@@ -196,6 +214,11 @@
     },
     {   "name": "Sword & Shield",
         "sets": [
+            {   "name": "Sword & Shield",
+                "date": "07/02/2020",
+                "cover": "sword-&-shield-zacian.jpg",
+                "symbols": ["sword-&-shield-symbol.png"]
+            },
             {   "name": "Rebel Clash",
                 "date": "01/05/2020",
                 "cover": "rebel-clash-pack-gmax-toxtricity.jpg",
@@ -216,6 +239,11 @@
                 "date": "19/03/2021",
                 "cover": "battle-styles-pack-single-strike-urshifu.jpg",
                 "symbols": ["battle-styles-symbol.png"]
+            },
+            {   "name": "Chilling Reign",
+                "date": "18/06/2021",
+                "cover": "chilling-reign-pack-ice-rider-calyrex.jpg",
+                "symbols": ["chilling-reign-symbol.png"]
             },
             {   "name": "Evolving Skies",
                 "date": "27/08/2021",

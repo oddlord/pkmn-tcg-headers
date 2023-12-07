@@ -66,7 +66,7 @@ def generate_pdf(series, img_folder_path, output_path):
             # DEBUG
             # if page != 6:
             #     continue
-            # if set_name not in ["Evolving Skies"]:
+            # if set_name not in ["Supreme Victors"]:
             #     continue
 
             print(f"  {page}. {set_name}")
