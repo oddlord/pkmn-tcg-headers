@@ -158,6 +158,42 @@
             }
         ]
     },
+    {   "name": "Diamond & Pearl",
+        "sets": [
+            {   "name": "Secret Wonders",
+                "date": "07/11/2007",
+                "cover": "secret-wonders-pack-honchkrow.jpg",
+                "symbols": ["secret-wonders-symbol.png"]
+            }
+        ]
+    },
+    {   "name": "HeartGold & SoulSilver",
+        "sets": [
+            {   "name": "Trimphant",
+                "date": "03/11/2010",
+                "cover": "triumphant-pack-magmortar.jpg",
+                "symbols": ["triumphant-symbol.png"]
+            }
+        ]
+    },
+    {   "name": "XY",
+        "sets": [
+            {   "name": "Fates Collide",
+                "date": "02/05/2016",
+                "cover": "fates-collide-pack-mega-alakazam.jpg",
+                "symbols": ["fates-collide-symbol.png"]
+            }
+        ]
+    },
+    {   "name": "Sun & Moon",
+        "sets": [
+            {   "name": "Sun & Moon",
+                "date": "03/02/2017",
+                "cover": "sun-&-moon-pack-primarina.jpg",
+                "symbols": ["sun-&-moon-symbol.png"]
+            }
+        ]
+    },
     {   "name": "Sword & Shield",
         "sets": [
             {   "name": "Shining Fates",
@@ -247,7 +283,7 @@
                 "cover": "151-pack-mew.png",
                 "symbols": ["151-symbol.png"]
             },
-            {   "name": "Paradow Rift",
+            {   "name": "Paradox Rift",
                 "date": "03/11/2023",
                 "cover": "paradox-rift-pack-roaring-moon.png",
                 "symbols": ["paradox-rift-symbol.png"]
