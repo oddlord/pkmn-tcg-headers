@@ -39,6 +39,15 @@
             }
         ]
     },
+    {   "name": "POP / Play! Pokemon Prize Packs",
+        "sets": [
+            {   "name": "POP Series 9",
+                "date": "03/2009",
+                "cover": "pop-series-9-pack-garchomp.jpg",
+                "symbols": ["pop-series-9-symbol.png"]
+            }
+        ]
+    },
     {   "name": "Original",
         "sets": [
             {   "name": "Base Set",
@@ -169,6 +178,11 @@
     },
     {   "name": "Platinum",
         "sets": [
+            {   "name": "Rising Rivals",
+                "date": "16/05/2009",
+                "cover": "rising-rivals-pack-rotom.jpg",
+                "symbols": ["rising-rivals-symbol.png"]
+            },
             {   "name": "Supreme Victors",
                 "date": "19/08/2009",
                 "cover": "supreme-victors-pack-garchomp.jpg",
@@ -178,6 +192,11 @@
     },
     {   "name": "HeartGold & SoulSilver",
         "sets": [
+            {   "name": "HeartGold & SoulSilver",
+                "date": "10/02/2010",
+                "cover": "heartgold-&-soulsilver-pack-ho-oh.jpg",
+                "symbols": ["heartgold-&-soulsilver-symbol.png"]
+            },
             {   "name": "Trimphant",
                 "date": "03/11/2010",
                 "cover": "triumphant-pack-magmortar.jpg",
@@ -209,6 +228,11 @@
                 "date": "03/02/2017",
                 "cover": "sun-&-moon-pack-primarina.jpg",
                 "symbols": ["sun-&-moon-symbol.png"]
+            },
+            {   "name": "Crimson Invasion",
+                "date": "03/11/2017",
+                "cover": "crimson-invasion-pack-guzzlord.jpg",
+                "symbols": ["crimson-invasion-symbol.png"]
             }
         ]
     },
