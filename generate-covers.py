@@ -6,24 +6,28 @@ from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase.pdfmetrics import stringWidth
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from PIL import Image
 
 # Links:
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Japanese_Pok%C3%A9mon_Trading_Card_Game_expansions
 
+# TODO!!!
+# Go through the collection and move the JP cards to their own set
+
 OUTPUT_FILENAME = "covers.pdf"
 CATALOG_FILENAME = "catalog.json"
 IMG_FOLDER_PATH = "assets/img"
+FONTS_FOLDER_PATH = "assets/fonts"
 FRAME_FILENAME = "frame.png"
-JPN_SYMBOL_FILENAME = "jpn.jpg"
 
 FRAME_WIDTH = 300
 FRAME_PADDING = 25
 TEXT_PADDING = 10
 SYMBOL_WIDTH = 20
 SYMBOL_PADDING = 2.5
-JPN_SYMBOL_WIDTH = 20
 TITLE_SIZE = 16
 TEXT_SIZE = 12
 
@@ -47,26 +51,25 @@ def generate_pdf(series, img_folder_path, output_path):
     frame_right_x = frame_x + frame_width
     frame_bottom_y = frame_y
 
-    jpn_symbol_path = os.path.join(img_folder_path, JPN_SYMBOL_FILENAME)
-    jpn_symbol_image = Image.open(jpn_symbol_path)
-    jpn_symbol_width, jpn_symbol_height = jpn_symbol_image.size
-    jpn_symbol_ratio = jpn_symbol_width / jpn_symbol_height
-    jpn_symbol_width, jpn_symbol_height = (JPN_SYMBOL_WIDTH, JPN_SYMBOL_WIDTH / jpn_symbol_ratio)
-    jpn_symbol_x, jpn_symbol_y = (frame_right_x - jpn_symbol_width - TEXT_PADDING, frame_top_y - jpn_symbol_height - TEXT_PADDING)
-
     page = 0
     for serie in series:
         serie_name = serie['name']
+
+        # DEBUG
+        # if serie_name not in ["Sword & Shield"]:
+        #     continue
+
         print(f"\n{serie_name}")
+
         sets = serie["sets"]
         for set in sets:
             page = page + 1
             set_name = set['name']
 
             # DEBUG
-            # if page != 6:
+            # if page != 45:
             #     continue
-            # if set_name not in ["HeartGold & SoulSilver"]:
+            # if set_name not in ["Sword & Shield"]:
             #     continue
 
             print(f"  {page}. {set_name}")
@@ -83,27 +86,33 @@ def generate_pdf(series, img_folder_path, output_path):
             
             font_name = "Helvetica-Bold"
             font_size = TITLE_SIZE
+            if "name-en" in set:
+                font_name = "NotoSansJP-Bold"
             c.setFont(font_name, font_size)
             text = set_name
             text_width = stringWidth(text, font_name, font_size)
-            text_x, text_y = (frame_left_x + (frame_width - text_width) / 2, frame_bottom_y + (frame_height - font_size) / 2)
+            text_x = frame_left_x + frame_width/2 - text_width/2
+            text_y = frame_bottom_y + frame_height/2 - font_size/2
+            if "name-en" in set:
+                text_y = frame_bottom_y + frame_height/2 - (font_size+TEXT_SIZE)/2 + TEXT_SIZE
             c.drawString(text_x, text_y, text)
 
             font_name = "Helvetica"
             font_size = TEXT_SIZE
             c.setFont(font_name, font_size)
+
+            if "name-en" in set:
+                name_en = set['name-en']
+                text = f'({name_en})'
+                text_width = stringWidth(text, font_name, font_size)
+                text_x = frame_left_x + (frame_width - text_width) / 2
+                text_y = frame_bottom_y + frame_height/2 - (font_size+TEXT_SIZE)/2
+                c.drawString(text_x, text_y, text)
+
             text = serie_name
             text_width = stringWidth(text, font_name, font_size)
             text_x, text_y = (frame_left_x + TEXT_PADDING, frame_top_y - font_size - TEXT_PADDING)
             c.drawString(text_x, text_y, text)
-
-            if "is-special-expansion" in set:
-                is_subset = str2bool(set['is-special-expansion'])
-                if is_subset:
-                    text = "(special expansion)"
-                    text_width = stringWidth(text, font_name, font_size)
-                    text_x, text_y = (frame_left_x + TEXT_PADDING, frame_top_y - font_size - TEXT_PADDING - TEXT_SIZE)
-                    c.drawString(text_x, text_y, text)
 
             if "symbols" in set:
                 symbol_x = frame_left_x + TEXT_PADDING
@@ -118,11 +127,6 @@ def generate_pdf(series, img_folder_path, output_path):
                     c.drawImage(symbol_image_io, symbol_x, symbol_y, width=symbol_width, height=symbol_height, mask='auto')
 
                     symbol_x = symbol_x + symbol_width + SYMBOL_PADDING
-
-            if "is-jpn-only" in set:
-                is_jpn_only = str2bool(set["is-jpn-only"])
-                if is_jpn_only:
-                    c.drawImage(jpn_symbol_path, jpn_symbol_x, jpn_symbol_y, width=jpn_symbol_width, height=jpn_symbol_height, mask='auto')
 
             if "date" in set:
                 font_name = "Helvetica"
@@ -196,6 +200,10 @@ script_directory = os.path.dirname(os.path.abspath(__file__))
 json_file_path = os.path.join(script_directory, CATALOG_FILENAME)
 output_file_path = os.path.join(script_directory, OUTPUT_FILENAME)
 img_folder_path = os.path.join(script_directory, IMG_FOLDER_PATH)
+fonts_folder_path = os.path.join(script_directory, FONTS_FOLDER_PATH)
+
+jp_title_font_path = os.path.join(fonts_folder_path, "NotoSansJP-Bold.ttf")
+pdfmetrics.registerFont(TTFont('NotoSansJP-Bold', jp_title_font_path))
 
 # Read the page data from the JSON file
 catalog = read_catalog_from_json(json_file_path)

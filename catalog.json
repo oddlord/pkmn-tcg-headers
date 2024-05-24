@@ -5,6 +5,11 @@
                 "date": "1999",
                 "cover": "ancient-mew-back.jpg"
             },
+            {   "name": "Wizards Black Star Promos",
+                "date": "07/1999 - 03/2023",
+                "cover": "wizards-black-star-promos-dragonite-with-star.jpg",
+                "symbols": ["black-star-promo-symbol.png"]
+            },
             {   "name": "Southern Islands",
                 "date": "31/07/2001",
                 "cover": "southern-islands-collection.png",
@@ -14,28 +19,6 @@
                 "date": "24/05/2002",
                 "cover": "box-toppers-scizor-art.png",
                 "symbols": ["box-toppers-symbol.png"]
-            }
-        ]
-    },
-    {   "name": "Black Star Promotional Cards",
-        "sets": [
-            {   "name": "Wizards Black Star Promos",
-                "date": "07/1999 - 03/2023",
-                "cover": "wizards-black-star-promos-dragonite-with-star.jpg",
-                "symbols": ["black-star-promo-symbol.png"]
-            },
-            {   "name": "SWSH Black Star Promos",
-                "date": "11/2019 - 08/2023",
-                "cover": "swsh-black-star-promos-meowth-vmax-with-star.jpg",
-                "symbols": ["black-star-promo-symbol.png"]
-            },
-            {   "name": "SVP Black Star Promos",
-                "date": "01/2023",
-                "cover": "svp-black-star-promos-pikachu-with-grey-felt-hat-with-star.jpg",
-                "symbols": [
-                    "svp-black-star-promos-symbol.png",
-                    "black-star-promo-symbol.png"
-                ]
             }
         ]
     },
@@ -238,6 +221,11 @@
     },
     {   "name": "Sword & Shield",
         "sets": [
+            {   "name": "SWSH Black Star Promos",
+                "date": "11/2019 - 08/2023",
+                "cover": "swsh-black-star-promos-meowth-vmax-with-star.jpg",
+                "symbols": ["black-star-promo-symbol.png"]
+            },
             {   "name": "Sword & Shield",
                 "date": "07/02/2020",
                 "cover": "sword-&-shield-zacian.jpg",
@@ -255,7 +243,6 @@
             },
             {   "name": "Shining Fates",
                 "date": "19/02/2021",
-                "is-special-expansion": "True",
                 "cover": "shining-fates-pack-charizard.jpg",
                 "symbols": ["shining-fates-symbol.png"]
             },
@@ -274,15 +261,20 @@
                 "cover": "evolving-skies-pack-rayquaza.jpg",
                 "symbols": ["evolving-skies-symbol.png"]
             },
+            {   "name": "フュージョンアーツ",
+                "name-en": "Fusion Arts",
+                "date": "24/09/2021",
+                "cover": "fusion-arts-jp-pack-mew.jpg",
+                "symbols": ["fusion-arts-jp-symbol.png"]
+            },
             {   "name": "Fusion Strike",
                 "date": "12/11/2021",
                 "cover": "fusion-strike-pack-mew.jpg",
                 "symbols": ["fusion-strike-symbol.png"]
             },
-            {   "name": "VMAX Climax",
+            {   "name": "VMAXクライマックス",
+                "name-en": "VMAX Climax",
                 "date": "03/12/2021",
-                "is-special-expansion": "True",
-                "is-jpn-only": "True",
                 "cover": "vmax-climax-pack.jpg",
                 "symbols": ["vmax-climax-symbol.png"]
             },
@@ -291,10 +283,9 @@
                 "cover": "brilliant-stars-pack-arceus.jpg",
                 "symbols": ["brilliant-stars-symbol.png"]
             },
-            {   "name": "Battle Region",
+            {   "name": "バトルリージョン",
+                "name-en": "Battle Region",
                 "date": "25/02/2022",
-                "is-special-expansion": "True",
-                "is-jpn-only": "True",
                 "cover": "battle-region-pack.jpg",
                 "symbols": ["battle-region-symbol.png"]
             },
@@ -305,7 +296,6 @@
             },
             {   "name": "Pokémon GO",
                 "date": "01/07/2022",
-                "is-special-expansion": "True",
                 "cover": "pokémon-go-pack.jpg",
                 "symbols": ["pokémon-go-symbol.png"]
             },
@@ -321,7 +311,6 @@
             },
             {   "name": "Crown Zenith",
                 "date": "20/01/2023",
-                "is-special-expansion": "True",
                 "cover": "crown-zenith-pack-zacian-zamazenta.jpg",
                 "symbols": ["crown-zenith-symbol.png"]
             }
@@ -329,6 +318,14 @@
     },
     {   "name": "Scarlet & Violet",
         "sets": [
+            {   "name": "SVP Black Star Promos",
+                "date": "01/2023",
+                "cover": "svp-black-star-promos-pikachu-with-grey-felt-hat-with-star.jpg",
+                "symbols": [
+                    "svp-black-star-promos-symbol.png",
+                    "black-star-promo-symbol.png"
+                ]
+            },
             {   "name": "Scarlet & Violet",
                 "date": "31/03/2023",
                 "cover": "scarlet-&-violet-pack-koraidon.png",
@@ -346,7 +343,6 @@
             },
             {   "name": "151",
                 "date": "22/09/2023",
-                "is-special-expansion": "True",
                 "cover": "151-pack-mew.png",
                 "symbols": ["151-symbol.png"]
             },
@@ -354,6 +350,16 @@
                 "date": "03/11/2023",
                 "cover": "paradox-rift-pack-roaring-moon.png",
                 "symbols": ["paradox-rift-symbol.png"]
+            },
+            {   "name": "Paldean Fates",
+                "date": "26/01/2024",
+                "cover": "paldean-fates-pack-pikachu.png",
+                "symbols": ["paldean-fates-symbol.png"]
+            },
+            {   "name": "Temporal Forces",
+                "date": "22/03/2024",
+                "cover": "temporal-forces-pack-walking-wake.png",
+                "symbols": ["temporal-forces-symbol.png"]
             }
         ]
     }
