@@ -13,12 +13,6 @@ from PIL import Image
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Japanese_Pok%C3%A9mon_Trading_Card_Game_expansions
 
-# TODO!!!
-# Go through the collection and move the JP cards to their own set
-# Add a regions list in the JSON to specify "eng" and/or "jpn"
-# Refactor!!!!!
-# https://stackoverflow.com/questions/30069846/how-to-find-out-chinese-or-japanese-character-in-a-string-in-python
-
 CATALOG_DIR_PATH = "assets/catalog"
 IMGS_DIR_PATH = "assets/imgs"
 FONTS_DIR_PATH = "assets/fonts"
@@ -52,6 +46,9 @@ FONT_ENG = "Helvetica"
 FONT_BOLD_ENG = "Helvetica-Bold"
 FONT_JPN = "NotoSansJP"
 FONT_BOLD_JPN = "NotoSansJP-Bold"
+
+FONT_WEIGHT_REGULAR = "regular"
+FONT_WEIGHT_BOLD = "bold"
 
 V_ALIGN_TOP = "top"
 V_ALIGN_MIDDLE = "middle"
@@ -124,9 +121,6 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path):
 
         serie_id = serie[ID_KEY]
         serie_dir_path = os.path.join(catalog_dir_path, serie_id)
-        if not os.path.isdir(serie_dir_path):
-            print(f"Missing folder for serie with ID \"{serie_id}\". Skipping.")
-            continue
 
         serie_name = None
         if NAME_KEY in serie:
@@ -146,77 +140,74 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path):
 
             set_id = set[ID_KEY]
             set_dir_path = os.path.join(serie_dir_path, set_id)
-            if not os.path.isdir(set_dir_path):
-                print(f"{SET_LOG_INDENT}Missing folder for set with ID \"{set_id}\". Skipping.")
-                continue
 
-            if NAME_KEY not in set:
-                print(f"{SET_LOG_INDENT}Missing name for set with ID \"{set_id}\". Skipping.")
-                continue
-            set_name = set[NAME_KEY]
+            set_name = None
+            if NAME_KEY in set:
+                set_name = set[NAME_KEY]
 
-            has_name_alt = NAME_ALT_KEY in set
-            if has_name_alt:
+            set_name_alt = None
+            if NAME_ALT_KEY in set:
                 set_name_alt = set[NAME_ALT_KEY]
 
-            if DATE_KEY not in set:
-                print(f"{SET_LOG_INDENT}Missing date for set with ID \"{set_id}\". Skipping.")
-                continue
-            set_date = set[DATE_KEY]
-
-            set_files = os.listdir(set_dir_path)
-            set_cover_path = None
-            set_symbol_paths = []
-            for file in set_files:
-                if file.startswith(f"{COVER_FILENAME_PREFIX}."):
-                    set_cover_path = os.path.join(set_dir_path, file)
-                if file.startswith(f"{SYMBOL_FILENAME_PREFIX}"):
-                    symbol_path = os.path.join(set_dir_path, file)
-                    set_symbol_paths.append(symbol_path)
-
-            if not set_cover_path:
-                print(f"{SET_LOG_INDENT}Missing cover for set with ID \"{set_id}\". Skipping.")
-                continue
-
             page = page + 1
-            set_print_str = f"  {page}. {set_name}"
-            if has_name_alt:
-                set_print_str += f" ({set_name_alt})"
+            set_print_str = f"{SET_LOG_INDENT}{page}. "
+            if set_name:
+                set_print_str += set_name
+                if set_name_alt:
+                    set_print_str += f" ({set_name_alt})"
+            elif set_name_alt:
+                set_print_str += set_name_alt
+            else:
+                set_print_str += f"<{set_id}>"
             print(set_print_str)
 
-            # Set the background image for the current page
-            cropped_img = crop_image_to_cover(set_cover_path, page_size)
-            cropped_img_io = get_image_io(cropped_img)
-            c.drawImage(cropped_img_io, 0, 0, width=page_width, height=page_height)
+            set_cover_path = None
+            set_symbol_paths = []
+            if os.path.isdir(set_dir_path):
+                set_files = os.listdir(set_dir_path)
+                for file in set_files:
+                    if file.startswith(f"{COVER_FILENAME_PREFIX}."):
+                        set_cover_path = os.path.join(set_dir_path, file)
+                    if file.startswith(f"{SYMBOL_FILENAME_PREFIX}"):
+                        symbol_path = os.path.join(set_dir_path, file)
+                        set_symbol_paths.append(symbol_path)
+
+            # Draw the cover, if present
+            if set_cover_path:
+                cropped_img = crop_image_to_cover(set_cover_path, page_size)
+                cropped_img_io = get_image_io(cropped_img)
+                c.drawImage(cropped_img_io, 0, 0, width=page_width, height=page_height)
 
             # Draw the frame
             c.drawImage(frame_img_io, frame_x, frame_y, width=frame_width, height=frame_height, mask='auto', preserveAspectRatio=True)
 
-            # Write the set's name (and alternative name, if present)
+            # Write the set's name and alternative name, if present
             title_y = frame_centre_y
-            if has_name_alt:
+            subtitle_y = frame_centre_y
+            if set_name and set_name_alt:
                 title_y = frame_centre_y + TEXT_SIZE/2
                 subtitle_y = frame_centre_y - TITLE_SIZE/2
+            if set_name:
+                write_text(set_name, frame_centre_x, title_y, c, font_weight=FONT_WEIGHT_BOLD, font_size=TITLE_SIZE, h_align=H_ALIGN_CENTRE, v_align=V_ALIGN_MIDDLE)
+            if set_name_alt:
                 write_text(set_name_alt, frame_centre_x, subtitle_y, c, h_align=H_ALIGN_CENTRE, v_align=V_ALIGN_MIDDLE)
-            title_font = FONT_BOLD_ENG
-            if text_contains_asian_chars(set_name):
-                title_font = FONT_BOLD_JPN
-            write_text(set_name, frame_centre_x, title_y, c, title_font, TITLE_SIZE, H_ALIGN_CENTRE, V_ALIGN_MIDDLE)
 
             # Write the serie name in the top-left corner, if present
             if serie_name:
                 write_text(serie_name, padded_frame_left_x, padded_frame_top_y, c, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_TOP)
 
-            # Write the date in the bottom-right corner
-            write_text(set_date, frame_right_x - TEXT_PADDING, frame_bottom_y + TEXT_PADDING, c, h_align=H_ALIGN_RIGHT, v_align=V_ALIGN_BOTTOM)
+            # Write the date in the bottom-right corner, if present
+            if DATE_KEY in set:
+                set_date = set[DATE_KEY]
+                write_text(set_date, frame_right_x - TEXT_PADDING, frame_bottom_y + TEXT_PADDING, c, h_align=H_ALIGN_RIGHT, v_align=V_ALIGN_BOTTOM)
 
-            # Draw the symbol(s)
+            # Draw the symbol(s), if present
             symbol_x = padded_frame_left_x
             for symbol_path in set_symbol_paths:
                 draw_symbol(symbol_path, symbol_x, padded_frame_bottom_y, c)
                 symbol_x = symbol_x + get_symbol_width(symbol_path) + SYMBOL_PADDING
 
-            # Draw the region symbol, if specify
+            # Draw the region symbol, if specified
             if REGION_KEY in set:
                 set_region = set[REGION_KEY]
                 if set_region in REGION_FILENAMES:
@@ -224,7 +215,7 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path):
                     region_path = os.path.join(IMGS_DIR_PATH, region_filename)
                     draw_symbol(region_path, padded_frame_right_x, padded_frame_top_y, c, h_align=H_ALIGN_RIGHT, v_align=V_ALIGN_TOP)
 
-            # Add a new page
+            # Render the page
             c.showPage()
 
     # Save and close the PDF document
@@ -233,14 +224,30 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path):
 
 # https://stackoverflow.com/questions/30069846/how-to-find-out-chinese-or-japanese-character-in-a-string-in-python
 def text_contains_asian_chars(text):
+  if not text:
+      return False
+  
   for char in text:
     is_asian_char = any([range["from"] <= ord(char) <= range["to"] for range in ASIAN_CHAR_RANGES])
     if is_asian_char:
       return True
+    
   return False
 
 
-def write_text(text, x, y, canvas, font_name=FONT_ENG, font_size=TEXT_SIZE, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
+def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=TEXT_SIZE, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
+    if not text:
+        return
+    
+    has_asian_chars = text_contains_asian_chars(text)
+    font_name = FONT_ENG
+    if font_weight == FONT_WEIGHT_REGULAR and has_asian_chars:
+        font_name = FONT_JPN
+    elif font_weight == FONT_WEIGHT_BOLD and not has_asian_chars:
+        font_name = FONT_BOLD_ENG
+    elif font_weight == FONT_WEIGHT_BOLD and has_asian_chars:
+        font_name = FONT_BOLD_JPN
+
     canvas.setFont(font_name, font_size)
     text_width = stringWidth(text, font_name, font_size)
 
