@@ -1,10 +1,14 @@
 [
     {   "id": "misc",
-        "name": "Miscellaneous",
         "sets": [
+            {   "id": "miscellaneous-promotional-cards",
+                "name": "Miscellaneous Promotional Cards",
+                "region": "all",
+                "date": "1999"
+            },
             {   "id": "wizards-black-star-promos",
                 "name": "Wizards Black Star Promos",
-                "regions": ["eng"],
+                "region": "eng",
                 "date": "07/1999 - 03/2023"
             }
         ]
@@ -15,7 +19,7 @@
             {   "id": "battle-region",
                 "name": "バトルリージョン",
                 "name_alt": "Battle Region",
-                "regions": ["jpn"],
+                "region": "jpn",
                 "date": "25/02/2022"
             }
         ]

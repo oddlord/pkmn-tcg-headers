@@ -27,6 +27,13 @@ OUTPUT_FILENAME = "covers.pdf"
 CATALOG_FILENAME = "catalog.json"
 FRAME_FILENAME = "frame.png"
 
+REGION_FILENAMES = {
+    # "all": "jpn-eng.jpg",
+    "all": "eng-jpn.jpg",
+    "eng": "eng.png",
+    "jpn": "jpn.jpg"
+}
+
 COVER_FILENAME_PREFIX = "cover"
 SYMBOL_FILENAME_PREFIX = "symbol"
 
@@ -53,14 +60,11 @@ H_ALIGN_LEFT = "left"
 H_ALIGN_CENTRE = "centre"
 H_ALIGN_RIGHT = "right"
 
-REGION_ENG = "eng"
-REGION_JPN = "jpn"
-
 ID_KEY = "id"
 NAME_KEY = "name"
 SETS_KEY = "sets"
 DATE_KEY = "date"
-REGIONS_KEY = "regions"
+REGION_KEY = "region"
 NAME_ALT_KEY = "name_alt"
 
 # -*- coding:utf-8 -*-
@@ -124,7 +128,7 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path):
             print(f"Missing folder for serie with ID \"{serie_id}\". Skipping.")
             continue
 
-        serie_name = ""
+        serie_name = None
         if NAME_KEY in serie:
             serie_name = serie[NAME_KEY]
 
@@ -159,11 +163,6 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path):
                 print(f"{SET_LOG_INDENT}Missing date for set with ID \"{set_id}\". Skipping.")
                 continue
             set_date = set[DATE_KEY]
-
-            if REGIONS_KEY not in set:
-                print(f"{SET_LOG_INDENT}Missing regions for set with ID \"{set_id}\". Skipping.")
-                continue
-            set_regions = set[REGIONS_KEY]
 
             set_files = os.listdir(set_dir_path)
             set_cover_path = None
@@ -217,6 +216,14 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path):
                 draw_symbol(symbol_path, symbol_x, padded_frame_bottom_y, c)
                 symbol_x = symbol_x + get_symbol_width(symbol_path) + SYMBOL_PADDING
 
+            # Draw the region symbol, if specify
+            if REGION_KEY in set:
+                set_region = set[REGION_KEY]
+                if set_region in REGION_FILENAMES:
+                    region_filename = REGION_FILENAMES[set_region]
+                    region_path = os.path.join(IMGS_DIR_PATH, region_filename)
+                    draw_symbol(region_path, padded_frame_right_x, padded_frame_top_y, c, h_align=H_ALIGN_RIGHT, v_align=V_ALIGN_TOP)
+
             # Add a new page
             c.showPage()
 
@@ -253,12 +260,27 @@ def write_text(text, x, y, canvas, font_name=FONT_ENG, font_size=TEXT_SIZE, h_al
     canvas.drawString(x, y, text)
 
 
-def draw_symbol(symbol_path, x, y, canvas):
+def draw_symbol(symbol_path, x, y, canvas, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
     symbol_image = Image.open(symbol_path)
     symbol_image_io = get_image_io(symbol_image)
+
     symbol_width, symbol_height = symbol_image.size
     symbol_ratio = symbol_width / symbol_height
     symbol_width, symbol_height = (SYMBOL_WIDTH, SYMBOL_WIDTH / symbol_ratio)
+
+    # drawImage takes the coordinates of the bottom-left of the text,
+    # so we only need to adjust for centre/right and middle/top
+
+    if h_align == H_ALIGN_CENTRE:
+        x = x - (symbol_width / 2)
+    elif h_align == H_ALIGN_RIGHT:
+        x = x - symbol_width
+
+    if v_align == V_ALIGN_MIDDLE:
+        y = y - (symbol_height / 2)
+    elif v_align == V_ALIGN_TOP:
+        y = y - symbol_height
+
     canvas.drawImage(symbol_image_io, x, y, width=symbol_width, height=symbol_height, mask='auto')
 
 
