@@ -9,6 +9,53 @@
                 "name": "Wizards Black Star Promos",
                 "region": "eng",
                 "date": "07/1999 - 03/2023"
+            },
+            {   "id": "southern-islands-jpn",
+                "name": "サザンアイランド",
+                "name_alt": "Southern Islands",
+                "region": "jpn",
+                "date": "17/07/1999"
+            },
+            {   "id": "southern-islands",
+                "name": "Southern Islands",
+                "region": "eng",
+                "date": "31/07/2001"
+            }
+        ]
+    },
+    {
+        "id": "original",
+        "name": "Original",
+        "sets": [
+            {   "id": "base-set",
+                "name": "Base Set",
+                "region": "eng",
+                "date": "09/01/1999"
+            },
+            {   "id": "jungle",
+                "name": "Jungle",
+                "region": "eng",
+                "date": "16/06/1999"
+            },
+            {   "id": "fossil",
+                "name": "Fossil",
+                "region": "eng",
+                "date": "10/10/1999"
+            },
+            {   "id": "base-set-2",
+                "name": "Base Set 2",
+                "region": "eng",
+                "date": "24/02/2000"
+            }
+        ]
+    },
+    {   "id": "platinum",
+        "name": "Platinum",
+        "sets": [
+            {   "id": "pop-series-9",
+                "name": "POP Series 9",
+                "region": "eng",
+                "date": "03/2009"
             }
         ]
     },

@@ -1,52 +1,8 @@
 [
-    {   "name": "Miscellaneous",
-        "sets": [
-            {   "name": "Miscellaneous Promotional Cards",
-                "date": "1999",
-                "cover": "ancient-mew-back.jpg"
-            },
-            {   "name": "Wizards Black Star Promos",
-                "date": "07/1999 - 03/2023",
-                "cover": "wizards-black-star-promos-dragonite-with-star.jpg",
-                "symbols": ["black-star-promo-symbol.png"]
-            },
-            {   "name": "Southern Islands",
-                "date": "31/07/2001",
-                "cover": "southern-islands-collection.png",
-                "symbols": ["southern-islands-symbol.png"]
-            }
-        ]
-    },
-    {   "name": "POP / Play! Pokemon Prize Packs",
-        "sets": [
-            {   "name": "POP Series 9",
-                "date": "03/2009",
-                "cover": "pop-series-9-pack-garchomp.jpg",
-                "symbols": ["pop-series-9-symbol.png"]
-            }
-        ]
-    },
     {   "name": "Original",
         "sets": [
-            {   "name": "Base Set",
-                "date": "09/01/1999",
-                "cover": "base-set-pack-venusaur.png"
-            },
-            {   "name": "Jungle",
-                "date": "16/06/1999",
-                "cover": "jungle-pack-flareon.jpg",
-                "symbols": ["jungle-symbol.png"]
-            },
-            {   "name": "Fossil",
-                "date": "10/10/1999",
-                "cover": "fossil-pack-aerodactyl.jpg",
-                "symbols": ["fossil-symbol.png"]
-            },
-            {   "name": "Base Set 2",
-                "date": "24/02/2000",
-                "cover": "base-set-2-pack-mewtwo.jpg",
-                "symbols": ["base-set-2-symbol.png"]
-            },
+
+
             {   "name": "Team Rocket",
                 "date": "24/04/2000",
                 "cover": "team-rocket-pack-jessie-james.jpg",
