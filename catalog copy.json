@@ -1,49 +1,4 @@
 [
-    {   "name": "Original",
-        "sets": [
-
-
-            {   "name": "Team Rocket",
-                "date": "24/04/2000",
-                "cover": "team-rocket-pack-jessie-james.jpg",
-                "symbols": ["team-rocket-symbol.png"]
-            },
-            {   "name": "Gym Heroes",
-                "date": "14/08/2000",
-                "cover": "gym-heroes-pack-brock.jpg",
-                "symbols": ["gym-heroes-symbol.png"]
-            },
-            {   "name": "Gym Challenge",
-                "date": "16/10/2000",
-                "cover": "gym-challenge-pack-sabrina.jpg",
-                "symbols": ["gym-challenge-symbol.png"]
-            }
-        ]
-    },
-    {   "name": "Neo",
-        "sets": [
-            {   "name": "Neo Genesis",
-                "date": "16/12/2000",
-                "cover": "neo-genesis-pack-lugia.jpg",
-                "symbols": ["neo-genesis-symbol.png"]
-            },
-            {   "name": "Neo Discovery",
-                "date": "01/06/2001",
-                "cover": "neo-discovery-pack-xatu.jpg",
-                "symbols": ["neo-discovery-symbol.png"]
-            },
-            {   "name": "Neo Revelation",
-                "date": "21/09/2001",
-                "cover": "neo-revelation-pack-suicune.jpg",
-                "symbols": ["neo-revelation-symbol.png"]
-            },
-            {   "name": "Neo Destiny",
-                "date": "28/02/2002",
-                "cover": "neo-destiny-pack-celebi.jpg",
-                "symbols": ["neo-destiny-symbol.png"]
-            }
-        ]
-    },
     {   "name": "Legendary Collection",
         "sets": [
             {   "name": "Legendary Collection",

@@ -4,29 +4,17 @@
             {   "id": "miscellaneous-promotional-cards",
                 "name": "Miscellaneous Promotional Cards",
                 "date": "1999"
-            },
+            }
+        ]
+    },
+    {   "id": "original",
+        "name": "Original",
+        "sets": [
             {   "id": "wizards-black-star-promos",
                 "name": "Wizards Black Star Promos",
                 "region": "eng",
                 "date": "07/1999 - 03/2023"
             },
-            {   "id": "southern-islands-jpn",
-                "name": "サザンアイランド",
-                "name_alt": "Southern Islands",
-                "region": "jpn",
-                "date": "17/07/1999"
-            },
-            {   "id": "southern-islands",
-                "name": "Southern Islands",
-                "region": "eng",
-                "date": "31/07/2001"
-            }
-        ]
-    },
-    {
-        "id": "original",
-        "name": "Original",
-        "sets": [
             {   "id": "base-set",
                 "name": "Base Set",
                 "region": "eng",
@@ -46,6 +34,69 @@
                 "name": "Base Set 2",
                 "region": "eng",
                 "date": "24/02/2000"
+            },
+            {   "id": "team-rocket",
+                "name": "Team Rocket",
+                "region": "eng",
+                "date": "24/04/2000"
+            },
+            {   "id": "gym-heroes",
+                "name": "Gym Heroes",
+                "region": "eng",
+                "date": "14/08/2000"
+            },
+            {   "id": "challenge-from-the-darkness",
+                "name": "闇からの挑戦",
+                "name_alt": "Challenge from the Darkness",
+                "region": "jpn",
+                "date": "25/06/1999"
+            },
+            {   "id": "gym-challenge",
+                "name": "Gym Challenge",
+                "region": "eng",
+                "date": "16/10/2000"
+            },
+            {   "id": "southern-islands-jpn",
+                "name": "サザンアイランド",
+                "name_alt": "Southern Islands",
+                "region": "jpn",
+                "date": "17/07/1999"
+            },
+            {   "id": "southern-islands",
+                "name": "Southern Islands",
+                "region": "eng",
+                "date": "31/07/2001"
+            }
+        ]
+    },
+    {   "id": "neo",
+        "name": "Neo",
+        "sets": [
+            {   "id": "neo-genesis",
+                "name": "Neo Genesis",
+                "region": "eng",
+                "date": "16/12/2000"
+            },
+            {   "id": "neo-discovery",
+                "name": "Neo Discovery",
+                "region": "eng",
+                "date": "01/06/2001"
+            },
+            {   "id": "awakening-legends",
+                "name": "めざめる伝説",
+                "name_alt": "Awakening Legends",
+                "region": "jpn",
+                "date": "23/11/2000"
+            },
+            {   "id": "neo-revelation",
+                "name": "Neo Revelation",
+                "region": "eng",
+                "date": "21/09/2001"
+            },
+            {   "id": "neo-destiny",
+                "name": "Neo Destiny",
+                "region": "eng",
+                "date": "28/02/2002"
             }
         ]
     },
