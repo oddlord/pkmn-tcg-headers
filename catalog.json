@@ -210,6 +210,47 @@
             }
         ]
     },
+    {   "id": "call-of-legends",
+        "name": "Call of Legends",
+        "sets": [
+            {   "id": "call-of-legends",
+                "name": "Call of Legends",
+                "region": "eng",
+                "date": "09/02/2011"
+            }
+        ]
+    },
+    {   "id": "xy",
+        "name": "XY",
+        "sets": [
+            {   "id": "fates-collide",
+                "name": "Fates Collide",
+                "region": "eng",
+                "date": "02/05/2016"
+            }
+        ]
+    },
+    {   "id": "sun-&-moon",
+        "name": "Sun & Moon",
+        "sets": [
+            {   "id": "sun-&-moon",
+                "name": "Sun & Moon",
+                "region": "eng",
+                "date": "03/02/2017"
+            },
+            {   "id": "crimson-invasion",
+                "name": "Crimson Invasion",
+                "region": "eng",
+                "date": "03/11/2017"
+            },
+            {   "id": "movie-special-pack-great-detective-pikachu",
+                "name": "ムービースペシャルパック 名探偵ピカチュウ",
+                "name_alt": "Movie Special Pack Great Detective Pikachu",
+                "region": "jpn",
+                "date": "26/04/2019"
+            }
+        ]
+    },
     {   "id": "sword-and-shield",
         "name": "Sword & Shield",
         "sets": [

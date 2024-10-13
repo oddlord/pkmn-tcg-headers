@@ -68,13 +68,15 @@ def text_contains_asian_chars(text):
   return False
 
 
-def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=None, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
-    if not text:
-        return
-    
+def get_text_width(text, font_weight=FONT_WEIGHT_REGULAR, font_size=None):
     if not font_size:
         font_size = default_text_size
-    
+    font_name = get_font_name(text, font_weight)
+    text_width = stringWidth(text, font_name, font_size)
+    return text_width
+
+
+def get_font_name(text, font_weight):
     has_asian_chars = text_contains_asian_chars(text)
     font_name = FONT_ENG
     if font_weight == FONT_WEIGHT_REGULAR and has_asian_chars:
@@ -83,7 +85,17 @@ def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=No
         font_name = FONT_BOLD_ENG
     elif font_weight == FONT_WEIGHT_BOLD and has_asian_chars:
         font_name = FONT_BOLD_JPN
+    return font_name
 
+
+def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=None, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
+    if not text:
+        return
+    
+    if not font_size:
+        font_size = default_text_size
+    
+    font_name = get_font_name(text, font_weight)
     canvas.setFont(font_name, font_size)
     text_width = stringWidth(text, font_name, font_size)
 

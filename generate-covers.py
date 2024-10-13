@@ -63,24 +63,6 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
     frame_img = Image.open(frame_img_path)
     frame_img_io = u.get_image_io(frame_img)
 
-    frame_width, frame_height = frame_img.size
-    frame_ratio = frame_width / frame_height
-    frame_width, frame_height = (FRAME_WIDTH, FRAME_WIDTH / frame_ratio)
-    frame_x, frame_y = (page_width - frame_width - FRAME_PADDING, page_height - frame_height - FRAME_PADDING)
-
-    frame_left_x = frame_x
-    frame_top_y = frame_y + frame_height
-    frame_right_x = frame_x + frame_width
-    frame_bottom_y = frame_y
-
-    padded_frame_left_x = frame_left_x + TEXT_PADDING
-    padded_frame_top_y = frame_top_y - TEXT_PADDING
-    padded_frame_right_x = frame_right_x - TEXT_PADDING
-    padded_frame_bottom_y = frame_bottom_y +TEXT_PADDING
-
-    frame_centre_x = frame_left_x + frame_width/2
-    frame_centre_y = frame_bottom_y + frame_height/2
-
     page = 0
     for serie in series:
         if ID_KEY not in serie:
@@ -108,12 +90,36 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
             set_dir_path = os.path.join(serie_dir_path, set_id)
 
             set_name = None
+            set_name_width = 0
             if NAME_KEY in set:
                 set_name = set[NAME_KEY]
+                set_name_width = u.get_text_width(set_name, font_weight=u.FONT_WEIGHT_BOLD, font_size=TITLE_SIZE)
 
             set_name_alt = None
+            set_name_alt_width = 0
             if NAME_ALT_KEY in set:
                 set_name_alt = set[NAME_ALT_KEY]
+                set_name_alt_width = u.get_text_width(set_name_alt)
+
+            frame_width, frame_height = frame_img.size
+            frame_ratio = frame_width / frame_height
+            frame_width = max(FRAME_WIDTH, set_name_width + 2*FRAME_PADDING, set_name_alt_width + 2*FRAME_PADDING)
+            frame_height = frame_width / frame_ratio
+            frame_x, frame_y = (page_width - frame_width - FRAME_PADDING, page_height - frame_height - FRAME_PADDING)
+
+            frame_left_x = frame_x
+            frame_top_y = frame_y + frame_height
+            frame_right_x = frame_x + frame_width
+            frame_bottom_y = frame_y
+
+            text_padding = TEXT_PADDING * (frame_width / FRAME_WIDTH)
+            padded_frame_left_x = frame_left_x + text_padding
+            padded_frame_top_y = frame_top_y - text_padding
+            padded_frame_right_x = frame_right_x - text_padding
+            padded_frame_bottom_y = frame_bottom_y + text_padding
+
+            frame_centre_x = frame_left_x + frame_width/2
+            frame_centre_y = frame_bottom_y + frame_height/2
 
             if set_name:
                 set_print_name = set_name
@@ -172,7 +178,7 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
             # Write the date in the bottom-right corner, if present
             if DATE_KEY in set:
                 set_date = set[DATE_KEY]
-                u.write_text(set_date, frame_right_x - TEXT_PADDING, frame_bottom_y + TEXT_PADDING, c, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM)
+                u.write_text(set_date, padded_frame_right_x, padded_frame_bottom_y, c, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM)
 
             # Draw the symbol(s), if present
             symbol_x = padded_frame_left_x

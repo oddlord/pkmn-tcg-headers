@@ -1,37 +1,4 @@
 [
-
-    {   "name": "Call of Legends",
-        "sets": [
-            {   "name": "Call of Legends",
-                "date": "09/02/2011",
-                "cover": "call-of-legends-pack-lugia.jpg",
-                "symbols": ["call-of-legends-symbol.png"]
-            }
-        ]
-    },
-    {   "name": "XY",
-        "sets": [
-            {   "name": "Fates Collide",
-                "date": "02/05/2016",
-                "cover": "fates-collide-pack-mega-alakazam.jpg",
-                "symbols": ["fates-collide-symbol.png"]
-            }
-        ]
-    },
-    {   "name": "Sun & Moon",
-        "sets": [
-            {   "name": "Sun & Moon",
-                "date": "03/02/2017",
-                "cover": "sun-&-moon-pack-primarina.jpg",
-                "symbols": ["sun-&-moon-symbol.png"]
-            },
-            {   "name": "Crimson Invasion",
-                "date": "03/11/2017",
-                "cover": "crimson-invasion-pack-guzzlord.jpg",
-                "symbols": ["crimson-invasion-symbol.png"]
-            }
-        ]
-    },
     {   "name": "Sword & Shield",
         "sets": [
             {   "name": "SWSH Black Star Promos",
