@@ -135,6 +135,36 @@
             }
         ]
     },
+    {   "id": "ex",
+        "name": "EX",
+        "sets": [
+            {   "id": "ex-ruby-&-sapphire",
+                "name": "EX Ruby & Sapphire",
+                "region": "eng",
+                "date": "18/07/2003"
+            },
+            {   "id": "ex-sandstorm",
+                "name": "EX Sandstorm",
+                "region": "eng",
+                "date": "18/09/2003"
+            },
+            {   "id": "ex-dragon",
+                "name": "EX Dragon",
+                "region": "eng",
+                "date": "24/11/2003"
+            },
+            {   "id": "ex-hidden-legends",
+                "name": "EX Hidden Legends",
+                "region": "eng",
+                "date": "14/06/2004"
+            },
+            {   "id": "ex-firered-&-leafgreen",
+                "name": "EX FireRed & LeafGreen",
+                "region": "eng",
+                "date": "30/08/2004"
+            }
+        ]
+    },
     {   "id": "platinum",
         "name": "Platinum",
         "sets": [

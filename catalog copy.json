@@ -1,34 +1,6 @@
 [
 
-    {   "name": "EX",
-        "sets": [
-            {   "name": "EX Ruby & Sapphire",
-                "date": "18/07/2003",
-                "cover": "ex-ruby-&-sapphire-pack-sceptile.jpg",
-                "symbols": ["ex-ruby-&-sapphire-symbol.png"]
-            },
-            {   "name": "EX Sandstorm",
-                "date": "18/09/2003",
-                "cover": "ex-sandstorm-pack-zangoose.jpg",
-                "symbols": ["ex-sandstorm-symbol.png"]
-            },
-            {   "name": "EX Dragon",
-                "date": "24/11/2003",
-                "cover": "ex-dragon-pack-rayquaza.jpg",
-                "symbols": ["ex-dragon-symbol.png"]
-            },
-            {   "name": "EX Hidden Legends",
-                "date": "14/06/2004",
-                "cover": "ex-hidden-legends-pack-regirock.jpg",
-                "symbols": ["ex-hidden-legends-symbol.png"]
-            },
-            {   "name": "EX FireRed & LeafGreen",
-                "date": "30/08/2004",
-                "cover": "ex-firered-&-leafgreen-pack-charizard.jpg",
-                "symbols": ["ex-firered-&-leafgreen-symbol.png"]
-            }
-        ]
-    },
+
     {   "name": "Diamond & Pearl",
         "sets": [
             {   "name": "Secret Wonders",
