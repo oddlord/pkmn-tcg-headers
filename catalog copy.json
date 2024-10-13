@@ -1,28 +1,5 @@
 [
-    {   "name": "e-Card",
-        "sets": [
-            {   "name": "Box Toppers",
-                "date": "15/09/2002",
-                "cover": "box-toppers-scizor-art.png",
-                "symbols": ["box-toppers-symbol.png"]
-            },
-            {   "name": "Expedition Base Set",
-                "date": "15/09/2002",
-                "cover": "expedition-base-set-pack-blastoise.jpg",
-                "symbols": ["expedition-base-set-symbol.png"]
-            },
-            {   "name": "Aquapolis",
-                "date": "15/01/2003",
-                "cover": "aquapolis-pack-scizor.jpg",
-                "symbols": ["aquapolis-symbol.png"]
-            },
-            {   "name": "Skyridge",
-                "date": "12/05/2003",
-                "cover": "skyridge-pack-ho-oh.jpg",
-                "symbols": ["skyridge-symbol.png"]
-            }
-        ]
-    },
+
     {   "name": "EX",
         "sets": [
             {   "name": "EX Ruby & Sapphire",

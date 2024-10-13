@@ -110,6 +110,31 @@
             }
         ]
     },
+    {   "id": "e-card",
+        "name": "e-Card",
+        "sets": [
+            {   "id": "box-toppers",
+                "name": "Box Toppers",
+                "region": "eng",
+                "date": "15/09/2002"
+            },
+            {   "id": "expedition-base-set",
+                "name": "Expedition Base Set",
+                "region": "eng",
+                "date": "15/09/2002"
+            },
+            {   "id": "aquapolis",
+                "name": "Aquapolis",
+                "region": "eng",
+                "date": "15/01/2003"
+            },
+            {   "id": "skyridge",
+                "name": "Skyridge",
+                "region": "eng",
+                "date": "12/05/2003"
+            }
+        ]
+    },
     {   "id": "platinum",
         "name": "Platinum",
         "sets": [
