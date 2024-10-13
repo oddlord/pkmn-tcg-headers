@@ -1,26 +1,5 @@
 [
 
-
-
-    {   "name": "Platinum",
-        "sets": [
-
-        ]
-    },
-    {   "name": "HeartGold & SoulSilver",
-        "sets": [
-            {   "name": "HeartGold & SoulSilver",
-                "date": "10/02/2010",
-                "cover": "heartgold-&-soulsilver-pack-ho-oh.jpg",
-                "symbols": ["heartgold-&-soulsilver-symbol.png"]
-            },
-            {   "name": "Trimphant",
-                "date": "03/11/2010",
-                "cover": "triumphant-pack-magmortar.jpg",
-                "symbols": ["triumphant-symbol.png"]
-            }
-        ]
-    },
     {   "name": "Call of Legends",
         "sets": [
             {   "name": "Call of Legends",

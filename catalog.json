@@ -195,6 +195,21 @@
             }
         ]
     },
+    {   "id": "heartgold-&-soulsilver",
+        "name": "HeartGold & SoulSilver",
+        "sets": [
+            {   "id": "heartgold-&-soulsilver",
+                "name": "HeartGold & SoulSilver",
+                "region": "eng",
+                "date": "10/02/2010"
+            },
+            {   "id": "trimphant",
+                "name": "Trimphant",
+                "region": "eng",
+                "date": "03/11/2010"
+            }
+        ]
+    },
     {   "id": "sword-and-shield",
         "name": "Sword & Shield",
         "sets": [
