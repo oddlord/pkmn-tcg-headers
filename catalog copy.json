@@ -1,13 +1,4 @@
 [
-    {   "name": "Legendary Collection",
-        "sets": [
-            {   "name": "Legendary Collection",
-                "date": "24/05/2002",
-                "cover": "legendary-collection-pack-venusaur-charizard-blastoise.jpg",
-                "symbols": ["legendary-collection-symbol.png"]
-            }
-        ]
-    },
     {   "name": "e-Card",
         "sets": [
             {   "name": "Box Toppers",
