@@ -165,6 +165,16 @@
             }
         ]
     },
+    {   "id": "diamond-&-pearl",
+        "name": "Diamond & Pearl",
+        "sets": [
+            {   "id": "secret-wonders",
+                "name": "Secret Wonders",
+                "region": "eng",
+                "date": "07/11/2007"
+            }
+        ]
+    },
     {   "id": "platinum",
         "name": "Platinum",
         "sets": [

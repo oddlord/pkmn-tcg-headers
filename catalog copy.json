@@ -1,15 +1,7 @@
 [
 
 
-    {   "name": "Diamond & Pearl",
-        "sets": [
-            {   "name": "Secret Wonders",
-                "date": "07/11/2007",
-                "cover": "secret-wonders-pack-honchkrow.jpg",
-                "symbols": ["secret-wonders-symbol.png"]
-            }
-        ]
-    },
+
     {   "name": "Platinum",
         "sets": [
             {   "name": "Rising Rivals",
