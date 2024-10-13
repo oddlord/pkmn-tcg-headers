@@ -4,16 +4,7 @@
 
     {   "name": "Platinum",
         "sets": [
-            {   "name": "Rising Rivals",
-                "date": "16/05/2009",
-                "cover": "rising-rivals-pack-rotom.jpg",
-                "symbols": ["rising-rivals-symbol.png"]
-            },
-            {   "name": "Supreme Victors",
-                "date": "19/08/2009",
-                "cover": "supreme-victors-pack-garchomp.jpg",
-                "symbols": ["supreme-victors-symbol.png"]
-            }
+
         ]
     },
     {   "name": "HeartGold & SoulSilver",

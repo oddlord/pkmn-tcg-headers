@@ -182,6 +182,16 @@
                 "name": "POP Series 9",
                 "region": "eng",
                 "date": "03/2009"
+            },
+            {   "id": "rising-rivals",
+                "name": "Rising Rivals",
+                "region": "eng",
+                "date": "16/05/2009"
+            },
+            {   "id": "supreme-victors",
+                "name": "Supreme Victors",
+                "region": "eng",
+                "date": "19/08/2009"
             }
         ]
     },
