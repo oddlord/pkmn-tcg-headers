@@ -57,7 +57,7 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
     page_width, page_height = page_size
 
     # Create a new PDF document
-    c = canvas.Canvas(output_path, pagesize=A4)
+    c = canvas.Canvas(output_path, pagesize=page_size)
         
     frame_img_path = os.path.join(img_dir_path, FRAME_FILENAME)
     frame_img = Image.open(frame_img_path)
@@ -272,4 +272,45 @@ if args.filter_filename:
 catalog = parse_json(json_file_path)
 
 # Generate the PDF
-generate_pdf(catalog, img_dir_path, catalog_dir_path, output_file_path, filter=filter)
+# generate_pdf(catalog, img_dir_path, catalog_dir_path, output_file_path, filter=filter)
+
+
+
+
+
+
+
+
+
+
+frame_corner_size = 10
+frame_width, frame_height = 400, 150
+frame_x, frame_y = 20, 100
+
+page_size = A4
+page_width, page_height = page_size
+c = canvas.Canvas(output_file_path, pagesize=page_size)
+c.setFillColor("red")
+c.rect(0, 0, page_width, page_height, stroke=1, fill=1)
+
+top_left = u.get_image_io(Image.open(os.path.join(img_dir_path, "frame-top-left.png")))
+c.drawImage(top_left, frame_x, frame_y+frame_corner_size+frame_height, width=frame_corner_size, height=frame_corner_size, mask='auto')
+top = u.get_image_io(Image.open(os.path.join(img_dir_path, "frame-top.png")))
+c.drawImage(top, frame_x+frame_corner_size, frame_y+frame_corner_size+frame_height, width=frame_width, height=frame_corner_size, mask='auto')
+top_right = u.get_image_io(Image.open(os.path.join(img_dir_path, "frame-top-right.png")))
+c.drawImage(top_right, frame_x+frame_corner_size+frame_width, frame_y+frame_corner_size+frame_height, width=frame_corner_size, height=frame_corner_size, mask='auto')
+left = u.get_image_io(Image.open(os.path.join(img_dir_path, "frame-left.png")))
+c.drawImage(left, frame_x, frame_y+frame_corner_size, width=frame_corner_size, height=frame_height, mask='auto')
+bottom_left = u.get_image_io(Image.open(os.path.join(img_dir_path, "frame-bottom-left.png")))
+c.drawImage(bottom_left, frame_x, frame_y, width=frame_corner_size, height=frame_corner_size, mask='auto')
+bottom = u.get_image_io(Image.open(os.path.join(img_dir_path, "frame-bottom.png")))
+c.drawImage(bottom, frame_x+frame_corner_size, frame_y, width=frame_width, height=frame_corner_size, mask='auto')
+bottom_right = u.get_image_io(Image.open(os.path.join(img_dir_path, "frame-bottom-right.png")))
+c.drawImage(bottom_right, frame_x+frame_corner_size+frame_width, frame_y, width=frame_corner_size, height=frame_corner_size, mask='auto')
+right = u.get_image_io(Image.open(os.path.join(img_dir_path, "frame-right.png")))
+c.drawImage(right, frame_x+frame_corner_size+frame_width, frame_y+frame_corner_size, width=frame_corner_size, height=frame_height, mask='auto')
+centre = u.get_image_io(Image.open(os.path.join(img_dir_path, "frame-centre.png")))
+c.drawImage(centre, frame_x+frame_corner_size, frame_y+frame_corner_size, width=frame_width, height=frame_height, mask='auto')
+
+c.showPage()
+c.save()
