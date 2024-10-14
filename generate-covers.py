@@ -12,8 +12,7 @@ import scripts.utils as u
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Japanese_Pok%C3%A9mon_Trading_Card_Game_expansions
 
 # TODO
-# Make frame modular (corners/sides)
-# Add corresponding_english_sets field
+# Make frame modular (corners/sides) and make it scale based on its content
 
 CATALOG_DIR_PATH = "assets/catalog"
 IMGS_DIR_PATH = "assets/imgs"

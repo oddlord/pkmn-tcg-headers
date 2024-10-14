@@ -48,6 +48,7 @@
             {   "id": "challenge-from-the-darkness",
                 "name": "闇からの挑戦",
                 "name_alt": "Challenge from the Darkness",
+                "eng_equivalent": ["gym-challenge"],
                 "region": "jpn",
                 "date": "25/06/1999"
             },
@@ -59,6 +60,7 @@
             {   "id": "southern-islands-jpn",
                 "name": "サザンアイランド",
                 "name_alt": "Southern Islands",
+                "eng_equivalent": ["southern-islands"],
                 "region": "jpn",
                 "date": "17/07/1999"
             },
@@ -85,6 +87,7 @@
             {   "id": "awakening-legends",
                 "name": "めざめる伝説",
                 "name_alt": "Awakening Legends",
+                "eng_equivalent": ["neo-revelation"],
                 "region": "jpn",
                 "date": "23/11/2000"
             },
@@ -246,8 +249,14 @@
             {   "id": "movie-special-pack-great-detective-pikachu",
                 "name": "ムービースペシャルパック 名探偵ピカチュウ",
                 "name_alt": "Movie Special Pack Great Detective Pikachu",
+                "eng_equivalent": ["detective-pikachu"],
                 "region": "jpn",
                 "date": "26/04/2019"
+            },
+            {   "id": "detective-pikachu",
+                "name": "Detective Pikachu",
+                "region": "eng",
+                "date": "29/03/2019"
             }
         ]
     },
@@ -294,35 +303,41 @@
                 "region": "eng",
                 "date": "19/03/2021"
             },
-            {   "id": "eevee-heroes",
-                "name": "イーブイヒーローズ",
-                "name_alt": "Eevee Heroes",
-                "region": "jpn",
-                "date": "28/05/2021"
-            },
             {   "id": "chilling-reign",
                 "name": "Chilling Reign",
                 "region": "eng",
                 "date": "18/06/2021"
+            },
+            {   "id": "eevee-heroes",
+                "name": "イーブイヒーローズ",
+                "name_alt": "Eevee Heroes",
+                "eng_equivalent": [
+                    "evolving-skies",
+                    "fusion-strike"
+                ],
+                "region": "jpn",
+                "date": "28/05/2021"
             },
             {   "id": "evolving-skies",
                 "name": "Evolving Skies",
                 "region": "eng",
                 "date": "27/08/2021"
             },
+            {   "id": "25th-anniversary-collection",
+                "name": "25th ANNIVERSARY COLLECTION",
+                "eng_equivalent": ["celebrations"],
+                "region": "jpn",
+                "date": "22/10/2021"
+            },
             {   "id": "celebrations",
                 "name": "Celebrations",
                 "region": "eng",
                 "date": "08/10/2021"
             },
-            {   "id": "25th-anniversary-collection",
-                "name": "25th ANNIVERSARY COLLECTION",
-                "region": "jpn",
-                "date": "22/10/2021"
-            },
             {   "id": "fusion-arts",
                 "name": "フュージョンアーツ",
                 "name_alt": "Fusion Arts",
+                "eng_equivalent": ["fusion-strike"],
                 "region": "jpn",
                 "date": "24/09/2021"
             },
@@ -334,6 +349,12 @@
             {   "id": "vmax-climax",
                 "name": "VMAXクライマックス",
                 "name_alt": "VMAX Climax",
+                "eng_equivalent": [
+                    "brilliant-stars",
+                    "astral-radiance",
+                    "lost-origin",
+                    "silver-tempest"
+                ],
                 "region": "jpn",
                 "date": "03/12/2021"
             },
@@ -345,6 +366,10 @@
             {   "id": "battle-region",
                 "name": "バトルリージョン",
                 "name_alt": "Battle Region",
+                "eng_equivalent": [
+                    "astral-radiance",
+                    "lost-origin"
+                ],
                 "region": "jpn",
                 "date": "25/02/2022"
             },
@@ -396,6 +421,7 @@
             {   "id": "ruler-of-the-black-flame",
                 "name": "黒炎の支配者",
                 "name_alt": "Ruler of the Black Flame",
+                "eng_equivalent": ["obsidian-flames"],
                 "region": "jpn",
                 "date": "28/07/2023"
             },
@@ -412,18 +438,21 @@
             {   "id": "raging-surf",
                 "name": "レイジングサーフ",
                 "name_alt": "Raging Surf",
+                "eng_equivalent": ["paradox-rift"],
                 "region": "jpn",
                 "date": "22/09/2023"
             },
             {   "id": "ancient-roar",
                 "name": "古代の咆哮",
                 "name_alt": "Ancient Roar",
+                "eng_equivalent": ["paradox-rift"],
                 "region": "jpn",
                 "date": "27/10/2023"
             },
             {   "id": "future-flash",
                 "name": "未来の一閃",
                 "name_alt": "Future Flash",
+                "eng_equivalent": ["paradox-rift"],
                 "region": "jpn",
                 "date": "27/10/2023"
             },
@@ -440,6 +469,7 @@
             {   "id": "cyber-judge",
                 "name": "サイバージャッジ",
                 "name_alt": "Cyber Judge",
+                "eng_equivalent": ["temporal-forces"],
                 "region": "jpn",
                 "date": "26/01/2024"
             },
@@ -451,12 +481,14 @@
             {   "id": "crimson-haze",
                 "name": "クリムゾンヘイズ",
                 "name_alt": "Crimson Haze",
+                "eng_equivalent": ["twilight-masquerade"],
                 "region": "jpn",
                 "date": "22/03/2024"
             },
             {   "id": "transformation-mask",
                 "name": "変幻の仮面",
                 "name_alt": "Transformation Mask",
+                "eng_equivalent": ["twilight-masquerade"],
                 "region": "jpn",
                 "date": "26/04/2024"
             },
@@ -468,6 +500,7 @@
             {   "id": "night-wanderer",
                 "name": "ナイトワンダラー",
                 "name_alt": "Night Wanderer",
+                "eng_equivalent": ["shrouded-fable"],
                 "region": "jpn",
                 "date": "07/06/2024"
             },
