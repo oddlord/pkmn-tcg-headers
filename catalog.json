@@ -393,6 +393,12 @@
                 "region": "eng",
                 "date": "09/06/2023"
             },
+            {   "id": "ruler-of-the-black-flame",
+                "name": "黒炎の支配者",
+                "name_alt": "Ruler of the Black Flame",
+                "region": "jpn",
+                "date": "28/07/2023"
+            },
             {   "id": "obsidian-flames",
                 "name": "Obsidian Flames",
                 "region": "eng",
@@ -403,7 +409,25 @@
                 "region": "eng",
                 "date": "22/09/2023"
             },
-            {   "id": "paradox-shift",
+            {   "id": "raging-surf",
+                "name": "レイジングサーフ",
+                "name_alt": "Raging Surf",
+                "region": "jpn",
+                "date": "22/09/2023"
+            },
+            {   "id": "ancient-roar",
+                "name": "古代の咆哮",
+                "name_alt": "Ancient Roar",
+                "region": "jpn",
+                "date": "27/10/2023"
+            },
+            {   "id": "future-flash",
+                "name": "未来の一閃",
+                "name_alt": "Future Flash",
+                "region": "jpn",
+                "date": "27/10/2023"
+            },
+            {   "id": "paradox-rift",
                 "name": "Paradox Rift",
                 "region": "eng",
                 "date": "03/11/2023"
@@ -413,10 +437,49 @@
                 "region": "eng",
                 "date": "26/01/2024"
             },
+            {   "id": "cyber-judge",
+                "name": "サイバージャッジ",
+                "name_alt": "Cyber Judge",
+                "region": "jpn",
+                "date": "26/01/2024"
+            },
             {   "id": "temporal-forces",
                 "name": "Temporal Forces",
                 "region": "eng",
                 "date": "22/03/2024"
+            },
+            {   "id": "crimson-haze",
+                "name": "クリムゾンヘイズ",
+                "name_alt": "Crimson Haze",
+                "region": "jpn",
+                "date": "22/03/2024"
+            },
+            {   "id": "transformation-mask",
+                "name": "変幻の仮面",
+                "name_alt": "Transformation Mask",
+                "region": "jpn",
+                "date": "26/04/2024"
+            },
+            {   "id": "twilight-masquerade",
+                "name": "Twilight Masquerade",
+                "region": "eng",
+                "date": "24/05/2024"
+            },
+            {   "id": "night-wanderer",
+                "name": "ナイトワンダラー",
+                "name_alt": "Night Wanderer",
+                "region": "jpn",
+                "date": "07/06/2024"
+            },
+            {   "id": "shrouded-fable",
+                "name": "Shrouded Fable",
+                "region": "eng",
+                "date": "02/08/2024"
+            },
+            {   "id": "stellar-crown",
+                "name": "Stellar Crown",
+                "region": "eng",
+                "date": "13/09/2024"
             }
         ]
     }
