@@ -13,6 +13,7 @@ import scripts.utils as u
 
 # TODO
 # Make frame modular (corners/sides)
+# Add corresponding_english_sets field
 
 CATALOG_DIR_PATH = "assets/catalog"
 IMGS_DIR_PATH = "assets/imgs"

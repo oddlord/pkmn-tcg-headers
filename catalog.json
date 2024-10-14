@@ -374,5 +374,50 @@
                 "date": "20/01/2023"
             }
         ]
+    },
+    {   "id": "scarlet-&-violet",
+        "name": "Scarlet & Violet",
+        "sets": [
+            {   "id": "svp-black-star-promos",
+                "name": "SVP Black Star Promos",
+                "region": "eng",
+                "date": "01/2023 - Present"
+            },
+            {   "id": "scarlet-&-violet",
+                "name": "Scarlet & Violet",
+                "region": "eng",
+                "date": "31/03/2023"
+            },
+            {   "id": "paldea-evolved",
+                "name": "Paldea Evolved",
+                "region": "eng",
+                "date": "09/06/2023"
+            },
+            {   "id": "obsidian-flames",
+                "name": "Obsidian Flames",
+                "region": "eng",
+                "date": "11/08/2023"
+            },
+            {   "id": "151",
+                "name": "151",
+                "region": "eng",
+                "date": "22/09/2023"
+            },
+            {   "id": "paradox-shift",
+                "name": "Paradox Rift",
+                "region": "eng",
+                "date": "03/11/2023"
+            },
+            {   "id": "paldean-fates",
+                "name": "Paldean Fates",
+                "region": "eng",
+                "date": "26/01/2024"
+            },
+            {   "id": "temporal-forces",
+                "name": "Temporal Forces",
+                "region": "eng",
+                "date": "22/03/2024"
+            }
+        ]
     }
 ]
