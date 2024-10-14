@@ -251,14 +251,127 @@
             }
         ]
     },
-    {   "id": "sword-and-shield",
+    {   "id": "sword-&-shield",
         "name": "Sword & Shield",
         "sets": [
+            {   "id": "swsh-black-star-promos",
+                "name": "SWSH Black Star Promos",
+                "region": "eng",
+                "date": "11/2019 - 08/2023"
+            },
+            {   "id": "sword-&-shield",
+                "name": "Sword & Shield",
+                "region": "eng",
+                "date": "07/02/2020"
+            },
+            {   "id": "rebel-clash",
+                "name": "Rebel Clash",
+                "region": "eng",
+                "date": "01/05/2020"
+            },
+            {   "id": "darkness-ablaze",
+                "name": "Darkness Ablaze",
+                "region": "eng",
+                "date": "14/08/2020"
+            },
+            {   "id": "vivid-voltage",
+                "name": "Vivid Voltage",
+                "region": "eng",
+                "date": "13/11/2020"
+            },
+            {   "id": "mcdonalds-collection-2021",
+                "name": "McDonald's Collection 2021",
+                "region": "eng",
+                "date": "09/02/2021"
+            },
+            {   "id": "shining-fates",
+                "name": "Shining Fates",
+                "region": "eng",
+                "date": "19/02/2021"
+            },
+            {   "id": "battle-styles",
+                "name": "Battle Styles",
+                "region": "eng",
+                "date": "19/03/2021"
+            },
+            {   "id": "eevee-heroes",
+                "name": "イーブイヒーローズ",
+                "name_alt": "Eevee Heroes",
+                "region": "jpn",
+                "date": "28/05/2021"
+            },
+            {   "id": "chilling-reign",
+                "name": "Chilling Reign",
+                "region": "eng",
+                "date": "18/06/2021"
+            },
+            {   "id": "evolving-skies",
+                "name": "Evolving Skies",
+                "region": "eng",
+                "date": "27/08/2021"
+            },
+            {   "id": "celebrations",
+                "name": "Celebrations",
+                "region": "eng",
+                "date": "08/10/2021"
+            },
+            {   "id": "25th-anniversary-collection",
+                "name": "25th ANNIVERSARY COLLECTION",
+                "region": "jpn",
+                "date": "22/10/2021"
+            },
+            {   "id": "fusion-arts",
+                "name": "フュージョンアーツ",
+                "name_alt": "Fusion Arts",
+                "region": "jpn",
+                "date": "24/09/2021"
+            },
+            {   "id": "fusion-strike",
+                "name": "Fusion Strike",
+                "region": "eng",
+                "date": "12/11/2021"
+            },
+            {   "id": "vmax-climax",
+                "name": "VMAXクライマックス",
+                "name_alt": "VMAX Climax",
+                "region": "jpn",
+                "date": "03/12/2021"
+            },
+            {   "id": "brilliant-stars",
+                "name": "Brilliant Stars",
+                "region": "eng",
+                "date": "25/02/2022"
+            },
             {   "id": "battle-region",
                 "name": "バトルリージョン",
                 "name_alt": "Battle Region",
                 "region": "jpn",
                 "date": "25/02/2022"
+            },
+            {   "id": "astral-radiance",
+                "name": "Astral Radiance",
+                "region": "eng",
+                "date": "27/05/2022"
+            },
+            {   "id": "pokémon-go",
+                "name": "Pokémon GO",
+                "region": "eng",
+                "date": "01/07/2022"
+            },
+            {   "id": "lost-origin",
+                "name": "Lost Origin",
+                "region": "eng",
+                "date": "09/09/2022"
+            },
+            {   "id": "silver-tempest",
+                "name": "Silver Tempest",
+                "region": "eng",
+                "date": "11/11/2022"
+            },
+            {   "id": "crown-zenith",
+                "name": "Crown Zenith",
+                "region": "eng",
+                "date": "20/01/2023"
             }
         ]
     }
