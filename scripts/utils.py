@@ -1,5 +1,6 @@
 import io
 import os
+import json
 from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
@@ -21,6 +22,8 @@ H_ALIGN_LEFT = "left"
 H_ALIGN_CENTRE = "centre"
 H_ALIGN_RIGHT = "right"
 
+DEFAULT_TEXT_SIZE = 12
+
 # -*- coding:utf-8 -*-
 ASIAN_CHAR_RANGES = [
   {"from": ord(u"\u3300"), "to": ord(u"\u33ff")},         # compatibility ideographs
@@ -38,21 +41,36 @@ ASIAN_CHAR_RANGES = [
   {"from": ord(u"\U0002b820"), "to": ord(u"\U0002ceaf")}  # included as of Unicode 8.0
 ]
 
-default_text_size = 0
-symbol_width = 0
+frame_top_left_path = ""
+frame_top_path = ""
+frame_top_right_path = ""
+frame_right_path = ""
+frame_bottom_right_path = ""
+frame_bottom_path = ""
+frame_bottom_left_path = ""
+frame_left_path = ""
+frame_centre_path = ""
 
 
-def init(script_directory, fonts_dir_path, text_size_default, symbol_w):
+def init(fonts_dir_path, frame_imgs_dir_path):
     # Register Japanese fonts
-    fonts_dir_path = os.path.join(script_directory, fonts_dir_path)
     jp_title_font_path = os.path.join(fonts_dir_path, "NotoSansJP-Bold.ttf")
     pdfmetrics.registerFont(TTFont(FONT_BOLD_JPN, jp_title_font_path))
     jp_text_font_path = os.path.join(fonts_dir_path, "NotoSansJP-Regular.ttf")
     pdfmetrics.registerFont(TTFont(FONT_JPN, jp_text_font_path))
 
-    global default_text_size, symbol_width
-    default_text_size = text_size_default
-    symbol_width = symbol_w
+    global frame_top_left_path, frame_top_path, frame_top_right_path
+    global frame_left_path, frame_centre_path, frame_right_path
+    global frame_bottom_left_path, frame_bottom_path, frame_bottom_right_path
+    frame_top_left_path = os.path.join(frame_imgs_dir_path, "frame-top-left.png")
+    frame_top_path = os.path.join(frame_imgs_dir_path, "frame-top.png")
+    frame_top_right_path = os.path.join(frame_imgs_dir_path, "frame-top-right.png")
+    frame_right_path = os.path.join(frame_imgs_dir_path, "frame-right.png")
+    frame_bottom_right_path = os.path.join(frame_imgs_dir_path, "frame-bottom-right.png")
+    frame_bottom_path = os.path.join(frame_imgs_dir_path, "frame-bottom.png")
+    frame_bottom_left_path = os.path.join(frame_imgs_dir_path, "frame-bottom-left.png")
+    frame_left_path = os.path.join(frame_imgs_dir_path, "frame-left.png")
+    frame_centre_path = os.path.join(frame_imgs_dir_path, "frame-centre.png")
     
 
 # https://stackoverflow.com/questions/30069846/how-to-find-out-chinese-or-japanese-character-in-a-string-in-python
@@ -68,9 +86,7 @@ def text_contains_asian_chars(text):
   return False
 
 
-def get_text_width(text, font_weight=FONT_WEIGHT_REGULAR, font_size=None):
-    if not font_size:
-        font_size = default_text_size
+def get_text_width(text, font_weight=FONT_WEIGHT_REGULAR, font_size=DEFAULT_TEXT_SIZE):
     font_name = get_font_name(text, font_weight)
     text_width = stringWidth(text, font_name, font_size)
     return text_width
@@ -88,12 +104,9 @@ def get_font_name(text, font_weight):
     return font_name
 
 
-def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=None, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
+def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=DEFAULT_TEXT_SIZE, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
     if not text:
         return
-    
-    if not font_size:
-        font_size = default_text_size
     
     font_name = get_font_name(text, font_weight)
     canvas.setFont(font_name, font_size)
@@ -115,13 +128,22 @@ def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=No
     canvas.drawString(x, y, text)
 
 
-def draw_symbol(symbol_path, x, y, canvas, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
+def draw_image(symbol_path, x, y, canvas, width=None, height=None, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
     symbol_image = Image.open(symbol_path)
     symbol_image_io = get_image_io(symbol_image)
 
     symbol_w, symbol_h = symbol_image.size
     symbol_ratio = symbol_w / symbol_h
-    symbol_w, symbol_h = (symbol_width, symbol_width / symbol_ratio)
+
+    if width:
+        symbol_w = width
+    elif height:
+        symbol_w = symbol_h * symbol_ratio
+
+    if height:
+        symbol_h = height
+    elif width:
+        symbol_h = symbol_w / symbol_ratio
 
     # drawImage takes the coordinates of the bottom-left of the text,
     # so we only need to adjust for centre/right and middle/top
@@ -139,9 +161,75 @@ def draw_symbol(symbol_path, x, y, canvas, h_align=H_ALIGN_LEFT, v_align=V_ALIGN
     canvas.drawImage(symbol_image_io, x, y, width=symbol_w, height=symbol_h, mask='auto')
 
 
+def draw_frame(x, y, canvas, width=400, height=150, border_thickness=10, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
+    full_w = width + 2*border_thickness
+    full_h = height + 2*border_thickness
+
+    # drawImage takes the coordinates of the bottom-left of the text,
+    # so we only need to adjust for centre/right and middle/top
+    #  We still need to adjust this as we want to take into consideration the full width/height of the frame
+
+    if h_align == H_ALIGN_CENTRE:
+        x = x - (full_w / 2)
+    elif h_align == H_ALIGN_RIGHT:
+        x = x - full_w
+
+    if v_align == V_ALIGN_MIDDLE:
+        y = y - (full_h / 2)
+    elif v_align == V_ALIGN_TOP:
+        y = y - full_h
+
+    draw_image(frame_top_left_path, x, y+border_thickness+height, canvas, width=border_thickness, height=border_thickness)
+    draw_image(frame_top_path, x+border_thickness, y+border_thickness+height, canvas, width=width, height=border_thickness)
+    draw_image(frame_top_right_path, x+border_thickness+width, y+border_thickness+height, canvas, width=border_thickness, height=border_thickness)
+    draw_image(frame_left_path, x, y+border_thickness, canvas, width=border_thickness, height=height)
+    draw_image(frame_bottom_left_path, x, y, canvas, width=border_thickness, height=border_thickness)
+    draw_image(frame_bottom_path, x+border_thickness, y, canvas, width=width, height=border_thickness)
+    draw_image(frame_bottom_right_path, x+border_thickness+width, y, canvas, width=border_thickness, height=border_thickness)
+    draw_image(frame_right_path, x+border_thickness+width, y+border_thickness, canvas, width=border_thickness, height=height)
+    draw_image(frame_centre_path, x+border_thickness, y+border_thickness, canvas, width=width, height=height)
+
+
 def get_image_io(image):
     image_data = io.BytesIO()
     image.save(image_data, format='png')
     image_data.seek(0)
     image_io = ImageReader(image_data)
     return image_io
+
+
+def crop_image_to_cover(image_path, page_size):
+    # Open the image
+    image = Image.open(image_path)
+
+    # Determine the aspect ratios of the image and the page
+    image_width, image_height = image.size
+    page_width, page_height = page_size
+
+    image_ratio = image_width / image_height
+    page_ratio = page_width / page_height
+
+    if image_ratio > page_ratio:
+        # The image is too wide, crop horizontally
+        new_image_width = int(image_height * page_ratio)
+        left = (image_width - new_image_width) // 2
+        right = left + new_image_width
+        top, bottom = 0, image_height
+    else:
+        # The image is too tall, crop vertically
+        new_image_height = int(image_width / page_ratio)
+        top = (image_height - new_image_height) // 2
+        bottom = top + new_image_height
+        left, right = 0, image_width
+
+    # Crop the image
+    cropped_image = image.crop((left, top, right, bottom))
+
+    return cropped_image
+
+
+def parse_json(file_path):
+    with open(file_path, encoding='utf-8') as f:
+        txt = f.read()
+        parsed = json.loads(txt)
+    return parsed
