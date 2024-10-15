@@ -32,11 +32,11 @@ SYMBOL_FILENAME_PREFIX = "symbol"
 LOG_INDENT = "  "
 
 FRAME_BORDER_THICKNESS = 10
-FRAME_WIDTH = 300
+FRAME_MIN_WIDTH = 200
 FRAME_HEIGHT = 100
 FRAME_MARGIN = 25
 FRAME_PADDING = 2
-FRAME_MIN_TITLE_PADDING = 10
+FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 15
 
 TITLE_SIZE = 16
 TEXT_SIZE = 12
@@ -68,8 +68,10 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
         serie_dir_path = os.path.join(catalog_dir_path, serie_id)
 
         serie_name = None
+        serie_name_width = 0
         if NAME_KEY in serie:
             serie_name = serie[NAME_KEY]
+            serie_name_width = u.get_text_width(serie_name, font_size=TEXT_SIZE)
 
         serie_print_name = serie_name or f"<{serie_id}>"
         has_printed_serie = False
@@ -83,36 +85,28 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
                 continue
 
             set_id = set[ID_KEY]
+
+            # Check if this set should be skipped
+            if filter and serie_id not in filter["allowed_series"] and f"{serie_id}/{set_id}" not in filter["allowed_sets"]:
+                continue
+
             set_dir_path = os.path.join(serie_dir_path, set_id)
 
+            # Get the set name, if present
             set_name = None
             set_name_width = 0
             if NAME_KEY in set:
                 set_name = set[NAME_KEY]
                 set_name_width = u.get_text_width(set_name, font_weight=u.FONT_WEIGHT_BOLD, font_size=TITLE_SIZE)
 
+            # Get the set alt name, if present
             set_name_alt = None
             set_name_alt_width = 0
             if NAME_ALT_KEY in set:
                 set_name_alt = set[NAME_ALT_KEY]
                 set_name_alt_width = u.get_text_width(set_name_alt, font_size=TEXT_SIZE)
 
-            frame_width = max(FRAME_WIDTH, set_name_width + 2*FRAME_MIN_TITLE_PADDING, set_name_alt_width + 2*FRAME_MIN_TITLE_PADDING)
-
-            frame_right_x = page_width - FRAME_MARGIN
-            frame_left_x = frame_right_x - frame_width - 2*FRAME_BORDER_THICKNESS
-            frame_top_y = page_height - FRAME_MARGIN
-            frame_bottom_y = frame_top_y - FRAME_HEIGHT - 2*FRAME_BORDER_THICKNESS
-
-            frame_padding = FRAME_PADDING
-            padded_frame_left_x = frame_left_x + FRAME_BORDER_THICKNESS + frame_padding
-            padded_frame_top_y = frame_top_y - FRAME_BORDER_THICKNESS - frame_padding
-            padded_frame_right_x = frame_right_x - FRAME_BORDER_THICKNESS - frame_padding
-            padded_frame_bottom_y = frame_bottom_y + FRAME_BORDER_THICKNESS + frame_padding
-
-            frame_centre_x = frame_left_x + (frame_right_x - frame_left_x)/2
-            frame_centre_y = frame_bottom_y + (frame_top_y - frame_bottom_y)/2
-
+            # Build the set print name
             if set_name:
                 set_print_name = set_name
                 if set_name_alt:
@@ -122,9 +116,7 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
             else:
                 set_print_name = f"<{set_id}>"
 
-            if filter and serie_id not in filter["allowed_series"] and f"{serie_id}/{set_id}" not in filter["allowed_sets"]:
-                continue
-
+            # Print the set to console
             page = page + 1
             set_print_str = f"{LOG_INDENT}{page}. {set_print_name}"
             if not has_printed_serie:
@@ -132,6 +124,23 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
                 has_printed_serie = True
             print(set_print_str)
 
+            # Get the set region symbol, if specified
+            region_filename = None
+            region_symbol_width = 0
+            if REGION_KEY in set:
+                set_region = set[REGION_KEY]
+                if set_region in REGION_FILENAMES:
+                    region_filename = REGION_FILENAMES[set_region]
+                    region_symbol_width = SYMBOL_WIDTH
+
+            # Get the set date, if present
+            set_date = None
+            set_date_width = 0
+            if DATE_KEY in set:
+                set_date = set[DATE_KEY]
+                set_date_width = u.get_text_width(set_date, font_size=TEXT_SIZE)
+
+            # Search for the cover and symbol(s)
             set_cover_path = None
             set_symbol_paths = []
             if os.path.isdir(set_dir_path):
@@ -142,6 +151,31 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
                     if file.startswith(f"{SYMBOL_FILENAME_PREFIX}"):
                         symbol_path = os.path.join(set_dir_path, file)
                         set_symbol_paths.append(symbol_path)
+            set_symbols_tot_width = len(set_symbol_paths)*SYMBOL_WIDTH + max(0, len(set_symbol_paths)-1)*SYMBOL_PADDING
+            
+            # Calculate frame values
+            frame_width = max(
+                FRAME_MIN_WIDTH,
+                set_name_width + 2*FRAME_MIN_INTERNAL_ELEMENTS_SPACING,
+                set_name_alt_width + 2*FRAME_MIN_INTERNAL_ELEMENTS_SPACING,
+                serie_name_width + FRAME_MIN_INTERNAL_ELEMENTS_SPACING + region_symbol_width,
+                set_symbols_tot_width + FRAME_MIN_INTERNAL_ELEMENTS_SPACING + set_date_width)
+            frame_height = FRAME_HEIGHT
+
+            frame_right_x = page_width - FRAME_MARGIN
+            frame_left_x = frame_right_x - frame_width - 2*FRAME_BORDER_THICKNESS
+            frame_top_y = page_height - FRAME_MARGIN
+            frame_bottom_y = frame_top_y - frame_height - 2*FRAME_BORDER_THICKNESS
+
+            frame_padding = FRAME_PADDING
+            padded_frame_left_x = frame_left_x + FRAME_BORDER_THICKNESS + frame_padding
+            padded_frame_top_y = frame_top_y - FRAME_BORDER_THICKNESS - frame_padding
+            padded_frame_right_x = frame_right_x - FRAME_BORDER_THICKNESS - frame_padding
+            padded_frame_bottom_y = frame_bottom_y + FRAME_BORDER_THICKNESS + frame_padding
+
+            frame_centre_x = frame_left_x + (frame_right_x - frame_left_x)/2
+            frame_centre_y = frame_bottom_y + (frame_top_y - frame_bottom_y)/2
+            # Calculate frame values --- END
 
             # Draw the cover, if present
             if set_cover_path:
@@ -150,7 +184,6 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
                 c.drawImage(cropped_img_io, 0, 0, width=page_width, height=page_height)
 
             # Draw the frame
-            # c.drawImage(frame_img_io, frame_x, frame_y, width=frame_width, height=frame_height, mask='auto', preserveAspectRatio=True)
             u.draw_frame(frame_right_x, frame_top_y, c, width=frame_width, height=FRAME_HEIGHT, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
 
             # Write the set's name and alternative name, if present
@@ -169,8 +202,7 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
                 u.write_text(serie_name, padded_frame_left_x, padded_frame_top_y, c, font_size=TEXT_SIZE, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
 
             # Write the date in the bottom-right corner, if present
-            if DATE_KEY in set:
-                set_date = set[DATE_KEY]
+            if set_date:
                 u.write_text(set_date, padded_frame_right_x, padded_frame_bottom_y, c, font_size=TEXT_SIZE, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM)
 
             # Draw the symbol(s), if present
@@ -180,12 +212,9 @@ def generate_pdf(series, img_dir_path, catalog_dir_path, output_path, filter=Non
                 symbol_x = symbol_x + SYMBOL_WIDTH + SYMBOL_PADDING
 
             # Draw the region symbol, if specified
-            if REGION_KEY in set:
-                set_region = set[REGION_KEY]
-                if set_region in REGION_FILENAMES:
-                    region_filename = REGION_FILENAMES[set_region]
-                    region_path = os.path.join(img_dir_path, region_filename)
-                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
+            if region_filename:
+                region_path = os.path.join(img_dir_path, region_filename)
+                u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=region_symbol_width, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
 
             # Render the page
             c.showPage()
