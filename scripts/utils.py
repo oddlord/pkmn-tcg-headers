@@ -24,6 +24,8 @@ H_ALIGN_RIGHT = "right"
 
 DEFAULT_TEXT_SIZE = 12
 
+LOG_INDENT = "  "
+
 # -*- coding:utf-8 -*-
 ASIAN_CHAR_RANGES = [
   {"from": ord(u"\u3300"), "to": ord(u"\u33ff")},         # compatibility ideographs
@@ -233,3 +235,11 @@ def parse_json(file_path):
         txt = f.read()
         parsed = json.loads(txt)
     return parsed
+
+
+def log(text, indent_level=0):
+    log_text = ""
+    for x in range(0, indent_level):
+        log_text += LOG_INDENT
+    log_text += text
+    print(log_text)
