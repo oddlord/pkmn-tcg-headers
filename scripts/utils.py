@@ -116,12 +116,10 @@ def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=DE
 
     # drawString takes the coordinates of the bottom-left of the text,
     # so we only need to adjust for centre/right and middle/top
-
     if h_align == H_ALIGN_CENTRE:
         x = x - (text_width / 2)
     elif h_align == H_ALIGN_RIGHT:
         x = x - text_width
-
     if v_align == V_ALIGN_MIDDLE:
         y = y - (font_size / 2)
     elif v_align == V_ALIGN_TOP:
@@ -130,37 +128,38 @@ def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=DE
     canvas.drawString(x, y, text)
 
 
-def draw_image(symbol_path, x, y, canvas, width=None, height=None, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
-    symbol_image = Image.open(symbol_path)
-    symbol_image_io = get_image_io(symbol_image)
+def draw_image(image_path, x, y, canvas, width=None, height=None, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM, crop_to_cover=False):
+    image = Image.open(image_path)
+    if (crop_to_cover):
+        image = crop_image_to_cover(image, width, height)
 
-    symbol_w, symbol_h = symbol_image.size
-    symbol_ratio = symbol_w / symbol_h
+    image_io = get_image_io(image)
+
+    image_w, image_h = image.size
+    image_ratio = image_w / image_h
 
     if width:
-        symbol_w = width
+        image_w = width
     elif height:
-        symbol_w = symbol_h * symbol_ratio
+        image_w = image_h * image_ratio
 
     if height:
-        symbol_h = height
+        image_h = height
     elif width:
-        symbol_h = symbol_w / symbol_ratio
+        image_h = image_w / image_ratio
 
     # drawImage takes the coordinates of the bottom-left of the text,
     # so we only need to adjust for centre/right and middle/top
-
     if h_align == H_ALIGN_CENTRE:
-        x = x - (symbol_w / 2)
+        x = x - (image_w / 2)
     elif h_align == H_ALIGN_RIGHT:
-        x = x - symbol_w
-
+        x = x - image_w
     if v_align == V_ALIGN_MIDDLE:
-        y = y - (symbol_h / 2)
+        y = y - (image_h / 2)
     elif v_align == V_ALIGN_TOP:
-        y = y - symbol_h
+        y = y - image_h
 
-    canvas.drawImage(symbol_image_io, x, y, width=symbol_w, height=symbol_h, mask='auto')
+    canvas.drawImage(image_io, x, y, width=image_w, height=image_h, mask='auto')
 
 
 def draw_frame(x, y, canvas, width=400, height=150, border_thickness=10, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
@@ -170,12 +169,10 @@ def draw_frame(x, y, canvas, width=400, height=150, border_thickness=10, h_align
     # drawImage takes the coordinates of the bottom-left of the text,
     # so we only need to adjust for centre/right and middle/top
     #  We still need to adjust this as we want to take into consideration the full width/height of the frame
-
     if h_align == H_ALIGN_CENTRE:
         x = x - (full_w / 2)
     elif h_align == H_ALIGN_RIGHT:
         x = x - full_w
-
     if v_align == V_ALIGN_MIDDLE:
         y = y - (full_h / 2)
     elif v_align == V_ALIGN_TOP:
@@ -200,33 +197,28 @@ def get_image_io(image):
     return image_io
 
 
-def crop_image_to_cover(image_path, page_size):
-    # Open the image
-    image = Image.open(image_path)
-
+def crop_image_to_cover(image, width, height):
     # Determine the aspect ratios of the image and the page
     image_width, image_height = image.size
-    page_width, page_height = page_size
 
     image_ratio = image_width / image_height
-    page_ratio = page_width / page_height
+    box_ratio = width / height
 
-    if image_ratio > page_ratio:
+    if image_ratio > box_ratio:
         # The image is too wide, crop horizontally
-        new_image_width = int(image_height * page_ratio)
+        new_image_width = int(image_height * box_ratio)
         left = (image_width - new_image_width) // 2
         right = left + new_image_width
         top, bottom = 0, image_height
     else:
         # The image is too tall, crop vertically
-        new_image_height = int(image_width / page_ratio)
+        new_image_height = int(image_width / box_ratio)
         top = (image_height - new_image_height) // 2
         bottom = top + new_image_height
         left, right = 0, image_width
 
     # Crop the image
     cropped_image = image.crop((left, top, right, bottom))
-
     return cropped_image
 
 

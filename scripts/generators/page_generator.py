@@ -59,6 +59,7 @@ class PageGenerator():
                 if self.config.filtered_sets and serie_id not in self.config.filtered_sets["allowed_series"] and f"{serie_id}/{set_id}" not in self.config.filtered_sets["allowed_sets"]:
                     continue
 
+                page = page + 1
                 set_dir_path = os.path.join(serie_dir_path, set_id)
 
                 # Get the set name, if present
@@ -86,7 +87,6 @@ class PageGenerator():
                     set_print_name = f"<{set_id}>"
 
                 # Print the set to console
-                page = page + 1
                 set_print_str = f"{page}. {set_print_name}"
                 if not has_printed_serie:
                     u.log(f"\n{serie_print_name}")
@@ -148,9 +148,7 @@ class PageGenerator():
 
                 # Draw the cover, if present
                 if set_cover_path:
-                    cropped_img = u.crop_image_to_cover(set_cover_path, page_size)
-                    cropped_img_io = u.get_image_io(cropped_img)
-                    c.drawImage(cropped_img_io, 0, 0, width=page_width, height=page_height)
+                    u.draw_image(set_cover_path, 0, 0, c, width=page_width, height=page_height, crop_to_cover=True)
 
                 # Draw the frame
                 u.draw_frame(frame_right_x, frame_top_y, c, width=frame_width, height=FRAME_HEIGHT, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
