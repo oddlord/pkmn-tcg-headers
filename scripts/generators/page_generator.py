@@ -136,11 +136,10 @@ class PageGenerator():
                 frame_top_y = page_height - FRAME_MARGIN
                 frame_bottom_y = frame_top_y - frame_height - 2*FRAME_BORDER_THICKNESS
 
-                frame_padding = FRAME_PADDING
-                padded_frame_left_x = frame_left_x + FRAME_BORDER_THICKNESS + frame_padding
-                padded_frame_top_y = frame_top_y - FRAME_BORDER_THICKNESS - frame_padding
-                padded_frame_right_x = frame_right_x - FRAME_BORDER_THICKNESS - frame_padding
-                padded_frame_bottom_y = frame_bottom_y + FRAME_BORDER_THICKNESS + frame_padding
+                padded_frame_left_x = frame_left_x + FRAME_BORDER_THICKNESS + FRAME_PADDING
+                padded_frame_top_y = frame_top_y - FRAME_BORDER_THICKNESS - FRAME_PADDING
+                padded_frame_right_x = frame_right_x - FRAME_BORDER_THICKNESS - FRAME_PADDING
+                padded_frame_bottom_y = frame_bottom_y + FRAME_BORDER_THICKNESS + FRAME_PADDING
 
                 frame_centre_x = frame_left_x + (frame_right_x - frame_left_x)/2
                 frame_centre_y = frame_bottom_y + (frame_top_y - frame_bottom_y)/2

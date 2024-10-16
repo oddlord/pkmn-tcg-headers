@@ -5,18 +5,15 @@ from reportlab.pdfgen import canvas
 
 import scripts.utils as u
 
-FRAME_BORDER_THICKNESS = 10
-FRAME_MIN_WIDTH = 200
-FRAME_HEIGHT = 100
-FRAME_MARGIN = 25
-FRAME_PADDING = 2
-FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 15
+FRAME_BORDER_THICKNESS = 7.5
+FRAME_PADDING = 1.5
+FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 3.5
 
-TITLE_SIZE = 16
-TEXT_SIZE = 12
+TITLE_SIZE = 12
+TEXT_SIZE = 10
 
-SYMBOL_WIDTH = 20
-SYMBOL_PADDING = 2.5
+SYMBOL_WIDTH = 12
+SYMBOL_PADDING = 1.5
 
 class CardGenerator():
     def __init__(self, config):
@@ -31,6 +28,10 @@ class CardGenerator():
 
         card_spacing_h = (page_width - 3*card_width)/4
         card_spacing_v = (page_height - 3*card_height)/4
+
+        frame_full_width = card_width
+        frame_full_height = card_height/2
+        name_max_width = frame_full_width - 2*FRAME_MIN_INTERNAL_ELEMENTS_SPACING - 2*FRAME_BORDER_THICKNESS
 
         # Create a new PDF document
         c = canvas.Canvas(self.config.output_file_path, pagesize=page_size)
@@ -73,17 +74,25 @@ class CardGenerator():
 
                 # Get the set name, if present
                 set_name = None
-                set_name_width = 0
+                set_name_font_size = TITLE_SIZE
                 if "name" in set:
                     set_name = set["name"]
-                    set_name_width = u.get_text_width(set_name, font_weight=u.FONT_WEIGHT_BOLD, font_size=TITLE_SIZE)
+                    while True:
+                        set_name_width = u.get_text_width(set_name, font_weight=u.FONT_WEIGHT_BOLD, font_size=set_name_font_size)
+                        if set_name_width <= name_max_width:
+                            break
+                        set_name_font_size = set_name_font_size - 1
 
                 # Get the set alt name, if present
                 set_name_alt = None
-                set_name_alt_width = 0
+                set_name_alt_font_size = TEXT_SIZE
                 if "name_alt" in set:
                     set_name_alt = set["name_alt"]
-                    set_name_alt_width = u.get_text_width(set_name_alt, font_size=TEXT_SIZE)
+                    while True:
+                        set_name_alt_width = u.get_text_width(set_name_alt, font_size=set_name_alt_font_size)
+                        if set_name_alt_width <= name_max_width:
+                            break
+                        set_name_alt_font_size = set_name_alt_font_size - 1
 
                 # Build the set print name
                 if set_name:
@@ -137,12 +146,57 @@ class CardGenerator():
                 card_x = card_col*card_width + (card_col+1)*card_spacing_h
                 card_y = page_height - (card_row*card_height + (card_row+1)*card_spacing_v)
 
+                # Calculate frame values
+                frame_left_x = card_x
+                frame_right_x = frame_left_x + frame_full_width
+                frame_bottom_y = card_y - card_height
+                frame_top_y = frame_bottom_y + frame_full_height
+
+                padded_frame_left_x = frame_left_x + FRAME_BORDER_THICKNESS + FRAME_PADDING
+                padded_frame_top_y = frame_top_y - FRAME_BORDER_THICKNESS - FRAME_PADDING
+                padded_frame_right_x = frame_right_x - FRAME_BORDER_THICKNESS - FRAME_PADDING
+                padded_frame_bottom_y = frame_bottom_y + FRAME_BORDER_THICKNESS + FRAME_PADDING
+
+                frame_centre_x = frame_left_x + (frame_right_x - frame_left_x)/2
+                frame_centre_y = frame_bottom_y + (frame_top_y - frame_bottom_y)/2
+                # Calculate frame values --- END
+
                 # Draw the cover, if present
                 if set_cover_path:
                     u.draw_image(set_cover_path, card_x, card_y, c, width=card_width, height=card_height, crop_to_cover=True, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
 
                 # Draw the frame
-                u.draw_frame(card_x, card_y-card_height, c, width=card_width, height=card_height/2, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_BOTTOM, is_full_size=True)
+                u.draw_frame(frame_left_x, frame_bottom_y, c, width=frame_full_width, height=frame_full_height, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_BOTTOM, is_full_size=True)
+
+                # Write the set's name and alternative name, if present
+                title_y = frame_centre_y
+                subtitle_y = frame_centre_y
+                if set_name and set_name_alt:
+                    title_y = frame_centre_y + set_name_alt_font_size/2
+                    subtitle_y = frame_centre_y - set_name_alt_font_size/2
+                if set_name:
+                    u.write_text(set_name, frame_centre_x, title_y, c, font_weight=u.FONT_WEIGHT_BOLD, font_size=set_name_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
+                if set_name_alt:
+                    u.write_text(set_name_alt, frame_centre_x, subtitle_y, c, font_size=set_name_alt_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
+
+                # Write the serie name in the top-left corner, if present
+                if serie_name:
+                    u.write_text(serie_name, padded_frame_left_x, padded_frame_top_y, c, font_size=TEXT_SIZE, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
+
+                # Write the date in the bottom-right corner, if present
+                if set_date:
+                    u.write_text(set_date, padded_frame_right_x, padded_frame_bottom_y, c, font_size=TEXT_SIZE, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM)
+
+                # Draw the symbol(s), if present
+                symbol_x = padded_frame_left_x
+                for symbol_path in set_symbol_paths:
+                    u.draw_image(symbol_path, symbol_x, padded_frame_bottom_y, c, width=SYMBOL_WIDTH)
+                    symbol_x = symbol_x + SYMBOL_WIDTH + SYMBOL_PADDING
+
+                # Draw the region symbol, if specified
+                if region_filename:
+                    region_path = os.path.join(self.config.imgs_dir_path, region_filename)
+                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=region_symbol_width, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
 
                 if (card_in_page == 9):
                     # Render the page
