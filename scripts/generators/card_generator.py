@@ -7,12 +7,15 @@ import scripts.utils as u
 
 FRAME_BORDER_THICKNESS = 7.5
 FRAME_PADDING = 1.5
-FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 3.5
+FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 5
 
 TITLE_SIZE = 12
 TEXT_SIZE = 10
 
-SYMBOL_WIDTH = 12
+NAME_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
+NAME_ALT_FONT_WEIGHT = u.FONT_WEIGHT_REGULAR
+
+SYMBOL_WIDTH = 14
 SYMBOL_PADDING = 1.5
 
 class CardGenerator():
@@ -78,7 +81,7 @@ class CardGenerator():
                 if "name" in set:
                     set_name = set["name"]
                     while True:
-                        set_name_width = u.get_text_width(set_name, font_weight=u.FONT_WEIGHT_BOLD, font_size=set_name_font_size)
+                        set_name_width = u.get_text_width(set_name, font_weight=NAME_FONT_WEIGHT, font_size=set_name_font_size)
                         if set_name_width <= name_max_width:
                             break
                         set_name_font_size = set_name_font_size - 1
@@ -89,7 +92,7 @@ class CardGenerator():
                 if "name_alt" in set:
                     set_name_alt = set["name_alt"]
                     while True:
-                        set_name_alt_width = u.get_text_width(set_name_alt, font_size=set_name_alt_font_size)
+                        set_name_alt_width = u.get_text_width(set_name_alt, font_weight=NAME_ALT_FONT_WEIGHT, font_size=set_name_alt_font_size)
                         if set_name_alt_width <= name_max_width:
                             break
                         set_name_alt_font_size = set_name_alt_font_size - 1
@@ -113,19 +116,15 @@ class CardGenerator():
 
                 # Get the set region symbol, if specified
                 region_filename = None
-                region_symbol_width = 0
                 if "region" in set:
                     set_region = set["region"]
                     if set_region in self.config.region_filenames:
                         region_filename = self.config.region_filenames[set_region]
-                        region_symbol_width = SYMBOL_WIDTH
 
                 # Get the set date, if present
                 set_date = None
-                set_date_width = 0
                 if "date" in set:
                     set_date = set["date"]
-                    set_date_width = u.get_text_width(set_date, font_size=TEXT_SIZE)
 
                 # Search for the cover and symbol(s)
                 set_cover_path = None
@@ -138,7 +137,6 @@ class CardGenerator():
                         if file.startswith(self.config.symbol_filename_prefix):
                             symbol_path = os.path.join(set_dir_path, file)
                             set_symbol_paths.append(symbol_path)
-                set_symbols_tot_width = len(set_symbol_paths)*SYMBOL_WIDTH + max(0, len(set_symbol_paths)-1)*SYMBOL_PADDING
 
                 card_col = (card_in_page-1)%3
                 card_row = (card_in_page-1)//3
@@ -175,9 +173,9 @@ class CardGenerator():
                     title_y = frame_centre_y + set_name_alt_font_size/2
                     subtitle_y = frame_centre_y - set_name_alt_font_size/2
                 if set_name:
-                    u.write_text(set_name, frame_centre_x, title_y, c, font_weight=u.FONT_WEIGHT_BOLD, font_size=set_name_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
+                    u.write_text(set_name, frame_centre_x, title_y, c, font_weight=NAME_FONT_WEIGHT, font_size=set_name_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
                 if set_name_alt:
-                    u.write_text(set_name_alt, frame_centre_x, subtitle_y, c, font_size=set_name_alt_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
+                    u.write_text(set_name_alt, frame_centre_x, subtitle_y, c, font_weight=NAME_ALT_FONT_WEIGHT, font_size=set_name_alt_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
 
                 # Write the serie name in the top-left corner, if present
                 if serie_name:
@@ -190,13 +188,13 @@ class CardGenerator():
                 # Draw the symbol(s), if present
                 symbol_x = padded_frame_left_x
                 for symbol_path in set_symbol_paths:
-                    u.draw_image(symbol_path, symbol_x, padded_frame_bottom_y, c, width=SYMBOL_WIDTH)
-                    symbol_x = symbol_x + SYMBOL_WIDTH + SYMBOL_PADDING
+                    symbol_w, _ = u.draw_image(symbol_path, symbol_x, padded_frame_bottom_y, c, width=SYMBOL_WIDTH)
+                    symbol_x = symbol_x + symbol_w + SYMBOL_PADDING
 
                 # Draw the region symbol, if specified
                 if region_filename:
                     region_path = os.path.join(self.config.imgs_dir_path, region_filename)
-                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=region_symbol_width, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
+                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
 
                 if (card_in_page == 9):
                     # Render the page

@@ -7,13 +7,16 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from PIL import Image
 
-FONT_ENG = "Helvetica"
-FONT_BOLD_ENG = "Helvetica-Bold"
-FONT_JPN = "NotoSansJP"
-FONT_BOLD_JPN = "NotoSansJP-Bold"
+FONT_ENG = "Font_ENG"
+FONT_BOLD_ENG = "Font_ENG_Bold"
+FONT_HANDWRITING_ENG = "Font_ENG_Handwriting"
+FONT_JPN = "Font_JPN"
+FONT_BOLD_JPN = "Font_JPN_Bold"
+FONT_HANDWRITING_JPN = "Font_JPN_Handwriting"
 
 FONT_WEIGHT_REGULAR = "regular"
 FONT_WEIGHT_BOLD = "bold"
+FONT_WEIGHT_HANDWRITING = "handwriting"
 
 V_ALIGN_TOP = "top"
 V_ALIGN_MIDDLE = "middle"
@@ -55,11 +58,20 @@ frame_centre_path = ""
 
 
 def init(fonts_dir_path, frame_imgs_dir_path):
+    # Register English fonts
+    eng_regular_font_path = os.path.join(fonts_dir_path, "Roboto/Roboto-Regular.ttf")
+    pdfmetrics.registerFont(TTFont(FONT_ENG, eng_regular_font_path))
+    eng_bold_font_path = os.path.join(fonts_dir_path, "Roboto/Roboto-Bold.ttf")
+    pdfmetrics.registerFont(TTFont(FONT_BOLD_ENG, eng_bold_font_path))
+    eng_handwriting_font_path = os.path.join(fonts_dir_path, "PlaywriteGBS/PlaywriteGBS-Regular.ttf")
+    pdfmetrics.registerFont(TTFont(FONT_HANDWRITING_ENG, eng_handwriting_font_path))
     # Register Japanese fonts
-    jp_title_font_path = os.path.join(fonts_dir_path, "NotoSansJP-Bold.ttf")
-    pdfmetrics.registerFont(TTFont(FONT_BOLD_JPN, jp_title_font_path))
-    jp_text_font_path = os.path.join(fonts_dir_path, "NotoSansJP-Regular.ttf")
-    pdfmetrics.registerFont(TTFont(FONT_JPN, jp_text_font_path))
+    jpn_regular_font_path = os.path.join(fonts_dir_path, "NotoSansJP/NotoSansJP-Regular.ttf")
+    pdfmetrics.registerFont(TTFont(FONT_JPN, jpn_regular_font_path))
+    jpn_bold_font_path = os.path.join(fonts_dir_path, "NotoSansJP/NotoSansJP-Bold.ttf")
+    pdfmetrics.registerFont(TTFont(FONT_BOLD_JPN, jpn_bold_font_path))
+    jpn_handwriting_font_path = os.path.join(fonts_dir_path, "HachiMaruPop/HachiMaruPop-Regular.ttf")
+    pdfmetrics.registerFont(TTFont(FONT_HANDWRITING_JPN, jpn_handwriting_font_path))
 
     global frame_top_left_path, frame_top_path, frame_top_right_path
     global frame_left_path, frame_centre_path, frame_right_path
@@ -95,15 +107,20 @@ def get_text_width(text, font_weight=FONT_WEIGHT_REGULAR, font_size=DEFAULT_TEXT
 
 
 def get_font_name(text, font_weight):
-    has_asian_chars = text_contains_asian_chars(text)
-    font_name = FONT_ENG
-    if font_weight == FONT_WEIGHT_REGULAR and has_asian_chars:
-        font_name = FONT_JPN
-    elif font_weight == FONT_WEIGHT_BOLD and not has_asian_chars:
-        font_name = FONT_BOLD_ENG
-    elif font_weight == FONT_WEIGHT_BOLD and has_asian_chars:
-        font_name = FONT_BOLD_JPN
-    return font_name
+    if text_contains_asian_chars(text):
+        if font_weight == FONT_WEIGHT_BOLD:
+            return FONT_BOLD_JPN
+        elif font_weight == FONT_WEIGHT_HANDWRITING:
+            return FONT_HANDWRITING_JPN
+        else:
+            return FONT_JPN
+    else:
+        if font_weight == FONT_WEIGHT_BOLD:
+            return FONT_BOLD_ENG
+        elif font_weight == FONT_WEIGHT_HANDWRITING:
+            return FONT_HANDWRITING_ENG
+        else:
+            return FONT_ENG
 
 
 def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=DEFAULT_TEXT_SIZE, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
@@ -141,12 +158,12 @@ def draw_image(image_path, x, y, canvas, width=None, height=None, h_align=H_ALIG
     if width:
         image_w = width
     elif height:
-        image_w = image_h * image_ratio
+        image_w = height * image_ratio
 
     if height:
         image_h = height
     elif width:
-        image_h = image_w / image_ratio
+        image_h = width / image_ratio
 
     # drawImage takes the coordinates of the bottom-left of the text,
     # so we only need to adjust for centre/right and middle/top
@@ -160,6 +177,7 @@ def draw_image(image_path, x, y, canvas, width=None, height=None, h_align=H_ALIG
         y = y - image_h
 
     canvas.drawImage(image_io, x, y, width=image_w, height=image_h, mask='auto')
+    return image_w, image_h
 
 
 def draw_frame(x, y, canvas, width=400, height=150, border_thickness=10, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM, is_full_size=False):
