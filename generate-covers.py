@@ -2,6 +2,7 @@ import os
 from argparse import ArgumentParser
 
 from scripts.generators.page_generator import *
+from scripts.generators.card_generator import *
 from scripts.config import Config
 
 # Links:
@@ -60,5 +61,6 @@ config = Config(
 )
 
 # Generate the PDF
-generator = PageGenerator(config)
+# generator = PageGenerator(config)
+generator = CardGenerator(config)
 generator.generate()
