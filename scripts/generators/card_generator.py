@@ -1,23 +1,21 @@
 import os
 from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import mm
 from reportlab.pdfgen import canvas
 
 import scripts.utils as u
 
-FRAME_BORDER_THICKNESS = 10
-FRAME_MIN_WIDTH = 200
-FRAME_HEIGHT = 100
-FRAME_MARGIN = 25
-FRAME_PADDING = 2
-FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 15
+FRAME_BORDER_THICKNESS = 7.5
+FRAME_PADDING = 1.5
+FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 3.5
 
-TITLE_SIZE = 16
-TEXT_SIZE = 12
+TITLE_SIZE = 12
+TEXT_SIZE = 10
 
-SYMBOL_WIDTH = 20
-SYMBOL_PADDING = 2.5
+SYMBOL_WIDTH = 12
+SYMBOL_PADDING = 1.5
 
-class PageGenerator():
+class CardGenerator():
     def __init__(self, config):
         self.config = config
     
@@ -25,10 +23,20 @@ class PageGenerator():
         page_size = A4
         page_width, page_height = page_size
 
+        card_size = (63.5*mm, 88*mm)
+        card_width, card_height = card_size
+
+        card_spacing_h = (page_width - 3*card_width)/4
+        card_spacing_v = (page_height - 3*card_height)/4
+
+        frame_full_width = card_width
+        frame_full_height = card_height/2
+        name_max_width = frame_full_width - 2*FRAME_MIN_INTERNAL_ELEMENTS_SPACING - 2*FRAME_BORDER_THICKNESS
+
         # Create a new PDF document
         c = canvas.Canvas(self.config.output_file_path, pagesize=page_size)
 
-        page = 0
+        card = 0
         for serie in self.config.catalog:
             if "id" not in serie:
                 continue
@@ -59,22 +67,32 @@ class PageGenerator():
                 if self.config.filtered_sets and serie_id not in self.config.filtered_sets["allowed_series"] and f"{serie_id}/{set_id}" not in self.config.filtered_sets["allowed_sets"]:
                     continue
 
-                page = page + 1
+                card = card + 1
+                page = (card-1)//9 +1
+                card_in_page = (card-1)%9 +1
                 set_dir_path = os.path.join(serie_dir_path, set_id)
 
                 # Get the set name, if present
                 set_name = None
-                set_name_width = 0
+                set_name_font_size = TITLE_SIZE
                 if "name" in set:
                     set_name = set["name"]
-                    set_name_width = u.get_text_width(set_name, font_weight=u.FONT_WEIGHT_BOLD, font_size=TITLE_SIZE)
+                    while True:
+                        set_name_width = u.get_text_width(set_name, font_weight=u.FONT_WEIGHT_BOLD, font_size=set_name_font_size)
+                        if set_name_width <= name_max_width:
+                            break
+                        set_name_font_size = set_name_font_size - 1
 
                 # Get the set alt name, if present
                 set_name_alt = None
-                set_name_alt_width = 0
+                set_name_alt_font_size = TEXT_SIZE
                 if "name_alt" in set:
                     set_name_alt = set["name_alt"]
-                    set_name_alt_width = u.get_text_width(set_name_alt, font_size=TEXT_SIZE)
+                    while True:
+                        set_name_alt_width = u.get_text_width(set_name_alt, font_size=set_name_alt_font_size)
+                        if set_name_alt_width <= name_max_width:
+                            break
+                        set_name_alt_font_size = set_name_alt_font_size - 1
 
                 # Build the set print name
                 if set_name:
@@ -87,7 +105,7 @@ class PageGenerator():
                     set_print_name = f"<{set_id}>"
 
                 # Print the set to console
-                set_print_str = f"{page}. {set_print_name}"
+                set_print_str = f"{page}.{card_in_page}. {set_print_name}"
                 if not has_printed_serie:
                     u.log(f"\n{serie_print_name}")
                     has_printed_serie = True
@@ -121,20 +139,18 @@ class PageGenerator():
                             symbol_path = os.path.join(set_dir_path, file)
                             set_symbol_paths.append(symbol_path)
                 set_symbols_tot_width = len(set_symbol_paths)*SYMBOL_WIDTH + max(0, len(set_symbol_paths)-1)*SYMBOL_PADDING
-                
-                # Calculate frame values
-                frame_width = max(
-                    FRAME_MIN_WIDTH,
-                    set_name_width + 2*FRAME_MIN_INTERNAL_ELEMENTS_SPACING,
-                    set_name_alt_width + 2*FRAME_MIN_INTERNAL_ELEMENTS_SPACING,
-                    serie_name_width + FRAME_MIN_INTERNAL_ELEMENTS_SPACING + region_symbol_width,
-                    set_symbols_tot_width + FRAME_MIN_INTERNAL_ELEMENTS_SPACING + set_date_width)
-                frame_height = FRAME_HEIGHT
 
-                frame_right_x = page_width - FRAME_MARGIN
-                frame_left_x = frame_right_x - frame_width - 2*FRAME_BORDER_THICKNESS
-                frame_top_y = page_height - FRAME_MARGIN
-                frame_bottom_y = frame_top_y - frame_height - 2*FRAME_BORDER_THICKNESS
+                card_col = (card_in_page-1)%3
+                card_row = (card_in_page-1)//3
+
+                card_x = card_col*card_width + (card_col+1)*card_spacing_h
+                card_y = page_height - (card_row*card_height + (card_row+1)*card_spacing_v)
+
+                # Calculate frame values
+                frame_left_x = card_x
+                frame_right_x = frame_left_x + frame_full_width
+                frame_bottom_y = card_y - card_height
+                frame_top_y = frame_bottom_y + frame_full_height
 
                 padded_frame_left_x = frame_left_x + FRAME_BORDER_THICKNESS + FRAME_PADDING
                 padded_frame_top_y = frame_top_y - FRAME_BORDER_THICKNESS - FRAME_PADDING
@@ -147,21 +163,21 @@ class PageGenerator():
 
                 # Draw the cover, if present
                 if set_cover_path:
-                    u.draw_image(set_cover_path, 0, 0, c, width=page_width, height=page_height, crop_to_cover=True)
+                    u.draw_image(set_cover_path, card_x, card_y, c, width=card_width, height=card_height, crop_to_cover=True, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
 
                 # Draw the frame
-                u.draw_frame(frame_right_x, frame_top_y, c, width=frame_width, height=FRAME_HEIGHT, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
+                u.draw_frame(frame_left_x, frame_bottom_y, c, width=frame_full_width, height=frame_full_height, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_BOTTOM, is_full_size=True)
 
                 # Write the set's name and alternative name, if present
                 title_y = frame_centre_y
                 subtitle_y = frame_centre_y
                 if set_name and set_name_alt:
-                    title_y = frame_centre_y + TEXT_SIZE/2
-                    subtitle_y = frame_centre_y - TEXT_SIZE/2
+                    title_y = frame_centre_y + set_name_alt_font_size/2
+                    subtitle_y = frame_centre_y - set_name_alt_font_size/2
                 if set_name:
-                    u.write_text(set_name, frame_centre_x, title_y, c, font_weight=u.FONT_WEIGHT_BOLD, font_size=TITLE_SIZE, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
+                    u.write_text(set_name, frame_centre_x, title_y, c, font_weight=u.FONT_WEIGHT_BOLD, font_size=set_name_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
                 if set_name_alt:
-                    u.write_text(set_name_alt, frame_centre_x, subtitle_y, c, font_size=TEXT_SIZE, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
+                    u.write_text(set_name_alt, frame_centre_x, subtitle_y, c, font_size=set_name_alt_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
 
                 # Write the serie name in the top-left corner, if present
                 if serie_name:
@@ -182,8 +198,13 @@ class PageGenerator():
                     region_path = os.path.join(self.config.imgs_dir_path, region_filename)
                     u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=region_symbol_width, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
 
-                # Render the page
-                c.showPage()
+                if (card_in_page == 9):
+                    # Render the page
+                    c.showPage()
+
+        if (card_in_page < 9):
+            # Render the page
+            c.showPage()
 
         u.log("")
 

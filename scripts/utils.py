@@ -162,7 +162,11 @@ def draw_image(image_path, x, y, canvas, width=None, height=None, h_align=H_ALIG
     canvas.drawImage(image_io, x, y, width=image_w, height=image_h, mask='auto')
 
 
-def draw_frame(x, y, canvas, width=400, height=150, border_thickness=10, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
+def draw_frame(x, y, canvas, width=400, height=150, border_thickness=10, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM, is_full_size=False):
+    if (is_full_size):
+        width = width - 2*border_thickness
+        height = height - 2*border_thickness
+
     full_w = width + 2*border_thickness
     full_h = height + 2*border_thickness
 
