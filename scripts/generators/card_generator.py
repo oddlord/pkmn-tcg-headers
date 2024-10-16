@@ -141,6 +141,9 @@ class CardGenerator():
                 if set_cover_path:
                     u.draw_image(set_cover_path, card_x, card_y, c, width=card_width, height=card_height, crop_to_cover=True, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
 
+                # Draw the frame
+                u.draw_frame(card_x, card_y-card_height, c, width=card_width, height=card_height/2, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_BOTTOM, is_full_size=True)
+
                 if (card_in_page == 9):
                     # Render the page
                     c.showPage()
