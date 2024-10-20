@@ -194,7 +194,7 @@ class CardGenerator():
                 # Draw the region symbol, if specified
                 if region_filename:
                     region_path = os.path.join(self.config.imgs_dir_path, region_filename)
-                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
+                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP, has_border=True)
 
                 if (card_in_page == 9):
                     # Render the page

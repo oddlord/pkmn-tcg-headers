@@ -180,7 +180,7 @@ class PageGenerator():
                 # Draw the region symbol, if specified
                 if region_filename:
                     region_path = os.path.join(self.config.imgs_dir_path, region_filename)
-                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=region_symbol_width, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP)
+                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=region_symbol_width, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP, has_border=True)
 
                 # Render the page
                 c.showPage()

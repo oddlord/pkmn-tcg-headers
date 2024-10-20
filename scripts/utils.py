@@ -5,6 +5,7 @@ from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen.canvas import Canvas
 from PIL import Image
 
 FONT_ENG = "Font_ENG"
@@ -28,6 +29,9 @@ H_ALIGN_RIGHT = "right"
 DEFAULT_TEXT_SIZE = 12
 
 LOG_INDENT = "  "
+
+FRAME_BG_COLOUR_PLACEHOLDER = (255, 0, 0, 255)
+FRAME_BG_COLOUR = (255, 255, 255, 215)
 
 # -*- coding:utf-8 -*-
 ASIAN_CHAR_RANGES = [
@@ -57,7 +61,7 @@ frame_left_path = ""
 frame_centre_path = ""
 
 
-def init(fonts_dir_path, frame_imgs_dir_path):
+def init(fonts_dir_path: str, frame_imgs_dir_path: str):
     # Register English fonts
     eng_regular_font_path = os.path.join(fonts_dir_path, "Roboto/Roboto-Regular.ttf")
     pdfmetrics.registerFont(TTFont(FONT_ENG, eng_regular_font_path))
@@ -88,7 +92,7 @@ def init(fonts_dir_path, frame_imgs_dir_path):
     
 
 # https://stackoverflow.com/questions/30069846/how-to-find-out-chinese-or-japanese-character-in-a-string-in-python
-def text_contains_asian_chars(text):
+def text_contains_asian_chars(text: str) -> bool:
   if not text:
       return False
   
@@ -100,13 +104,13 @@ def text_contains_asian_chars(text):
   return False
 
 
-def get_text_width(text, font_weight=FONT_WEIGHT_REGULAR, font_size=DEFAULT_TEXT_SIZE):
+def get_text_width(text: str, font_weight: str = FONT_WEIGHT_REGULAR, font_size: float = DEFAULT_TEXT_SIZE) -> float:
     font_name = get_font_name(text, font_weight)
     text_width = stringWidth(text, font_name, font_size)
     return text_width
 
 
-def get_font_name(text, font_weight):
+def get_font_name(text: str, font_weight: str) -> str:
     if text_contains_asian_chars(text):
         if font_weight == FONT_WEIGHT_BOLD:
             return FONT_BOLD_JPN
@@ -123,7 +127,7 @@ def get_font_name(text, font_weight):
             return FONT_ENG
 
 
-def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=DEFAULT_TEXT_SIZE, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM):
+def write_text(text: str, x: float, y: float, canvas: Canvas, font_weight: str = FONT_WEIGHT_REGULAR, font_size: float = DEFAULT_TEXT_SIZE, h_align: str = H_ALIGN_LEFT, v_align: str = V_ALIGN_BOTTOM):
     if not text:
         return
     
@@ -145,15 +149,23 @@ def write_text(text, x, y, canvas, font_weight=FONT_WEIGHT_REGULAR, font_size=DE
     canvas.drawString(x, y, text)
 
 
-def draw_image(image_path, x, y, canvas, width=None, height=None, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM, crop_to_cover=False):
+def draw_image(
+        image_path: str, x: float, y: float, canvas: Canvas, width: float = None, height: float = None,
+        h_align: str = H_ALIGN_LEFT, v_align: str = V_ALIGN_BOTTOM, crop_to_cover: bool = False,
+        colour_placeholder = None, colour_new = None, has_border: bool = False):
     image = Image.open(image_path)
     if (crop_to_cover):
         image = crop_image_to_cover(image, width, height)
 
-    image_io = get_image_io(image)
-
     image_w, image_h = image.size
     image_ratio = image_w / image_h
+
+    if colour_placeholder and colour_new:
+        for i in range(0, image_w):
+            for j in range(0, image_h):
+                current_pixel_colour = image.getpixel((i, j))
+                if (current_pixel_colour == colour_placeholder):
+                    image.putpixel((i, j), colour_new)
 
     if width:
         image_w = width
@@ -176,11 +188,17 @@ def draw_image(image_path, x, y, canvas, width=None, height=None, h_align=H_ALIG
     elif v_align == V_ALIGN_TOP:
         y = y - image_h
 
+    image_io = get_image_io(image)
     canvas.drawImage(image_io, x, y, width=image_w, height=image_h, mask='auto')
+
+    if has_border:
+        canvas.setStrokeColorRGB(0, 0, 0)
+        canvas.rect(x, y, image_w, image_h, stroke=1, fill=0)
+
     return image_w, image_h
 
 
-def draw_frame(x, y, canvas, width=400, height=150, border_thickness=10, h_align=H_ALIGN_LEFT, v_align=V_ALIGN_BOTTOM, is_full_size=False):
+def draw_frame(x: float, y: float, canvas: Canvas, width: float = 400, height: float = 150, border_thickness: float= 10, h_align: str = H_ALIGN_LEFT, v_align: str = V_ALIGN_BOTTOM, is_full_size: bool = False):
     if (is_full_size):
         width = width - 2*border_thickness
         height = height - 2*border_thickness
@@ -200,18 +218,22 @@ def draw_frame(x, y, canvas, width=400, height=150, border_thickness=10, h_align
     elif v_align == V_ALIGN_TOP:
         y = y - full_h
 
-    draw_image(frame_top_left_path, x, y+border_thickness+height, canvas, width=border_thickness, height=border_thickness)
-    draw_image(frame_top_path, x+border_thickness, y+border_thickness+height, canvas, width=width, height=border_thickness)
-    draw_image(frame_top_right_path, x+border_thickness+width, y+border_thickness+height, canvas, width=border_thickness, height=border_thickness)
-    draw_image(frame_left_path, x, y+border_thickness, canvas, width=border_thickness, height=height)
-    draw_image(frame_bottom_left_path, x, y, canvas, width=border_thickness, height=border_thickness)
-    draw_image(frame_bottom_path, x+border_thickness, y, canvas, width=width, height=border_thickness)
-    draw_image(frame_bottom_right_path, x+border_thickness+width, y, canvas, width=border_thickness, height=border_thickness)
-    draw_image(frame_right_path, x+border_thickness+width, y+border_thickness, canvas, width=border_thickness, height=height)
-    draw_image(frame_centre_path, x+border_thickness, y+border_thickness, canvas, width=width, height=height)
+    draw_frame_image(frame_top_left_path, x, y+border_thickness+height, canvas, width=border_thickness, height=border_thickness)
+    draw_frame_image(frame_top_path, x+border_thickness, y+border_thickness+height, canvas, width=width, height=border_thickness)
+    draw_frame_image(frame_top_right_path, x+border_thickness+width, y+border_thickness+height, canvas, width=border_thickness, height=border_thickness)
+    draw_frame_image(frame_left_path, x, y+border_thickness, canvas, width=border_thickness, height=height)
+    draw_frame_image(frame_bottom_left_path, x, y, canvas, width=border_thickness, height=border_thickness)
+    draw_frame_image(frame_bottom_path, x+border_thickness, y, canvas, width=width, height=border_thickness)
+    draw_frame_image(frame_bottom_right_path, x+border_thickness+width, y, canvas, width=border_thickness, height=border_thickness)
+    draw_frame_image(frame_right_path, x+border_thickness+width, y+border_thickness, canvas, width=border_thickness, height=height)
+    draw_frame_image(frame_centre_path, x+border_thickness, y+border_thickness, canvas, width=width, height=height)
 
 
-def get_image_io(image):
+def draw_frame_image(image_path, x, y, canvas, width, height):
+    draw_image(image_path, x, y, canvas, width=width, height=height, colour_placeholder=FRAME_BG_COLOUR_PLACEHOLDER, colour_new=FRAME_BG_COLOUR)
+
+
+def get_image_io(image: Image) -> ImageReader:
     image_data = io.BytesIO()
     image.save(image_data, format='png')
     image_data.seek(0)
@@ -219,7 +241,7 @@ def get_image_io(image):
     return image_io
 
 
-def crop_image_to_cover(image, width, height):
+def crop_image_to_cover(image: Image, width: float, height: float) -> Image:
     # Determine the aspect ratios of the image and the page
     image_width, image_height = image.size
 
@@ -244,14 +266,14 @@ def crop_image_to_cover(image, width, height):
     return cropped_image
 
 
-def parse_json(file_path):
+def parse_json(file_path: str) -> dict:
     with open(file_path, encoding='utf-8') as f:
         txt = f.read()
         parsed = json.loads(txt)
     return parsed
 
 
-def log(text, indent_level=0):
+def log(text: str, indent_level: int = 0):
     log_text = ""
     for x in range(0, indent_level):
         log_text += LOG_INDENT
