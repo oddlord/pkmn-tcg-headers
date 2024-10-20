@@ -435,6 +435,11 @@
                 "region": "eng",
                 "date": "22/09/2023"
             },
+            {   "id": "my-first-battle",
+                "name": "My First Battle",
+                "region": "eng",
+                "date": "29/09/2023"
+            },
             {   "id": "raging-surf",
                 "name": "レイジングサーフ",
                 "name_alt": "Raging Surf",
