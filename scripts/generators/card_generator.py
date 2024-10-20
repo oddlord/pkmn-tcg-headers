@@ -9,8 +9,9 @@ FRAME_BORDER_THICKNESS = 7.5
 FRAME_PADDING = 1.5
 FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 5
 
-TITLE_SIZE = 12
+TITLE_SIZE = 24
 TEXT_SIZE = 10
+NAMES_PADDING = 5
 
 NAME_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
 NAME_ALT_FONT_WEIGHT = u.FONT_WEIGHT_REGULAR
@@ -170,8 +171,9 @@ class CardGenerator():
                 title_y = frame_centre_y
                 subtitle_y = frame_centre_y
                 if set_name and set_name_alt:
-                    title_y = frame_centre_y + set_name_alt_font_size/2
-                    subtitle_y = frame_centre_y - set_name_alt_font_size/2
+                    names_padding = NAMES_PADDING * (set_name_font_size/TITLE_SIZE)
+                    title_y = frame_centre_y + (set_name_font_size+names_padding+set_name_alt_font_size)/2 - set_name_font_size/2
+                    subtitle_y = frame_centre_y - (set_name_font_size+names_padding+set_name_alt_font_size)/2 + set_name_alt_font_size/2
                 if set_name:
                     u.write_text(set_name, frame_centre_x, title_y, c, font_weight=NAME_FONT_WEIGHT, font_size=set_name_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
                 if set_name_alt:

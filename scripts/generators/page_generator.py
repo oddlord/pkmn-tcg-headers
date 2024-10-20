@@ -156,8 +156,8 @@ class PageGenerator():
                 title_y = frame_centre_y
                 subtitle_y = frame_centre_y
                 if set_name and set_name_alt:
-                    title_y = frame_centre_y + TEXT_SIZE/2
-                    subtitle_y = frame_centre_y - TEXT_SIZE/2
+                    title_y = frame_centre_y + (TITLE_SIZE+TEXT_SIZE)/2 - TITLE_SIZE/2
+                    subtitle_y = frame_centre_y - (TITLE_SIZE+TEXT_SIZE)/2 + TEXT_SIZE/2
                 if set_name:
                     u.write_text(set_name, frame_centre_x, title_y, c, font_weight=u.FONT_WEIGHT_BOLD, font_size=TITLE_SIZE, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
                 if set_name_alt:
