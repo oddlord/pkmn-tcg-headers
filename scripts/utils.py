@@ -32,6 +32,8 @@ LOG_INDENT = "  "
 
 FRAME_BG_COLOUR_PLACEHOLDER = (255, 0, 0, 255)
 FRAME_BG_COLOUR = (255, 255, 255, 215)
+# Hack: need to shift each frame part by this amount in order to get rid of a miniscule gap
+FRAME_PARTS_GAP = 0.08
 
 # -*- coding:utf-8 -*-
 ASIAN_CHAR_RANGES = [
@@ -218,15 +220,25 @@ def draw_frame(x: float, y: float, canvas: Canvas, width: float = 400, height: f
     elif v_align == V_ALIGN_TOP:
         y = y - full_h
 
-    draw_frame_image(frame_top_left_path, x, y+border_thickness+height, canvas, width=border_thickness, height=border_thickness)
-    draw_frame_image(frame_top_path, x+border_thickness, y+border_thickness+height, canvas, width=width, height=border_thickness)
-    draw_frame_image(frame_top_right_path, x+border_thickness+width, y+border_thickness+height, canvas, width=border_thickness, height=border_thickness)
-    draw_frame_image(frame_left_path, x, y+border_thickness, canvas, width=border_thickness, height=height)
-    draw_frame_image(frame_bottom_left_path, x, y, canvas, width=border_thickness, height=border_thickness)
-    draw_frame_image(frame_bottom_path, x+border_thickness, y, canvas, width=width, height=border_thickness)
-    draw_frame_image(frame_bottom_right_path, x+border_thickness+width, y, canvas, width=border_thickness, height=border_thickness)
-    draw_frame_image(frame_right_path, x+border_thickness+width, y+border_thickness, canvas, width=border_thickness, height=height)
-    draw_frame_image(frame_centre_path, x+border_thickness, y+border_thickness, canvas, width=width, height=height)
+    centre_width = width + 2*FRAME_PARTS_GAP
+    left_x = x
+    centre_x = left_x + border_thickness - FRAME_PARTS_GAP
+    right_x = centre_x + centre_width - FRAME_PARTS_GAP
+
+    middle_height = height + 2*FRAME_PARTS_GAP
+    bottom_y = y
+    middle_y = bottom_y + border_thickness - FRAME_PARTS_GAP
+    top_y = middle_y + middle_height - FRAME_PARTS_GAP
+
+    draw_frame_image(frame_top_left_path, left_x, top_y, canvas, width=border_thickness, height=border_thickness)
+    draw_frame_image(frame_top_path, centre_x, top_y, canvas, width=centre_width, height=border_thickness)
+    draw_frame_image(frame_top_right_path, right_x, top_y, canvas, width=border_thickness, height=border_thickness)
+    draw_frame_image(frame_left_path, left_x, middle_y, canvas, width=border_thickness, height=middle_height)
+    draw_frame_image(frame_bottom_left_path, left_x, bottom_y, canvas, width=border_thickness, height=border_thickness)
+    draw_frame_image(frame_bottom_path, centre_x, bottom_y, canvas, width=centre_width, height=border_thickness)
+    draw_frame_image(frame_bottom_right_path, right_x, bottom_y, canvas, width=border_thickness, height=border_thickness)
+    draw_frame_image(frame_right_path, right_x, middle_y, canvas, width=border_thickness, height=middle_height)
+    draw_frame_image(frame_centre_path, centre_x, middle_y, canvas, width=centre_width, height=middle_height)
 
 
 def draw_frame_image(image_path, x, y, canvas, width, height):
