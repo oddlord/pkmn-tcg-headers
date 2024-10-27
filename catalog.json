@@ -514,6 +514,12 @@
                 "region": "eng",
                 "date": "02/08/2024"
             },
+            {   "id": "stellar-miracle",
+                "name": "ステラミラクル",
+                "name_alt": "Stellar Miracle",
+                "region": "jpn",
+                "date": "19/07/2024"
+            },
             {   "id": "stellar-crown",
                 "name": "Stellar Crown",
                 "region": "eng",
