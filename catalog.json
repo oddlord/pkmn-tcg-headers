@@ -517,6 +517,7 @@
             {   "id": "stellar-miracle",
                 "name": "ステラミラクル",
                 "name_alt": "Stellar Miracle",
+                "eng_equivalent": ["stellar-crown"],
                 "region": "jpn",
                 "date": "19/07/2024"
             },
@@ -524,6 +525,18 @@
                 "name": "Stellar Crown",
                 "region": "eng",
                 "date": "13/09/2024"
+            },
+            {   "id": "super-electric-breaker",
+                "name": "超電ブレイカ",
+                "name_alt": "Super Electric Breaker",
+                "eng_equivalent": ["surging-sparks"],
+                "region": "jpn",
+                "date": "18/10/2024"
+            },
+            {   "id": "surging-sparks",
+                "name": "Surging Sparks",
+                "region": "eng",
+                "date": "09/11/2024"
             }
         ]
     }
