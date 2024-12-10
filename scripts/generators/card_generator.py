@@ -162,7 +162,7 @@ class CardGenerator():
 
                 # Draw the cover, if present
                 if set_cover_path:
-                    u.draw_image(set_cover_path, card_x, card_y, c, width=card_width, height=card_height, crop_to_cover=True, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
+                    u.draw_image(set_cover_path, card_x, card_y, c, width=card_width, height=card_height, crop_to_cover=True, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP, border_width=3)
 
                 # Draw the frame
                 u.draw_frame(frame_left_x, frame_bottom_y, c, width=frame_full_width, height=frame_full_height, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_BOTTOM, is_full_size=True)
@@ -196,7 +196,7 @@ class CardGenerator():
                 # Draw the region symbol, if specified
                 if region_filename:
                     region_path = os.path.join(self.config.imgs_dir_path, region_filename)
-                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP, has_border=True)
+                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP, border_width=1)
 
                 if (card_in_page == 9):
                     # Render the page

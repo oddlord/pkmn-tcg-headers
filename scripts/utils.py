@@ -154,7 +154,7 @@ def write_text(text: str, x: float, y: float, canvas: Canvas, font_weight: str =
 def draw_image(
         image_path: str, x: float, y: float, canvas: Canvas, width: float = None, height: float = None,
         h_align: str = H_ALIGN_LEFT, v_align: str = V_ALIGN_BOTTOM, crop_to_cover: bool = False,
-        colour_placeholder = None, colour_new = None, has_border: bool = False):
+        colour_placeholder = None, colour_new = None, border_width: float = 0):
     image = Image.open(image_path)
     if (crop_to_cover):
         image = crop_image_to_cover(image, width, height)
@@ -193,7 +193,8 @@ def draw_image(
     image_io = get_image_io(image)
     canvas.drawImage(image_io, x, y, width=image_w, height=image_h, mask='auto')
 
-    if has_border:
+    if border_width > 0:
+        canvas.setLineWidth(border_width)
         canvas.setStrokeColorRGB(0, 0, 0)
         canvas.rect(x, y, image_w, image_h, stroke=1, fill=0)
 
