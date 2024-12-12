@@ -537,6 +537,12 @@
                 "name": "Surging Sparks",
                 "region": "eng",
                 "date": "09/11/2024"
+            },
+            {   "id": "terastal-fest-ex",
+                "name": "テラスタルフェスex",
+                "name_alt": "Terastal Fest ex",
+                "region": "jpn",
+                "date": "06/12/2024"
             }
         ]
     }
