@@ -37,6 +37,11 @@
                 "region": "jpn",
                 "date": "17/07/1999"
             },
+            {   "id": "w-promotional-cards",
+                "name": "W Promotional Cards",
+                "region": "eng",
+                "date": "09/1999 - 03/2001"
+            },
             {   "id": "fossil",
                 "name": "Fossil",
                 "region": "eng",
