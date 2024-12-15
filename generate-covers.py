@@ -9,6 +9,11 @@ from scripts.config import Config
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Japanese_Pok%C3%A9mon_Trading_Card_Game_expansions
 
+# TODO move to their own sets
+# Psychic Elegance deck: https://bulbapedia.bulbagarden.net/wiki/Psychic_Elegance_(TCG)
+# Trick Or Trade sets: https://bulbapedia.bulbagarden.net/wiki/Trick_or_Trade_(TCG)
+# maybe others...?
+
 
 # Get the directory path of the script
 script_directory = os.path.dirname(os.path.abspath(__file__))
