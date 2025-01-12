@@ -31,7 +31,7 @@ DEFAULT_TEXT_SIZE = 12
 LOG_INDENT = "  "
 
 FRAME_BG_COLOUR_PLACEHOLDER = (255, 0, 0, 255)
-FRAME_BG_COLOUR = (255, 255, 255, 215)
+FRAME_BG_COLOUR = (255, 255, 255, 200)
 # Hack: need to shift each frame part by this amount in order to get rid of a miniscule gap
 FRAME_PARTS_GAP = 0.08
 

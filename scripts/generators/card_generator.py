@@ -34,7 +34,7 @@ class CardGenerator():
         card_spacing_v = (page_height - 3*card_height)/4
 
         frame_full_width = card_width
-        frame_full_height = card_height/2
+        frame_full_height = card_height
         name_max_width = frame_full_width - 2*FRAME_MIN_INTERNAL_ELEMENTS_SPACING - 2*FRAME_BORDER_THICKNESS
 
         # Create a new PDF document
@@ -162,7 +162,8 @@ class CardGenerator():
 
                 # Draw the cover, if present
                 if set_cover_path:
-                    u.draw_image(set_cover_path, card_x, card_y, c, width=card_width, height=card_height, crop_to_cover=True, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP, border_width=3)
+                    border_width = 0
+                    u.draw_image(set_cover_path, card_x, card_y, c, width=card_width, height=card_height, crop_to_cover=True, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP, border_width=border_width)
 
                 # Draw the frame
                 u.draw_frame(frame_left_x, frame_bottom_y, c, width=frame_full_width, height=frame_full_height, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_BOTTOM, is_full_size=True)
