@@ -11,7 +11,9 @@ FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 5
 
 TITLE_SIZE = 24
 TEXT_SIZE = 12
-NAMES_PADDING = 5
+NAME_AND_NAME_ALT_PADDING = 5
+NAME_ROWS_PADDING = 1
+NAME_ALT_ROWS_PADDING = 1
 
 NAME_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
 NAME_ALT_FONT_WEIGHT = u.FONT_WEIGHT_REGULAR
@@ -77,24 +79,42 @@ class CardGenerator():
                 set_dir_path = os.path.join(serie_dir_path, set_id)
 
                 # Get the set name, if present
+                set_names = []
                 set_name = None
                 set_name_font_size = TITLE_SIZE
                 if "name" in set:
                     set_name = set["name"]
+                    set_names = set_name.split("\n")
+                    set_name_separator = "" if u.text_contains_asian_chars(set_name) else " "
+                    set_name = set_name_separator.join(set_names)
                     while True:
-                        set_name_width = u.get_text_width(set_name, font_weight=NAME_FONT_WEIGHT, font_size=set_name_font_size)
-                        if set_name_width <= name_max_width:
+                        do_all_rows_fit = True
+                        for set_name_row in set_names:
+                            set_name_width = u.get_text_width(set_name_row, font_weight=NAME_FONT_WEIGHT, font_size=set_name_font_size)
+                            if set_name_width > name_max_width:
+                                do_all_rows_fit = False
+                                break
+                        if do_all_rows_fit:
                             break
                         set_name_font_size = set_name_font_size - 1
 
                 # Get the set alt name, if present
+                set_names_alt = []
                 set_name_alt = None
                 set_name_alt_font_size = TEXT_SIZE
                 if "name_alt" in set:
                     set_name_alt = set["name_alt"]
+                    set_names_alt = set_name_alt.split("\n")
+                    set_name_alt_separator = "" if u.text_contains_asian_chars(set_name_alt) else " "
+                    set_name_alt = set_name_alt_separator.join(set_names_alt)
                     while True:
-                        set_name_alt_width = u.get_text_width(set_name_alt, font_weight=NAME_ALT_FONT_WEIGHT, font_size=set_name_alt_font_size)
-                        if set_name_alt_width <= name_max_width:
+                        do_all_rows_fit = True
+                        for set_name_alt_row in set_names_alt:
+                            set_name_alt_width = u.get_text_width(set_name_alt_row, font_weight=NAME_ALT_FONT_WEIGHT, font_size=set_name_alt_font_size)
+                            if set_name_alt_width > name_max_width:
+                                do_all_rows_fit = False
+                                break
+                        if do_all_rows_fit:
                             break
                         set_name_alt_font_size = set_name_alt_font_size - 1
 
@@ -169,20 +189,21 @@ class CardGenerator():
                 u.draw_frame(frame_left_x, frame_bottom_y, c, width=frame_full_width, height=frame_full_height, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_BOTTOM, is_full_size=True)
 
                 # Write the set's name and alternative name, if present
-                title_y = frame_centre_y
-                subtitle_y = frame_centre_y
-                if set_name and set_name_alt:
-                    names_padding = NAMES_PADDING * (set_name_font_size/TITLE_SIZE)
-                    title_y = frame_centre_y + (set_name_font_size+names_padding+set_name_alt_font_size)/2 - set_name_font_size/2
-                    subtitle_y = frame_centre_y - (set_name_font_size+names_padding+set_name_alt_font_size)/2 + set_name_alt_font_size/2
-                if set_name:
-                    u.write_text(set_name, frame_centre_x, title_y, c, font_weight=NAME_FONT_WEIGHT, font_size=set_name_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
-                if set_name_alt:
-                    u.write_text(set_name_alt, frame_centre_x, subtitle_y, c, font_weight=NAME_ALT_FONT_WEIGHT, font_size=set_name_alt_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_MIDDLE)
+                title_y = frame_centre_y + (set_name_font_size*len(set_names) + NAME_ROWS_PADDING*(len(set_names)-1) + NAME_AND_NAME_ALT_PADDING)/2
+                for set_name_row in set_names:
+                    u.write_text(set_name_row, frame_centre_x, title_y, c, font_weight=NAME_FONT_WEIGHT, font_size=set_name_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_TOP)
+                    title_y -= set_name_font_size + NAME_ROWS_PADDING
+                title_y += NAME_ROWS_PADDING - NAME_AND_NAME_ALT_PADDING
+                for set_name_alt_row in set_names_alt:
+                    u.write_text(set_name_alt_row, frame_centre_x, title_y, c, font_weight=NAME_ALT_FONT_WEIGHT, font_size=set_name_alt_font_size, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_TOP)
+                    title_y -= set_name_alt_font_size + NAME_ALT_ROWS_PADDING
 
                 # Write the serie name in the top-left corner, if present
                 if serie_name:
                     u.write_text(serie_name, padded_frame_left_x, padded_frame_top_y, c, font_size=TEXT_SIZE, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
+
+                    underlign_y = padded_frame_top_y - TEXT_SIZE - 3
+                    c.line(padded_frame_left_x, underlign_y, padded_frame_left_x + serie_name_width, underlign_y)
 
                 # Write the date in the bottom-right corner, if present
                 if set_date:
