@@ -1,7 +1,9 @@
 {
     "allowed_series": [
-        "scarlet-&-violet"
     ],
     "allowed_sets": [
+        "sword-&-shield/trick-or-trade-2022",
+        "scarlet-&-violet/trick-or-trade-2023",
+        "scarlet-&-violet/trick-or-trade-2024"
     ]
 }

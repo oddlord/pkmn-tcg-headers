@@ -368,6 +368,11 @@
                 "region": "eng",
                 "date": "01/07/2022"
             },
+            {   "id": "trick-or-trade-2022",
+                "name": "Trick or\nTrade 2022",
+                "region": "eng",
+                "date": "01/09/2022"
+            },
             {   "id": "lost-origin",
                 "name": "Lost\nOrigin",
                 "region": "eng",
@@ -413,6 +418,11 @@
                 "name": "Obsidian\nFlames",
                 "region": "eng",
                 "date": "11/08/2023"
+            },
+            {   "id": "trick-or-trade-2023",
+                "name": "Trick or\nTrade 2023",
+                "region": "eng",
+                "date": "01/09/2023"
             },
             {   "id": "151",
                 "name": "151",
@@ -501,6 +511,11 @@
                 "name": "Shrouded\nFable",
                 "region": "eng",
                 "date": "02/08/2024"
+            },
+            {   "id": "trick-or-trade-2024",
+                "name": "Trick or\nTrade 2024",
+                "region": "eng",
+                "date": "01/09/2024"
             },
             {   "id": "stellar-crown",
                 "name": "Stellar\nCrown",

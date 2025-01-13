@@ -10,7 +10,6 @@ from scripts.config import Config
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Japanese_Pok%C3%A9mon_Trading_Card_Game_expansions
 
 # TODO move to their own sets
-# Trick Or Trade sets: https://bulbapedia.bulbagarden.net/wiki/Trick_or_Trade_(TCG)
 # Energies
 # Remove V placeholders
 # maybe others...?
