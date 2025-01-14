@@ -17,6 +17,8 @@ NAME_ALT_ROWS_PADDING = 1
 
 NAME_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
 NAME_ALT_FONT_WEIGHT = u.FONT_WEIGHT_REGULAR
+SERIES_NAME_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
+DATE_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
 
 SYMBOL_WIDTH = 14
 SYMBOL_PADDING = 1.5
@@ -54,7 +56,7 @@ class CardGenerator():
             serie_name_width = 0
             if "name" in serie:
                 serie_name = serie["name"]
-                serie_name_width = u.get_text_width(serie_name, font_size=TEXT_SIZE)
+                serie_name_width = u.get_text_width(serie_name, font_weight=SERIES_NAME_FONT_WEIGHT, font_size=TEXT_SIZE)
 
             serie_print_name = serie_name or f"<{serie_id}>"
             has_printed_serie = False
@@ -200,14 +202,14 @@ class CardGenerator():
 
                 # Write the serie name in the top-left corner, if present
                 if serie_name:
-                    u.write_text(serie_name, padded_frame_left_x, padded_frame_top_y, c, font_size=TEXT_SIZE, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
+                    u.write_text(serie_name, padded_frame_left_x, padded_frame_top_y, c, font_weight=SERIES_NAME_FONT_WEIGHT, font_size=TEXT_SIZE, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
 
                     underlign_y = padded_frame_top_y - TEXT_SIZE - 3
                     c.line(padded_frame_left_x, underlign_y, padded_frame_left_x + serie_name_width, underlign_y)
 
                 # Write the date in the bottom-right corner, if present
                 if set_date:
-                    u.write_text(set_date, padded_frame_right_x, padded_frame_bottom_y, c, font_size=TEXT_SIZE, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM)
+                    u.write_text(set_date, padded_frame_right_x, padded_frame_bottom_y, c, font_weight=DATE_FONT_WEIGHT, font_size=TEXT_SIZE, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM)
 
                 # Draw the symbol(s), if present
                 symbol_x = padded_frame_left_x
