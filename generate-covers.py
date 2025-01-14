@@ -9,11 +9,6 @@ from scripts.config import Config
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Japanese_Pok%C3%A9mon_Trading_Card_Game_expansions
 
-# TODO move to their own sets
-# Remove V placeholders
-# Eevee Heroes puzzle card???
-# maybe others...?
-
 
 # Get the directory path of the script
 script_directory = os.path.dirname(os.path.abspath(__file__))
