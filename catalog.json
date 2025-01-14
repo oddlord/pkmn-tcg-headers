@@ -269,6 +269,11 @@
                 "region": "eng",
                 "date": "11/2019 - 08/2023"
             },
+            {   "id": "sword-&-shield-energies",
+                "name": "Sword\n&\nShield\nEnergies",
+                "region": "eng",
+                "date": "07/02/2020"
+            },
             {   "id": "sword-&-shield",
                 "name": "Sword\n&\nShield",
                 "region": "eng",
@@ -397,6 +402,11 @@
                 "name": "SVP\nBlack Star\nPromos",
                 "region": "eng",
                 "date": "01/2023 - Present"
+            },
+            {   "id": "sve-basic-energies",
+                "name": "SVE\nBasic\nEnergies",
+                "region": "eng",
+                "date": "31/03/2023"
             },
             {   "id": "scarlet-&-violet",
                 "name": "Scarlet\n&\nViolet",

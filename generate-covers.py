@@ -10,8 +10,8 @@ from scripts.config import Config
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Japanese_Pok%C3%A9mon_Trading_Card_Game_expansions
 
 # TODO move to their own sets
-# Energies
 # Remove V placeholders
+# Eevee Heroes puzzle card???
 # maybe others...?
 
 
