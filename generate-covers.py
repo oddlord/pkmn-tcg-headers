@@ -16,11 +16,12 @@ from scripts.config import Config
 script_directory = os.path.dirname(os.path.abspath(__file__))
 
 # Get paths
-catalog_file_path = os.path.join(script_directory, "catalog.json")
+catalog_dir_path = os.path.join(script_directory, "catalog")
+catalog_file_path = os.path.join(catalog_dir_path, "catalog.json")
 output_file_path = os.path.join(script_directory, "covers.pdf")
 imgs_dir_path = os.path.join(script_directory, "assets/imgs")
 frame_imgs_dir_path = os.path.join(script_directory, "assets/imgs/frame")
-catalog_assets_dir_path = os.path.join(script_directory, "assets/catalog")
+catalog_sets_dir_path = os.path.join(catalog_dir_path, "sets")
 fonts_dir_path = os.path.join(script_directory, "assets/fonts")
 
 # Init the utils module
@@ -50,7 +51,7 @@ config = Config(
     catalog = catalog,
     filtered_sets = filtered_sets,
     output_file_path = output_file_path,
-    catalog_assets_dir_path = catalog_assets_dir_path,
+    catalog_sets_dir_path = catalog_sets_dir_path,
     imgs_dir_path=imgs_dir_path,
     region_filenames = {
         # "all": "jpn-eng.jpg",
