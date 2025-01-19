@@ -419,6 +419,12 @@
                 "region": "eng",
                 "date": "31/03/2023"
             },
+            {   "id": "snow-hazard",
+                "name": "スノー\nハザード",
+                "name_alt": "Snow Hazard",
+                "region": "jpn",
+                "date": "14/04/2023"
+            },
             {   "id": "paldea-evolved",
                 "name": "Paldea\nEvolved",
                 "region": "eng",
