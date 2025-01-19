@@ -383,6 +383,12 @@
                 "region": "eng",
                 "date": "09/09/2022"
             },
+            {   "id": "paradigm-trigger",
+                "name": "パラダイム\nトリガー",
+                "name_alt": "Paradigm Trigger",
+                "region": "jpn",
+                "date": "21/10/2022"
+            },
             {   "id": "silver-tempest",
                 "name": "Silver\nTempest",
                 "region": "eng",
