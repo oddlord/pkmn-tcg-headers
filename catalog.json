@@ -485,6 +485,12 @@
                 "region": "eng",
                 "date": "03/11/2023"
             },
+            {   "id": "shiny-treasure-ex",
+                "name": "シャイニ\nートレジャー\nex",
+                "name_alt": "Shiny Treasure EX",
+                "region": "jpn",
+                "date": "01/12/2023"
+            },
             {   "id": "paldean-fates",
                 "name": "Paldean\nFates",
                 "region": "eng",
