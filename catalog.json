@@ -248,6 +248,12 @@
                 "region": "eng",
                 "date": "03/11/2017"
             },
+            {   "id": "gx-ultra-shiny",
+                "name": "GX\nウルトラ\nシャイニー",
+                "name_alt": "GX Ultra Shiny",
+                "region": "jpn",
+                "date": "02/11/2018"
+            },
             {   "id": "detective-pikachu",
                 "name": "Detective\nPikachu",
                 "region": "eng",
