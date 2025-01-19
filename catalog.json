@@ -374,6 +374,11 @@
                 "region": "eng",
                 "date": "27/05/2022"
             },
+            {   "id": "pokémon-go-jpn",
+                "name": "Pokémon\nGO",
+                "region": "jpn",
+                "date": "17/06/2022"
+            },
             {   "id": "pokémon-go",
                 "name": "Pokémon\nGO",
                 "region": "eng",
