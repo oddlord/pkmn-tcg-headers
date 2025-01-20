@@ -12,6 +12,7 @@ from scripts.config import Config
 # TODO
 # Choose better covers for some promo sets (instead of a card from the set)
 # Rename the project to pkmn-tcg-headers, the main script to generate.py and the output file to headers.pdf
+# Add an option in config.yaml to generate cards all packed in a corner
 
 # Get the directory path of the script
 script_dir_path = os.path.dirname(os.path.abspath(__file__))

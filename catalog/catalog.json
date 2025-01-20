@@ -13,7 +13,7 @@
             {   "id": "wizards-black-star-promos",
                 "name": "Wizards\nBlack Star\nPromos",
                 "region": "eng",
-                "date": "07/1999 - 03/2023"
+                "date": "07/1999"
             },
             {   "id": "base-set",
                 "name": "Base\nSet",
@@ -40,7 +40,7 @@
             {   "id": "w-promotional-cards",
                 "name": "W\nPromotional\nCards",
                 "region": "eng",
-                "date": "09/1999 - 03/2001"
+                "date": "09/1999"
             },
             {   "id": "fossil",
                 "name": "Fossil",
@@ -273,7 +273,7 @@
             {   "id": "swsh-black-star-promos",
                 "name": "SWSH\nBlack Star\nPromos",
                 "region": "eng",
-                "date": "11/2019 - 08/2023"
+                "date": "11/2019"
             },
             {   "id": "sword-&-shield-energies",
                 "name": "Sword & Shield\nEnergies",
@@ -418,7 +418,7 @@
             {   "id": "svp-black-star-promos",
                 "name": "SVP\nBlack Star\nPromos",
                 "region": "eng",
-                "date": "01/2023 - Present"
+                "date": "01/2023"
             },
             {   "id": "sve-basic-energies",
                 "name": "SVE\nBasic\nEnergies",
