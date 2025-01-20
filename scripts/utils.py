@@ -1,6 +1,7 @@
 import io
 import os
 import json
+import yaml
 from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
@@ -283,6 +284,12 @@ def parse_json(file_path: str) -> dict:
     with open(file_path, encoding='utf-8') as f:
         txt = f.read()
         parsed = json.loads(txt)
+    return parsed
+
+
+def parse_yaml(file_path: str) -> dict:
+    with open(file_path, "r") as f:
+        parsed = yaml.safe_load(f)
     return parsed
 
 

@@ -67,6 +67,8 @@ class PageGenerator():
                 set_name_width = 0
                 if "name" in set:
                     set_name = set["name"]
+                    set_name_separator = "" if u.text_contains_asian_chars(set_name) else " "
+                    set_name = set_name.replace("\n", set_name_separator)
                     set_name_width = u.get_text_width(set_name, font_weight=u.FONT_WEIGHT_BOLD, font_size=TITLE_SIZE)
 
                 # Get the set alt name, if present
@@ -165,11 +167,11 @@ class PageGenerator():
 
                 # Write the serie name in the top-left corner, if present
                 if serie_name:
-                    u.write_text(serie_name, padded_frame_left_x, padded_frame_top_y, c, font_size=TEXT_SIZE, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
+                    u.write_text(serie_name, padded_frame_left_x, padded_frame_top_y, c, font_weight=u.FONT_WEIGHT_BOLD, font_size=TEXT_SIZE, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
 
                 # Write the date in the bottom-right corner, if present
                 if set_date:
-                    u.write_text(set_date, padded_frame_right_x, padded_frame_bottom_y, c, font_size=TEXT_SIZE, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM)
+                    u.write_text(set_date, padded_frame_right_x, padded_frame_bottom_y, c, font_weight=u.FONT_WEIGHT_BOLD, font_size=TEXT_SIZE, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM)
 
                 # Draw the symbol(s), if present
                 symbol_x = padded_frame_left_x
@@ -180,7 +182,7 @@ class PageGenerator():
                 # Draw the region symbol, if specified
                 if region_filename:
                     region_path = os.path.join(self.config.imgs_dir_path, region_filename)
-                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=region_symbol_width, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP, has_border=True)
+                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=region_symbol_width, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP, border_width=1)
 
                 # Render the page
                 c.showPage()

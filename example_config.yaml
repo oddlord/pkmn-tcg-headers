@@ -1,0 +1,10 @@
+# Accepted values: "cards", "pages". Defaults to "cards".
+headers_type: cards
+
+included_sets: [
+  "*"
+]
+
+excluded_sets: [
+
+]

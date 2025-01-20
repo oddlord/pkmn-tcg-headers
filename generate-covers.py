@@ -1,4 +1,5 @@
 import os
+import shutil
 from argparse import ArgumentParser
 
 from scripts.generators.page_generator import *
@@ -10,19 +11,22 @@ from scripts.config import Config
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Japanese_Pok%C3%A9mon_Trading_Card_Game_expansions
 
 # TODO
-# Make a config.yaml
+# Implement included/excluded sets in config.yaml
 
 # Get the directory path of the script
-script_directory = os.path.dirname(os.path.abspath(__file__))
+script_dir_path = os.path.dirname(os.path.abspath(__file__))
 
 # Get paths
-catalog_dir_path = os.path.join(script_directory, "catalog")
+catalog_dir_path = os.path.join(script_dir_path, "catalog")
 catalog_file_path = os.path.join(catalog_dir_path, "catalog.json")
-output_file_path = os.path.join(script_directory, "covers.pdf")
-imgs_dir_path = os.path.join(script_directory, "assets/imgs")
-frame_imgs_dir_path = os.path.join(script_directory, "assets/imgs/frame")
+output_file_path = os.path.join(script_dir_path, "covers.pdf")
+assets_dir_path = os.path.join(script_dir_path, "assets")
+imgs_dir_path = os.path.join(assets_dir_path, "imgs")
+frame_imgs_dir_path = os.path.join(imgs_dir_path, "frame")
 catalog_sets_dir_path = os.path.join(catalog_dir_path, "sets")
-fonts_dir_path = os.path.join(script_directory, "assets/fonts")
+fonts_dir_path = os.path.join(assets_dir_path, "fonts")
+config_file_path = os.path.join(script_dir_path, "config.yaml")
+example_config_file_path = os.path.join(script_dir_path, "example_config.yaml")
 
 # Init the utils module
 u.init(fonts_dir_path, frame_imgs_dir_path)
@@ -43,8 +47,13 @@ catalog = u.parse_json(catalog_file_path)
 # Parse the filter JSON file
 filtered_sets = None
 if args.filter_filename:
-    filter_file_path = os.path.join(script_directory, args.filter_filename)
+    filter_file_path = os.path.join(script_dir_path, args.filter_filename)
     filtered_sets = u.parse_json(filter_file_path)
+
+if not os.path.exists(config_file_path):
+    u.log(f"Generating config file at {config_file_path}")
+    shutil.copy(example_config_file_path, config_file_path)
+config_dict = u.parse_yaml(config_file_path)
 
 # Set up the config object for the generator
 config = Config(
@@ -64,6 +73,9 @@ config = Config(
 )
 
 # Generate the PDF
-# generator = PageGenerator(config)
-generator = CardGenerator(config)
+headers_type = config_dict["headers_type"]
+if not headers_type or headers_type == "cards":
+    generator = CardGenerator(config)
+elif headers_type == "pages":
+    generator = PageGenerator(config)
 generator.generate()
