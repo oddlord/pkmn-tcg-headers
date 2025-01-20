@@ -6,11 +6,11 @@ from reportlab.pdfgen import canvas
 import scripts.utils as u
 
 FRAME_BORDER_THICKNESS = 7.5
-FRAME_PADDING = 1.5
+FRAME_PADDING = 2.5
 FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 5
 
 TITLE_SIZE = 24
-TEXT_SIZE = 12
+TEXT_SIZE = 14
 NAME_AND_NAME_ALT_PADDING = 5
 NAME_ROWS_PADDING = 1
 NAME_ALT_ROWS_PADDING = 1
@@ -20,7 +20,7 @@ NAME_ALT_FONT_WEIGHT = u.FONT_WEIGHT_REGULAR
 SERIES_NAME_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
 DATE_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
 
-SYMBOL_WIDTH = 14
+SYMBOL_WIDTH = 17
 SYMBOL_PADDING = 1.5
 
 class CardGenerator():
@@ -207,9 +207,10 @@ class CardGenerator():
 
                 # Write the serie name in the top-left corner, if present
                 if serie_name:
-                    u.write_text(serie_name, padded_frame_left_x, padded_frame_top_y, c, font_weight=SERIES_NAME_FONT_WEIGHT, font_size=TEXT_SIZE, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
-
-                    underlign_y = padded_frame_top_y - TEXT_SIZE - 3
+                    # HACK remove some padding for the serie name to make it align properly with the region symbol
+                    serie_name_y = padded_frame_top_y + 3
+                    u.write_text(serie_name, padded_frame_left_x, serie_name_y, c, font_weight=SERIES_NAME_FONT_WEIGHT, font_size=TEXT_SIZE, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
+                    underlign_y = serie_name_y - TEXT_SIZE - 3
                     c.line(padded_frame_left_x, underlign_y, padded_frame_left_x + serie_name_width, underlign_y)
 
                 # Write the date in the bottom-right corner, if present
