@@ -12,6 +12,7 @@ from scripts.config import Config
 
 # TODO
 # Implement included/excluded sets in config.yaml
+# Choose better covers for some promo sets (instead of a card from the set)
 
 # Get the directory path of the script
 script_dir_path = os.path.dirname(os.path.abspath(__file__))

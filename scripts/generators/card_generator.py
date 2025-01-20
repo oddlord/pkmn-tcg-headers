@@ -189,6 +189,11 @@ class CardGenerator():
 
                 # Draw the frame
                 u.draw_frame(frame_left_x, frame_bottom_y, c, width=frame_full_width, height=frame_full_height, border_thickness=FRAME_BORDER_THICKNESS, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_BOTTOM, is_full_size=True)
+                
+                # Alternative to the frame, draw just a semi transparent overlay
+                # c.setFillColor((255, 255, 255))
+                # c.setFillAlpha(0.7)
+                # c.rect(frame_left_x, frame_bottom_y, card_width, card_height, stroke=0, fill=1)
 
                 # Write the set's name and alternative name, if present
                 title_y = frame_centre_y + (set_name_font_size*len(set_names) + NAME_ROWS_PADDING*(len(set_names)-1) + NAME_AND_NAME_ALT_PADDING)/2
