@@ -55,8 +55,8 @@ class PageGenerator():
 
                 set_id = set["id"]
 
-                # Check if this set should be skipped
-                if self.config.filtered_sets and serie_id not in self.config.filtered_sets["allowed_series"] and f"{serie_id}/{set_id}" not in self.config.filtered_sets["allowed_sets"]:
+                # Check whether this set is included or not
+                if not u.is_set_included(serie_id, set_id, self.config.filters):
                     continue
 
                 page = page + 1

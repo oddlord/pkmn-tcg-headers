@@ -296,6 +296,35 @@ def parse_yaml(file_path: str) -> dict:
     return parsed
 
 
+def is_set_included(serie_id: str, set_id: str, filters: dict) -> bool:
+    is_included = False
+
+    for included_serie_set in filters["included_sets"]:
+        included_parts = included_serie_set.split("/")
+        if len(included_parts) != 2:
+            continue
+        included_serie = included_parts[0]
+        included_set = included_parts[1]
+        if included_serie in ["*", serie_id] and included_set in ["*", set_id]:
+            is_included = True
+            break
+    
+    if not is_included:
+        return False
+    
+    for excluded_serie_set in filters["excluded_sets"]:
+        excluded_parts = excluded_serie_set.split("/")
+        if len(excluded_parts) != 2:
+            continue
+        excluded_serie = excluded_parts[0]
+        excluded_set = excluded_parts[1]
+        if excluded_serie in ["*", serie_id] and excluded_set in ["*", set_id]:
+            is_included = False
+            break
+    
+    return is_included
+
+
 def log(text: str, indent_level: int = 0):
     log_text = ""
     for x in range(0, indent_level):

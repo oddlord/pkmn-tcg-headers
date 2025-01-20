@@ -1,0 +1,15 @@
+# Accepted values: "cards", "pages". Defaults to "cards".
+headers_type: cards
+
+# Use filters to select what to include/exclude during the headers generation
+# Entries should be in the "<serie_id>/<set_id>" format
+# A wildcard * can be used to represent any serie/set
+# Included sets are processed first, then the excluded ones are removed from the list of sets to include
+# To simply include everything, leave "*/*" under included_sets and nothing under excluded_sets
+filters: {
+  "included_sets": [
+    "*/*"
+  ],
+  "excluded_sets": [
+  ]
+}

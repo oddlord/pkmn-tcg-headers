@@ -1,6 +1,5 @@
 import os
 import shutil
-from argparse import ArgumentParser
 
 from scripts.generators.page_generator import *
 from scripts.generators.card_generator import *
@@ -11,8 +10,8 @@ from scripts.config import Config
 # https://bulbapedia.bulbagarden.net/wiki/List_of_Japanese_Pok%C3%A9mon_Trading_Card_Game_expansions
 
 # TODO
-# Implement included/excluded sets in config.yaml
 # Choose better covers for some promo sets (instead of a card from the set)
+# Rename the project to pkmn-tcg-headers, the main script to generate.py and the output file to headers.pdf
 
 # Get the directory path of the script
 script_dir_path = os.path.dirname(os.path.abspath(__file__))
@@ -27,29 +26,13 @@ frame_imgs_dir_path = os.path.join(imgs_dir_path, "frame")
 catalog_sets_dir_path = os.path.join(catalog_dir_path, "sets")
 fonts_dir_path = os.path.join(assets_dir_path, "fonts")
 config_file_path = os.path.join(script_dir_path, "config.yaml")
-example_config_file_path = os.path.join(script_dir_path, "example_config.yaml")
+example_config_file_path = os.path.join(script_dir_path, "config.example.yaml")
 
 # Init the utils module
 u.init(fonts_dir_path, frame_imgs_dir_path)
 
-# Parse command line arguments
-parser = ArgumentParser()
-parser.add_argument(
-    "-f", "--filter",
-    help="Specify a filter json file",
-    dest="filter_filename",
-    default=None,
-    metavar="FILE")
-args = parser.parse_args()
-
 # Parse the catalog data from the catalog JSON file
 catalog = u.parse_json(catalog_file_path)
-
-# Parse the filter JSON file
-filtered_sets = None
-if args.filter_filename:
-    filter_file_path = os.path.join(script_dir_path, args.filter_filename)
-    filtered_sets = u.parse_json(filter_file_path)
 
 if not os.path.exists(config_file_path):
     u.log(f"Generating config file at {config_file_path}")
@@ -59,7 +42,7 @@ config_dict = u.parse_yaml(config_file_path)
 # Set up the config object for the generator
 config = Config(
     catalog = catalog,
-    filtered_sets = filtered_sets,
+    filters = config_dict["filters"],
     output_file_path = output_file_path,
     catalog_sets_dir_path = catalog_sets_dir_path,
     imgs_dir_path=imgs_dir_path,

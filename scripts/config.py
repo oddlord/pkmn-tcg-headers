@@ -2,7 +2,7 @@ class Config():
     def __init__(
             self,
             catalog,
-            filtered_sets,
+            filters,
             output_file_path,
             catalog_sets_dir_path,
             imgs_dir_path,
@@ -10,7 +10,7 @@ class Config():
             cover_filename_prefix,
             symbol_filename_prefix):
         self.catalog = catalog
-        self.filtered_sets = filtered_sets
+        self.filters = filters
         self.output_file_path = output_file_path
         self.catalog_assets_dir_path = catalog_sets_dir_path
         self.imgs_dir_path = imgs_dir_path
