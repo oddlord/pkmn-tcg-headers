@@ -12,6 +12,7 @@ from scripts.generator_data import GeneratorData
 # TODO
 # Choose better covers for some promo sets (instead of a card from the set)
 # Add all existing sets
+# Add a README.md and licence
 
 # Get the directory path of the script
 script_dir_path = os.path.dirname(os.path.abspath(__file__))
