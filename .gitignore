@@ -1,5 +1,5 @@
 # pokemon-tcg-covers specific ignores
-covers.pdf
+headers.pdf
 config.yaml
 
 # Byte-compiled / optimized / DLL files

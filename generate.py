@@ -11,8 +11,8 @@ from scripts.config import Config
 
 # TODO
 # Choose better covers for some promo sets (instead of a card from the set)
-# Rename the project to pkmn-tcg-headers, the main script to generate.py and the output file to headers.pdf
 # Add an option in config.yaml to generate cards all packed in a corner
+# Add all existing sets
 
 # Get the directory path of the script
 script_dir_path = os.path.dirname(os.path.abspath(__file__))
@@ -20,11 +20,11 @@ script_dir_path = os.path.dirname(os.path.abspath(__file__))
 # Get paths
 catalog_dir_path = os.path.join(script_dir_path, "catalog")
 catalog_file_path = os.path.join(catalog_dir_path, "catalog.json")
-output_file_path = os.path.join(script_dir_path, "covers.pdf")
+output_file_path = os.path.join(script_dir_path, "headers.pdf")
 assets_dir_path = os.path.join(script_dir_path, "assets")
 imgs_dir_path = os.path.join(assets_dir_path, "imgs")
 frame_imgs_dir_path = os.path.join(imgs_dir_path, "frame")
-catalog_sets_dir_path = os.path.join(catalog_dir_path, "sets")
+catalog_assets_dir_path = os.path.join(catalog_dir_path, "assets")
 fonts_dir_path = os.path.join(assets_dir_path, "fonts")
 config_file_path = os.path.join(script_dir_path, "config.yaml")
 example_config_file_path = os.path.join(script_dir_path, "config.example.yaml")
@@ -45,7 +45,7 @@ config = Config(
     catalog = catalog,
     filters = config_dict["filters"],
     output_file_path = output_file_path,
-    catalog_sets_dir_path = catalog_sets_dir_path,
+    catalog_sets_dir_path = catalog_assets_dir_path,
     imgs_dir_path=imgs_dir_path,
     region_filenames = {
         # "all": "jpn-eng.jpg",
