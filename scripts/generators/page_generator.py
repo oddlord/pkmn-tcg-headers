@@ -17,24 +17,21 @@ TEXT_SIZE = 12
 SYMBOL_WIDTH = 20
 SYMBOL_PADDING = 2.5
 
-class PageGenerator():
-    def __init__(self, config):
-        self.config = config
-    
-    def generate(self):
+class PageGenerator():    
+    def generate(self, data):
         page_size = A4
         page_width, page_height = page_size
 
         # Create a new PDF document
-        c = canvas.Canvas(self.config.output_file_path, pagesize=page_size)
+        c = canvas.Canvas(data.output_file_path, pagesize=page_size)
 
         page = 0
-        for serie in self.config.catalog:
+        for serie in data.catalog:
             if "id" not in serie:
                 continue
 
             serie_id = serie["id"]
-            serie_dir_path = os.path.join(self.config.catalog_assets_dir_path, serie_id)
+            serie_dir_path = os.path.join(data.catalog_assets_dir_path, serie_id)
 
             serie_name = None
             serie_name_width = 0
@@ -56,7 +53,7 @@ class PageGenerator():
                 set_id = set["id"]
 
                 # Check whether this set is included or not
-                if not u.is_set_included(serie_id, set_id, self.config.filters):
+                if not u.is_set_included(serie_id, set_id, data.config["filters"]):
                     continue
 
                 page = page + 1
@@ -100,8 +97,8 @@ class PageGenerator():
                 region_symbol_width = 0
                 if "region" in set:
                     set_region = set["region"]
-                    if set_region in self.config.region_filenames:
-                        region_filename = self.config.region_filenames[set_region]
+                    if set_region in data.region_filenames:
+                        region_filename = data.region_filenames[set_region]
                         region_symbol_width = SYMBOL_WIDTH
 
                 # Get the set date, if present
@@ -117,9 +114,9 @@ class PageGenerator():
                 if os.path.isdir(set_dir_path):
                     set_files = os.listdir(set_dir_path)
                     for file in set_files:
-                        if file.startswith(self.config.cover_filename_prefix):
+                        if file.startswith(data.cover_filename_prefix):
                             set_cover_path = os.path.join(set_dir_path, file)
-                        if file.startswith(self.config.symbol_filename_prefix):
+                        if file.startswith(data.symbol_filename_prefix):
                             symbol_path = os.path.join(set_dir_path, file)
                             set_symbol_paths.append(symbol_path)
                 set_symbols_tot_width = len(set_symbol_paths)*SYMBOL_WIDTH + max(0, len(set_symbol_paths)-1)*SYMBOL_PADDING
@@ -181,7 +178,7 @@ class PageGenerator():
 
                 # Draw the region symbol, if specified
                 if region_filename:
-                    region_path = os.path.join(self.config.imgs_dir_path, region_filename)
+                    region_path = os.path.join(data.imgs_dir_path, region_filename)
                     u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=region_symbol_width, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP, border_width=1)
 
                 # Render the page

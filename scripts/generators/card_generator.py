@@ -23,11 +23,8 @@ DATE_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
 SYMBOL_WIDTH = 17
 SYMBOL_PADDING = 1.5
 
-class CardGenerator():
-    def __init__(self, config):
-        self.config = config
-    
-    def generate(self):
+class CardGenerator():    
+    def generate(self, data):
         page_size = A4
         page_width, page_height = page_size
 
@@ -41,16 +38,21 @@ class CardGenerator():
         frame_full_height = card_height
         name_max_width = frame_full_width - 2*FRAME_MIN_INTERNAL_ELEMENTS_SPACING - 2*FRAME_BORDER_THICKNESS
 
+        cards_alignment = data.config["cards_alignment"]
+        if cards_alignment not in ["spaced", "packed"]:
+            u.log(f"Uknown cards_alignment value \"{cards_alignment}\". Aborting.")
+            exit(1)
+
         # Create a new PDF document
-        c = canvas.Canvas(self.config.output_file_path, pagesize=page_size)
+        c = canvas.Canvas(data.output_file_path, pagesize=page_size)
 
         card = 0
-        for serie in self.config.catalog:
+        for serie in data.catalog:
             if "id" not in serie:
                 continue
 
             serie_id = serie["id"]
-            serie_dir_path = os.path.join(self.config.catalog_assets_dir_path, serie_id)
+            serie_dir_path = os.path.join(data.catalog_assets_dir_path, serie_id)
 
             serie_name = None
             serie_name_width = 0
@@ -72,7 +74,7 @@ class CardGenerator():
                 set_id = set["id"]
 
                 # Check whether this set is included or not
-                if not u.is_set_included(serie_id, set_id, self.config.filters):
+                if not u.is_set_included(serie_id, set_id, data.config["filters"]):
                     continue
 
                 card = card + 1
@@ -141,8 +143,8 @@ class CardGenerator():
                 region_filename = None
                 if "region" in set:
                     set_region = set["region"]
-                    if set_region in self.config.region_filenames:
-                        region_filename = self.config.region_filenames[set_region]
+                    if set_region in data.region_filenames:
+                        region_filename = data.region_filenames[set_region]
 
                 # Get the set date, if present
                 set_date = None
@@ -155,17 +157,21 @@ class CardGenerator():
                 if os.path.isdir(set_dir_path):
                     set_files = os.listdir(set_dir_path)
                     for file in set_files:
-                        if file.startswith(self.config.cover_filename_prefix):
+                        if file.startswith(data.cover_filename_prefix):
                             set_cover_path = os.path.join(set_dir_path, file)
-                        if file.startswith(self.config.symbol_filename_prefix):
+                        if file.startswith(data.symbol_filename_prefix):
                             symbol_path = os.path.join(set_dir_path, file)
                             set_symbol_paths.append(symbol_path)
 
                 card_col = (card_in_page-1)%3
                 card_row = (card_in_page-1)//3
 
-                card_x = card_col*card_width + (card_col+1)*card_spacing_h
-                card_y = page_height - (card_row*card_height + (card_row+1)*card_spacing_v)
+                if cards_alignment == "spaced":
+                    card_x = card_col*card_width + (card_col+1)*card_spacing_h
+                    card_y = page_height - (card_row*card_height + (card_row+1)*card_spacing_v)
+                elif cards_alignment == "packed":
+                    card_x = card_col*card_width
+                    card_y = page_height - card_row*card_height
 
                 # Calculate frame values
                 frame_left_x = card_x
@@ -225,7 +231,7 @@ class CardGenerator():
 
                 # Draw the region symbol, if specified
                 if region_filename:
-                    region_path = os.path.join(self.config.imgs_dir_path, region_filename)
+                    region_path = os.path.join(data.imgs_dir_path, region_filename)
                     u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP, border_width=1)
 
                 if (card_in_page == 9):

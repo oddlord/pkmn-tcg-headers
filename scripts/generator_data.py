@@ -1,8 +1,9 @@
-class Config():
+# The data needed by generators to generate the headers
+class GeneratorData():
     def __init__(
             self,
             catalog,
-            filters,
+            config,
             output_file_path,
             catalog_sets_dir_path,
             imgs_dir_path,
@@ -10,7 +11,7 @@ class Config():
             cover_filename_prefix,
             symbol_filename_prefix):
         self.catalog = catalog
-        self.filters = filters
+        self.config = config
         self.output_file_path = output_file_path
         self.catalog_assets_dir_path = catalog_sets_dir_path
         self.imgs_dir_path = imgs_dir_path

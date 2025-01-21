@@ -1,11 +1,19 @@
-# Accepted values: "cards", "pages". Defaults to "cards".
+# Accepted values: "cards", "pages".
+# "cards" generates headers that fit a card sleeve.
+# "pages" generates full A4 page headers.
 headers_type: cards
 
-# Use filters to select what to include/exclude during the headers generation
-# Entries should be in the "<serie_id>/<set_id>" format
-# A wildcard * can be used to represent any serie/set
-# Included sets are processed first, then the excluded ones are removed from the list of sets to include
-# To simply include everything, leave "*/*" under included_sets and nothing under excluded_sets
+# If "cards" is used as headers_type, this determins how to align the cards on each page.
+# Accepted values: "spaced", "packed".
+# "spaced" draws the cards on the page evenly spaced, both horizontally and vertically.
+# "packed" draws the cards all packed together in a corner of the page to minimise cuts when printed.
+cards_alignment: spaced
+
+# Use filters to select what to include/exclude during the headers generation.
+# Entries should be in the "<serie_id>/<set_id>" format.
+# A wildcard * can be used to represent any serie/set.
+# Included sets are processed first, then the excluded ones are removed from the list of sets to include.
+# To simply include everything, leave "*/*" under included_sets and nothing under excluded_sets.
 filters: {
   "included_sets": [
     "*/*"
