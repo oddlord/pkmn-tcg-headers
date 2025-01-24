@@ -5,7 +5,7 @@ from reportlab.pdfgen import canvas
 
 import scripts.utils as u
 
-FRAME_BORDER_THICKNESS = 10
+FRAME_BORDER_THICKNESS = 11
 FRAME_PADDING = 2.5
 FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 5
 
