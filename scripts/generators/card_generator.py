@@ -5,20 +5,27 @@ from reportlab.pdfgen import canvas
 
 import scripts.utils as u
 
-FRAME_BORDER_THICKNESS = 7.5
+FRAME_BORDER_THICKNESS = 10
 FRAME_PADDING = 2.5
 FRAME_MIN_INTERNAL_ELEMENTS_SPACING = 5
 
 TITLE_SIZE = 24
 TEXT_SIZE = 14
+DATE_SIZE = 12
+
 NAME_AND_NAME_ALT_PADDING = 5
 NAME_ROWS_PADDING = 1
 NAME_ALT_ROWS_PADDING = 1
+
+SERIE_UNDERLINE_PADDING = 3
 
 NAME_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
 NAME_ALT_FONT_WEIGHT = u.FONT_WEIGHT_REGULAR
 SERIES_NAME_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
 DATE_FONT_WEIGHT = u.FONT_WEIGHT_BOLD
+
+# Extra padding sometimes needed to align some elements better
+EXTRA_PADDING = 3
 
 SYMBOL_WIDTH = 17
 SYMBOL_PADDING = 1.5
@@ -213,26 +220,27 @@ class CardGenerator():
 
                 # Write the serie name in the top-left corner, if present
                 if serie_name:
-                    # HACK remove some padding for the serie name to make it align properly with the region symbol
-                    serie_name_y = padded_frame_top_y + 3
+                    serie_name_y = padded_frame_top_y + EXTRA_PADDING
                     u.write_text(serie_name, padded_frame_left_x, serie_name_y, c, font_weight=SERIES_NAME_FONT_WEIGHT, font_size=TEXT_SIZE, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_TOP)
-                    underlign_y = serie_name_y - TEXT_SIZE - 3
+                    underlign_y = serie_name_y - TEXT_SIZE - SERIE_UNDERLINE_PADDING
                     c.line(padded_frame_left_x, underlign_y, padded_frame_left_x + serie_name_width, underlign_y)
 
                 # Write the date in the bottom-right corner, if present
                 if set_date:
-                    u.write_text(set_date, padded_frame_right_x, padded_frame_bottom_y, c, font_weight=DATE_FONT_WEIGHT, font_size=TEXT_SIZE, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM)
+                    u.write_text(set_date, padded_frame_right_x, padded_frame_bottom_y, c, font_weight=DATE_FONT_WEIGHT, font_size=DATE_SIZE, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM)
 
                 # Draw the symbol(s), if present
                 symbol_x = padded_frame_left_x
+                symbol_y = padded_frame_bottom_y + DATE_SIZE/2
                 for symbol_path in set_symbol_paths:
-                    symbol_w, _ = u.draw_image(symbol_path, symbol_x, padded_frame_bottom_y, c, width=SYMBOL_WIDTH)
+                    symbol_w, _ = u.draw_image(symbol_path, symbol_x, symbol_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_MIDDLE)
                     symbol_x = symbol_x + symbol_w + SYMBOL_PADDING
 
                 # Draw the region symbol, if specified
                 if region_filename:
                     region_path = os.path.join(data.imgs_dir_path, region_filename)
-                    u.draw_image(region_path, padded_frame_right_x, padded_frame_top_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_TOP, border_width=1)
+                    region_symbol_y = padded_frame_bottom_y + DATE_SIZE + SYMBOL_PADDING
+                    u.draw_image(region_path, padded_frame_right_x, region_symbol_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM, border_width=1)
 
                 if (card_in_page == 9):
                     # Render the page
