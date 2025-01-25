@@ -59,11 +59,25 @@ class PageGenerator():
                 page = page + 1
                 set_dir_path = os.path.join(serie_dir_path, set_id)
 
+                # Get the set region symbol, if specified
+                set_region = "eng"  # Defaults to English
+                region_filename = None
+                region_symbol_width = 0
+                if "region" in set:
+                    set_region = set["region"]
+                    if set_region in data.region_filenames:
+                        region_filename = data.region_filenames[set_region]
+                        region_symbol_width = SYMBOL_WIDTH
+
+                set_names_dict = {}
+                if "names" in set:
+                    set_names_dict = set["names"]
+
                 # Get the set name, if present
                 set_name = None
                 set_name_width = 0
-                if "name" in set:
-                    set_name = set["name"]
+                if set_region in set_names_dict:
+                    set_name = set_names_dict[set_region]
                     set_name_separator = "" if u.text_contains_asian_chars(set_name) else " "
                     set_name = set_name.replace("\n", set_name_separator)
                     set_name_width = u.get_text_width(set_name, font_weight=u.FONT_WEIGHT_BOLD, font_size=TITLE_SIZE)
@@ -71,8 +85,8 @@ class PageGenerator():
                 # Get the set alt name, if present
                 set_name_alt = None
                 set_name_alt_width = 0
-                if "name_alt" in set:
-                    set_name_alt = set["name_alt"]
+                if set_region != "eng" and "eng" in set_names_dict:
+                    set_name_alt = set_names_dict["eng"]
                     set_name_alt_width = u.get_text_width(set_name_alt, font_size=TEXT_SIZE)
 
                 # Build the set print name
@@ -91,15 +105,6 @@ class PageGenerator():
                     u.log(f"\n{serie_print_name}")
                     has_printed_serie = True
                 u.log(set_print_str, 1)
-
-                # Get the set region symbol, if specified
-                region_filename = None
-                region_symbol_width = 0
-                if "region" in set:
-                    set_region = set["region"]
-                    if set_region in data.region_filenames:
-                        region_filename = data.region_filenames[set_region]
-                        region_symbol_width = SYMBOL_WIDTH
 
                 # Get the set date, if present
                 set_date = None

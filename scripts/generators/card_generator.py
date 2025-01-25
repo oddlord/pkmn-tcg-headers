@@ -89,12 +89,24 @@ class CardGenerator():
                 card_in_page = (card-1)%9 +1
                 set_dir_path = os.path.join(serie_dir_path, set_id)
 
+                # Get the set region symbol, if specified
+                set_region = "eng"  # Defaults to English
+                region_filename = None
+                if "region" in set:
+                    set_region = set["region"]
+                    if set_region in data.region_filenames:
+                        region_filename = data.region_filenames[set_region]
+
+                set_names_dict = {}
+                if "names" in set:
+                    set_names_dict = set["names"]
+
                 # Get the set name, if present
                 set_names = []
                 set_name = None
                 set_name_font_size = TITLE_SIZE
-                if "name" in set:
-                    set_name = set["name"]
+                if set_region in set_names_dict:
+                    set_name = set_names_dict[set_region]
                     set_names = set_name.split("\n")
                     set_name_separator = "" if u.text_contains_asian_chars(set_name) else " "
                     set_name = set_name_separator.join(set_names)
@@ -113,8 +125,8 @@ class CardGenerator():
                 set_names_alt = []
                 set_name_alt = None
                 set_name_alt_font_size = TEXT_SIZE
-                if "name_alt" in set:
-                    set_name_alt = set["name_alt"]
+                if set_region != "eng" and "eng" in set_names_dict:
+                    set_name_alt = set_names_dict["eng"]
                     set_names_alt = set_name_alt.split("\n")
                     set_name_alt_separator = "" if u.text_contains_asian_chars(set_name_alt) else " "
                     set_name_alt = set_name_alt_separator.join(set_names_alt)
@@ -145,13 +157,6 @@ class CardGenerator():
                     u.log(f"\n{serie_print_name}")
                     has_printed_serie = True
                 u.log(set_print_str, 1)
-
-                # Get the set region symbol, if specified
-                region_filename = None
-                if "region" in set:
-                    set_region = set["region"]
-                    if set_region in data.region_filenames:
-                        region_filename = data.region_filenames[set_region]
 
                 # Get the set date, if present
                 set_date = None
