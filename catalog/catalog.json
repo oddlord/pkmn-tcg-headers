@@ -410,7 +410,8 @@
             },
             {   "id": "shining-fates",
                 "names": {
-                    "eng": "Shining\nFates"
+                    "eng": "Shining\nFates",
+                    "ita": "Destino Splendente"
                 },
                 "region": "eng",
                 "date": "19/02/2021"
@@ -483,7 +484,8 @@
             },
             {   "id": "brilliant-stars",
                 "names": {
-                    "eng": "Brilliant Stars"
+                    "eng": "Brilliant Stars",
+                    "ita": "Astri Lucenti"
                 },
                 "region": "eng",
                 "date": "25/02/2022"
@@ -497,8 +499,9 @@
                 "date": "25/02/2022"
             },
             {   "id": "astral-radiance",
-                "names": {
-                    "eng": "Astral\nRadiance"
+                 "names": {
+                    "eng": "Astral\nRadiance",
+                    "ita": "Lucentezza Siderale"
                 },
                 "region": "eng",
                 "date": "27/05/2022"
@@ -526,7 +529,8 @@
             },
             {   "id": "lost-origin",
                 "names": {
-                    "eng": "Lost\nOrigin"
+                    "eng": "Lost\nOrigin",
+                    "ita": "Origine Perduta"
                 },
                 "region": "eng",
                 "date": "09/09/2022"
@@ -548,7 +552,8 @@
             },
             {   "id": "crown-zenith",
                 "names": {
-                    "eng": "Crown\nZenith"
+                    "eng": "Crown\nZenith",
+                    "ita": "Zenit Regale"
                 },
                 "region": "eng",
                 "date": "20/01/2023"
@@ -656,7 +661,8 @@
             },
             {   "id": "paradox-rift",
                 "names": {
-                    "eng": "Paradox\nRift"
+                    "eng": "Paradox\nRift",
+                    "ita": "Paradosso Temporale"
                 },
                 "region": "eng",
                 "date": "03/11/2023"
@@ -693,7 +699,8 @@
             },
             {   "id": "temporal-forces",
                 "names": {
-                    "eng": "Temporal\nForces"
+                    "eng": "Temporal\nForces",
+                    "ita": "Cronoforze"
                 },
                 "region": "eng",
                 "date": "22/03/2024"
