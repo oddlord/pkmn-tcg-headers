@@ -9,11 +9,21 @@ headers_type: cards
 # "packed" draws the cards all packed together in a corner of the page to minimise cuts when printed.
 cards_alignment: spaced
 
+# If true, adds markers at the extremes of each page, if there's empty space available
+# These markers can be useful to make sure that the page is printed correctly (i.e. with no margins) and the headers have the correct size
+# When using a spaced cards layout, it will print all 4 markers
+# When using a packed cards layout, it will print only the right and bottom markers
+# When using a pages layout, this feature will be ignored and no markers will be printed
+print_markers: true
+
 # Use filters to select what to include/exclude during the headers generation.
 # Entries should be in the "<serie_id>/<set_id>" format.
 # A wildcard * can be used to represent any serie/set.
 # Included sets are processed first, then the excluded ones are removed from the list of sets to include.
 # To simply include everything, leave "*/*" under included_sets and nothing under excluded_sets.
+# Examples:
+# "scarlet-&-violet/my-first-battle" will include/exclude the specific My First Battle set from the Scarlet & Violet serie
+# "heartgold-&-soulsilver/*" will include/exclude all the sets that are part of the HeartGold & SoulSilver expansion
 filters: {
   "included_sets": [
     "*/*"

@@ -27,7 +27,7 @@ frame_imgs_dir_path = os.path.join(imgs_dir_path, "frame")
 catalog_assets_dir_path = os.path.join(catalog_dir_path, "assets")
 fonts_dir_path = os.path.join(assets_dir_path, "fonts")
 config_file_path = os.path.join(script_dir_path, "config.yaml")
-example_config_file_path = os.path.join(script_dir_path, "config.example.yaml")
+config_template_file_path = os.path.join(script_dir_path, "config_template.yaml")
 
 # Initialise the utils module
 u.init(fonts_dir_path, frame_imgs_dir_path)
@@ -38,7 +38,7 @@ catalog = u.parse_json(catalog_file_path)
 # Parse the config.yaml file
 if not os.path.exists(config_file_path):
     u.log(f"Generating config file at {config_file_path}")
-    shutil.copy(example_config_file_path, config_file_path)
+    shutil.copy(config_template_file_path, config_file_path)
 config = u.parse_yaml(config_file_path)
 
 # Set up the data object for the generator

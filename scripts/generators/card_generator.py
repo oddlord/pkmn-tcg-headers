@@ -248,14 +248,26 @@ class CardGenerator():
                     u.draw_image(region_path, padded_frame_right_x, region_symbol_y, c, width=SYMBOL_WIDTH, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_BOTTOM, border_width=1)
 
                 if (card_in_page == 9):
-                    # Render the page
-                    c.showPage()
+                    render_page(c, data.config, page_size)
 
         if (card_in_page < 9):
-            # Render the page
-            c.showPage()
+            render_page(c, data.config, page_size)
 
         u.log("")
 
         # Save and close the PDF document
         c.save()
+
+
+def render_page(canvas, config, page_size):
+    if (config["print_markers"]):
+        page_width, page_height = page_size
+        u.write_text("B", page_width/2, 0, canvas, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_BOTTOM)
+        u.write_text("R", page_width, page_height/2, canvas, h_align=u.H_ALIGN_RIGHT, v_align=u.V_ALIGN_MIDDLE)
+        if config["cards_alignment"] == "spaced":
+            extra_top_padding = 3
+            extra_left_padding = 0
+            u.write_text("T", page_width/2, page_height + extra_top_padding, canvas, h_align=u.H_ALIGN_CENTRE, v_align=u.V_ALIGN_TOP)
+            u.write_text("L", 0 - extra_left_padding, page_height/2, canvas, h_align=u.H_ALIGN_LEFT, v_align=u.V_ALIGN_MIDDLE)
+
+    canvas.showPage()
