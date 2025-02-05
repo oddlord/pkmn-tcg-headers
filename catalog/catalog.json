@@ -1,11 +1,4 @@
 [
-    {
-        "names": {
-            "jpn": "",
-            "eng": ""
-        },
-        "asd": ""
-    },
     {   "id": "misc",
         "sets": [
             {   "id": "miscellaneous-promotional-cards",
@@ -787,6 +780,13 @@
                 },
                 "region": "jpn",
                 "date": "06/12/2024"
+            },
+            {   "id": "prismatic-evolutions",
+                "names": {
+                    "eng": "Prismatic\nEvolutions"
+                },
+                "region": "eng",
+                "date": "17/01/2025"
             }
         ]
     }
