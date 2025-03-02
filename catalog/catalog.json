@@ -304,6 +304,13 @@
                 },
                 "region": "eng",
                 "date": "02/05/2016"
+            },
+            {   "id": "steam-siege",
+                "names": {
+                    "eng": "Steam\nSiege"
+                },
+                "region": "eng",
+                "date": "03/08/2016"
             }
         ]
     },
