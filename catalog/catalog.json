@@ -534,6 +534,14 @@
                 "region": "eng",
                 "date": "01/09/2022"
             },
+            {   "id": "incandescent-arcana",
+                "names": {
+                    "jpn": "白熱の\nアルカナ",
+                    "eng": "Incandescent Arcana"
+                },
+                "region": "jpn",
+                "date": "02/09/2022"
+            },
             {   "id": "lost-origin",
                 "names": {
                     "eng": "Lost\nOrigin",
