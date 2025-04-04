@@ -223,6 +223,13 @@
                 },
                 "region": "eng",
                 "date": "30/08/2004"
+            },
+            {   "id": "ex-holon-phantoms",
+                "names": {
+                    "eng": "EX\nHolon Phantoms"
+                },
+                "region": "eng",
+                "date": "03/05/2006"
             }
         ]
     },
@@ -565,6 +572,14 @@
                 "region": "eng",
                 "date": "11/11/2022"
             },
+            {   "id": "vstar-universe",
+                "names": {
+                    "jpn": "VSTAR\nユニバース",
+                    "eng": "VSTAR Universe"
+                },
+                "region": "jpn",
+                "date": "02/12/2022"
+            },
             {   "id": "crown-zenith",
                 "names": {
                     "eng": "Crown\nZenith",
@@ -695,6 +710,14 @@
                     "eng": "Paldean\nFates"
                 },
                 "region": "eng",
+                "date": "26/01/2024"
+            },
+            {   "id": "wild-force",
+                "names": {
+                    "jpn": "ワイルド\nフォース",
+                    "eng": "Wild Force"
+                },
+                "region": "jpn",
                 "date": "26/01/2024"
             },
             {   "id": "cyber-judge",
