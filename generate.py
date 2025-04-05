@@ -11,6 +11,7 @@ from scripts.generator_data import GeneratorData
 
 # TODO
 # Choose better covers for some promo sets (instead of a card from the set)
+# Upscale some low-res covers/symbols with ChatGPT
 # Add all existing sets
 # Add a README.md and licence
 
